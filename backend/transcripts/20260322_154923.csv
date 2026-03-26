@@ -1,0 +1,19 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,1,CALLER,Hello.,15:49:28
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,2,AI,"Hi! Thanks for calling BluQQ, this is Priya. How",15:49:28
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,3,AI,How can I help you today?,15:49:34
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,4,CALLER,Bye.,15:49:34
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,5,CALLER,Oh.,15:49:37
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,6,AI,Of course! I'd be happy to help.,15:49:37
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,7,CALLER,What is Python?,15:49:40
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,8,AI,"We offer trading bots, dashboards, data pipelines, AI tools,",15:49:40
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,9,CALLER,"No, no, what if I can't?",15:49:51
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,10,AI,"Oh, got it! We mostly work on tech solutions like",15:49:52
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,11,CALLER,Bye.,15:49:59
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,12,AI,No worries! Could you tell me a bit more about what you're looking for?,15:50:00
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,13,CALLER,"I said, I said what is...",15:50:05
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,14,AI,Absolutely! We create software tools and solutions.,15:50:06
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,15,CALLER,What is my turn?,15:50:12
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,16,AI,We help businesses with technology—like building trading,15:50:13
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,17,AI,"We focus on creating custom software solutions,",15:50:24
+20260322_154923,Unknown,Unknown,2026-03-22,15:49:23,18,CALLER,Hope to see you again.,15:50:24

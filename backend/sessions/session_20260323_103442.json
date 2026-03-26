@@ -1,0 +1,232 @@
+{
+  "session_id": "20260323_103442",
+  "call_start": "2026-03-23T10:34:42.230926",
+  "call_end": "2026-03-23T10:36:08.371371",
+  "caller_phone": "Unknown",
+  "caller_name": "Unknown",
+  "duration": {
+    "total_duration_seconds": 86.14,
+    "total_duration_formatted": "01:26",
+    "listening_seconds": 0.0,
+    "processing_seconds": 0.0,
+    "speaking_seconds": 7.31,
+    "idle_seconds": 78.83,
+    "latency_ms": {
+      "avg": 0,
+      "min": 0,
+      "max": 0,
+      "all": []
+    }
+  },
+  "total_turns": 0,
+  "tools_used": [],
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-23T10:34:46.852330"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya from BluQQ! How can I help you today?",
+      "timestamp": "2026-03-23T10:34:47.763415"
+    },
+    {
+      "role": "caller",
+      "text": "What are services provided to you?",
+      "timestamp": "2026-03-23T10:34:59.384708"
+    },
+    {
+      "role": "ai",
+      "text": "We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate tech.",
+      "timestamp": "2026-03-23T10:35:00.754790"
+    },
+    {
+      "role": "caller",
+      "text": "Okay.",
+      "timestamp": "2026-03-23T10:35:12.433286"
+    },
+    {
+      "role": "ai",
+      "text": "Do you have a specific service in mind that you’d like to know more about?",
+      "timestamp": "2026-03-23T10:35:13.410311"
+    },
+    {
+      "role": "caller",
+      "text": "Not so far.",
+      "timestamp": "2026-03-23T10:35:16.476505"
+    },
+    {
+      "role": "ai",
+      "text": "Our trading bots are designed to automate your trading strategies. They can help with executing trades, analyzing market data, and managing risk. Would",
+      "timestamp": "2026-03-23T10:35:17.546471"
+    },
+    {
+      "role": "caller",
+      "text": "Okay.",
+      "timestamp": "2026-03-23T10:35:31.309346"
+    },
+    {
+      "role": "ai",
+      "text": "Is there anything specific you’d like to achieve with a trading bot?",
+      "timestamp": "2026-03-23T10:35:31.517522"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-23T10:35:40.647100"
+    },
+    {
+      "role": "ai",
+      "text": "No worries! If you have any questions later or want to explore other options, just let me know. Would you like a free consultation to discuss things",
+      "timestamp": "2026-03-23T10:35:41.289470"
+    }
+  ],
+  "turn_manager": {
+    "total_turns": 0,
+    "barge_in_count": 0,
+    "state_history": [
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-23T10:34:47.119755"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-23T10:34:47.900649"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-23T10:34:59.233249"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-23T10:35:00.834184"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-23T10:35:12.590465"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-23T10:35:13.489089"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-23T10:35:16.014032"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-23T10:35:17.625780"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-23T10:35:30.773762"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-23T10:35:31.597714"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-23T10:35:39.773911"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-23T10:35:41.368695"
+      }
+    ],
+    "final_state": "IDLE"
+  },
+  "errors": {
+    "total_errors": 0,
+    "total_warnings": 0,
+    "errors": []
+  },
+  "latency": {
+    "session_id": "20260323_103442",
+    "total_turns": 6,
+    "stt_avg_ms": 0,
+    "llm_avg_ms": 6401,
+    "tts_avg_ms": 0,
+    "e2e_avg_ms": 0,
+    "e2e_min_ms": 0,
+    "e2e_max_ms": 0,
+    "e2e_all": [],
+    "quality": "🟢 Excellent",
+    "turns": [
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 61,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "Hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 12176,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "What are services provided to you?"
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 75,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Okay."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 3497,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "Not so far."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 14214,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "Okay."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 8383,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "Thank you."
+      }
+    ]
+  },
+  "status": "completed"
+}

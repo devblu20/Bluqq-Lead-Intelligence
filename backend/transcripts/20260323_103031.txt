@@ -1,0 +1,48 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260323_103031
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-23
+Time         : 10:30:31
+Duration     : 03:26
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[10:30:36] CALLER : Hello.
+
+[10:30:36] AI     : Hi, this is Priya from BluQQ! How can I help you today?
+
+[10:30:44] CALLER : What are services provided look?
+
+[10:30:46] AI     : We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and
+
+[10:30:58] CALLER : The static range of bot.
+
+[10:31:00] AI     : Absolutely! Our trading bots can help automate your trading strategies. They range from around $500 to $5000
+
+[10:31:12] CALLER : OK.
+
+[10:31:14] AI     : Would you like more details on how the trading bots work or maybe set up a consultation to discuss your needs?
+
+[10:31:24] CALLER : I don't know.
+
+[10:31:24] AI     : Thank you for calling
+
+[10:31:25] CALLER : Thanks.
+
+[10:31:26] CALLER : Bye.
+
+[10:31:26] AI     : Thank you for calling BluQQ! Have a great day!
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

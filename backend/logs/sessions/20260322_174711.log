@@ -1,0 +1,12 @@
+2026-03-22 17:47:11 | INFO     | [20260322_174711] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 17:47:16 | INFO     | [20260322_174711] AI_SPOKE — text=Hi, this is Priya from BluQQ! How can I help you today?
+2026-03-22 17:47:16 | INFO     | [20260322_174711] CALLER_SPOKE — text=I don't.
+2026-03-22 17:47:26 | INFO     | [20260322_174711] CALLER_SPOKE — text=वोटा सर्विष तो एक जुख
+2026-03-22 17:47:27 | INFO     | [20260322_174711] AI_SPOKE — text=We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scrap
+2026-03-22 17:47:43 | INFO     | [20260322_174711] CALLER_SPOKE — text=OK.
+2026-03-22 17:47:43 | INFO     | [20260322_174711] AI_SPOKE — text=Absolutely! Is there any specific service you're interested in learning more about?
+2026-03-22 17:47:55 | INFO     | [20260322_174711] TOOL_CALLED — tool=get_service_info | args={'service_name': 'AI tools'}
+2026-03-22 17:47:55 | INFO     | [20260322_174711] TOOL_RESULT — tool=get_service_info | status=success
+2026-03-22 17:47:57 | INFO     | [20260322_174711] CALLER_SPOKE — text=What is AI Automation? Brief Explanation.
+2026-03-22 17:47:58 | INFO     | [20260322_174711] AI_SPOKE — text=AI automation is all about creating intelligent systems that can automate business workflows, analyz
+2026-03-22 17:50:10 | INFO     | [20260322_174711] CALL_ENDED — duration=02:40 | turns=0 | errors=0

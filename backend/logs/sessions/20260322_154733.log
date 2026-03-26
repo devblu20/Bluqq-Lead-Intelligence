@@ -1,0 +1,15 @@
+2026-03-22 15:47:34 | INFO     | [20260322_154733] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 15:47:40 | INFO     | [20260322_154733] AI_SPOKE — text=Hi!
+2026-03-22 15:47:41 | INFO     | [20260322_154733] CALLER_SPOKE — text=See you later. Bye. 
+2026-03-22 15:47:43 | INFO     | [20260322_154733] CALLER_SPOKE — text=Mm-hmm.
+2026-03-22 15:47:43 | INFO     | [20260322_154733] AI_SPOKE — text=Thanks for calling BluQQ, this is Priya. How can I help you today?
+2026-03-22 15:47:48 | INFO     | [20260322_154733] CALLER_SPOKE — text=Bye.
+2026-03-22 15:47:49 | INFO     | [20260322_154733] AI_SPOKE — text=Sure! What kind of project are you looking to build?
+2026-03-22 15:48:02 | INFO     | [20260322_154733] CALLER_SPOKE — text=Okay.
+2026-03-22 15:48:03 | INFO     | [20260322_154733] AI_SPOKE — text=Of course! We’ve got trading bots, dashboards, data pipelines,
+2026-03-22 15:48:12 | INFO     | [20260322_154733] CALLER_SPOKE — text=Hello.
+2026-03-22 15:48:12 | INFO     | [20260322_154733] AI_SPOKE — text=Absolutely! Dashboards are one of our specialties. Do
+2026-03-22 15:48:22 | INFO     | [20260322_154733] AI_SPOKE — text=They usually start around 800 dollars and can go up to 3000
+2026-03-22 15:48:23 | INFO     | [20260322_154733] CALLER_SPOKE — text=for this item.
+2026-03-22 15:48:33 | INFO     | [20260322_154733] AI_SPOKE — text=It depends on the complexity and features you need. What kind
+2026-03-22 15:48:34 | INFO     | [20260322_154733] CALLER_SPOKE — text=What is Python?

@@ -1,0 +1,64 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260323_102414
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-23
+Time         : 10:24:14
+Duration     : 05:43
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[10:24:18] CALLER : Hello
+
+[10:24:18] AI     : Hi, this is Priya from BluQQ! How can I help you today?
+
+[10:24:28] CALLER : what are services provided...
+
+[10:24:29] AI     : We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate tech.
+
+[10:24:50] CALLER : Have a good one.
+
+[10:24:51] AI     : Absolutely! Our dashboards can be customized for your specific needs. They help visualize data, track performance, and make decisions
+
+[10:24:55] CALLER : Thank you.
+
+[10:24:56] AI     : The pricing for dashboards generally ranges from $800 to $3000, depending on complexity and features. Would you like more
+
+[10:24:57] CALLER : ఇదు సివత్తులు వద్దుకు కొన్ని.
+
+[10:25:07] CALLER : Bye-bye.
+
+[10:25:07] AI     : Sure, could you tell me a
+
+[10:25:11] CALLER : Wait, wait, uh...
+
+[10:25:11] AI     : No worries! Whenever you’re ready, I can help with more details or even book a free consultation for you. How does that sound?
+
+[10:25:19] CALLER : Thank you.
+
+[10:25:21] AI     : Sure! If you’d like, I can get your name and email to set up a consultation with our team. Would you like to do that?
+
+[10:25:26] CALLER : Thank you for watching, and I wish you all a happy new year.
+
+[10:25:26] AI     : No problem at all!
+
+[10:25:30] AI     : Absolutely, I’m here whenever you need help. Just let me know what works best for you!
+
+[10:25:30] CALLER : Thanks.
+
+[10:25:33] CALLER : Bye-bye. 
+
+[10:25:34] AI     : We offer trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate tech solutions. Let me know if
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

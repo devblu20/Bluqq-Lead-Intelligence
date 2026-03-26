@@ -1,0 +1,9 @@
+2026-03-22 15:35:38 | INFO     | [20260322_153538] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 15:35:43 | INFO     | [20260322_153538] AI_SPOKE — text=Hi! Thanks for calling BluQQ, this is Priya. How can I help you
+2026-03-22 15:35:44 | INFO     | [20260322_153538] CALLER_SPOKE — text=Hello.
+2026-03-22 15:35:53 | INFO     | [20260322_153538] CALLER_SPOKE — text=How are you?
+2026-03-22 15:35:53 | INFO     | [20260322_153538] AI_SPOKE — text=I’m doing great, thanks for asking! What about you? What can I help you with
+2026-03-22 15:36:03 | INFO     | [20260322_153538] CALLER_SPOKE — text=What is your name?
+2026-03-22 15:36:03 | INFO     | [20260322_153538] AI_SPOKE — text=I’m Priya! And you?
+2026-03-22 15:36:12 | INFO     | [20260322_153538] AI_SPOKE — text=Lovely to meet you, Anurag! What would you like to chat about today?
+2026-03-22 15:36:12 | INFO     | [20260322_153538] CALLER_SPOKE — text=My name is Anurag.

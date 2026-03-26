@@ -1,0 +1,20 @@
+2026-03-22 15:49:24 | INFO     | [20260322_154923] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 15:49:28 | INFO     | [20260322_154923] CALLER_SPOKE — text=Hello.
+2026-03-22 15:49:29 | INFO     | [20260322_154923] AI_SPOKE — text=Hi! Thanks for calling BluQQ, this is Priya. How
+2026-03-22 15:49:34 | INFO     | [20260322_154923] AI_SPOKE — text=How can I help you today?
+2026-03-22 15:49:35 | INFO     | [20260322_154923] CALLER_SPOKE — text=Bye.
+2026-03-22 15:49:37 | INFO     | [20260322_154923] CALLER_SPOKE — text=Oh.
+2026-03-22 15:49:38 | INFO     | [20260322_154923] AI_SPOKE — text=Of course! I'd be happy to help.
+2026-03-22 15:49:40 | INFO     | [20260322_154923] CALLER_SPOKE — text=What is Python?
+2026-03-22 15:49:41 | INFO     | [20260322_154923] AI_SPOKE — text=We offer trading bots, dashboards, data pipelines, AI tools,
+2026-03-22 15:49:51 | INFO     | [20260322_154923] CALLER_SPOKE — text=No, no, what if I can't?
+2026-03-22 15:49:52 | INFO     | [20260322_154923] AI_SPOKE — text=Oh, got it! We mostly work on tech solutions like
+2026-03-22 15:50:00 | INFO     | [20260322_154923] CALLER_SPOKE — text=Bye.
+2026-03-22 15:50:01 | INFO     | [20260322_154923] AI_SPOKE — text=No worries! Could you tell me a bit more about what you're looking for?
+2026-03-22 15:50:06 | INFO     | [20260322_154923] CALLER_SPOKE — text=I said, I said what is...
+2026-03-22 15:50:07 | INFO     | [20260322_154923] AI_SPOKE — text=Absolutely! We create software tools and solutions.
+2026-03-22 15:50:13 | INFO     | [20260322_154923] CALLER_SPOKE — text=What is my turn?
+2026-03-22 15:50:14 | INFO     | [20260322_154923] AI_SPOKE — text=We help businesses with technology—like building trading
+2026-03-22 15:50:24 | INFO     | [20260322_154923] AI_SPOKE — text=We focus on creating custom software solutions,
+2026-03-22 15:50:25 | INFO     | [20260322_154923] CALLER_SPOKE — text=Hope to see you again.
+2026-03-22 15:50:40 | INFO     | [20260322_154923] CALL_ENDED — duration=01:16 | turns=0 | errors=9

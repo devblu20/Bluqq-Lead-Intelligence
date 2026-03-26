@@ -1,0 +1,34 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260320_135005
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-20
+Time         : 13:50:05
+Duration     : 06:41
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[13:50:08] CALLER : Bye.
+
+[13:50:08] AI     : Hello! How can I assist you today?
+
+[13:50:12] CALLER : Thank you.
+
+[13:50:14] AI     : Sure, what type of information are you looking for about automation systems? Are you interested in our automation services for finance, real estate, or something else?
+
+[13:50:22] CALLER : She means the world to me.
+
+[13:50:22] CALLER : John
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

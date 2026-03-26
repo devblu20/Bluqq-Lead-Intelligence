@@ -1,0 +1,261 @@
+{
+  "session_id": "20260321_111216",
+  "call_start": "2026-03-21T11:12:16.867016",
+  "call_end": "2026-03-21T11:17:43.785395",
+  "caller_phone": "Unknown",
+  "caller_name": "Unknown",
+  "duration": {
+    "total_duration_seconds": 326.91,
+    "total_duration_formatted": "05:26",
+    "listening_seconds": 0.0,
+    "processing_seconds": 0.0,
+    "speaking_seconds": 9.51,
+    "idle_seconds": 317.4,
+    "latency_ms": {
+      "avg": 0,
+      "min": 0,
+      "max": 0,
+      "all": []
+    }
+  },
+  "total_turns": 0,
+  "tools_used": [],
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-21T11:12:21.365918"
+    },
+    {
+      "role": "ai",
+      "text": "Welcome to BluQQ. How may I assist you today?",
+      "timestamp": "2026-03-21T11:12:21.479239"
+    },
+    {
+      "role": "caller",
+      "text": "It's all about luck.",
+      "timestamp": "2026-03-21T11:12:33.633446"
+    },
+    {
+      "role": "ai",
+      "text": "BluQQ is a technology company specializing in AI systems, financial technology, and real estate technology. We offer services like Python-based trading tools, financial data",
+      "timestamp": "2026-03-21T11:12:35.543710"
+    },
+    {
+      "role": "caller",
+      "text": "Okay. Bye. ",
+      "timestamp": "2026-03-21T11:12:49.865571"
+    },
+    {
+      "role": "ai",
+      "text": "We also provide real-time dashboards, web platforms for trading analytics, and API-based automation systems. Let me know if you'd like more details on any specific service.",
+      "timestamp": "2026-03-21T11:12:51.875688"
+    },
+    {
+      "role": "caller",
+      "text": "OK.",
+      "timestamp": "2026-03-21T11:13:08.061706"
+    },
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-21T11:13:09.901198"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, I'm here.",
+      "timestamp": "2026-03-21T11:13:10.094570"
+    },
+    {
+      "role": "caller",
+      "text": "Hello, hello.",
+      "timestamp": "2026-03-21T11:13:12.577136"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, I can hear you. How may I assist you today?",
+      "timestamp": "2026-03-21T11:13:13.041286"
+    },
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-21T11:13:15.399912"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, I’m here to help. What would you like to know about?",
+      "timestamp": "2026-03-21T11:13:16.221453"
+    },
+    {
+      "role": "caller",
+      "text": "ஆவணி பോய்ஸ் டு ஬ில்ண ஏய்யோடமே எளிஷ்டாம்.",
+      "timestamp": "2026-03-21T11:13:30.073181"
+    },
+    {
+      "role": "ai",
+      "text": "We can help with building AI models for trading. We offer Python-based trading tools, quantitative research, and automation systems. Are you looking for a custom AI solution or a ready-made",
+      "timestamp": "2026-03-21T11:13:31.873707"
+    }
+  ],
+  "turn_manager": {
+    "total_turns": 0,
+    "barge_in_count": 0,
+    "state_history": [
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-21T11:12:20.754227"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:12:21.588487"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-21T11:12:33.300768"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:12:35.651630"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-21T11:12:49.644988"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:12:51.980448"
+      },
+      {
+        "from": "IDLE",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:13:10.199642"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-21T11:13:12.537127"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:13:13.146836"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-21T11:13:15.551128"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:13:16.325691"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-21T11:13:29.368928"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-21T11:13:31.978593"
+      }
+    ],
+    "final_state": "IDLE"
+  },
+  "errors": {
+    "total_errors": 0,
+    "total_warnings": 0,
+    "errors": []
+  },
+  "latency": {
+    "session_id": "20260321_111216",
+    "total_turns": 7,
+    "stt_avg_ms": 0,
+    "llm_avg_ms": 8832,
+    "tts_avg_ms": 0,
+    "e2e_avg_ms": 0,
+    "e2e_min_ms": 0,
+    "e2e_max_ms": 0,
+    "e2e_all": [],
+    "quality": "🟢 Excellent",
+    "turns": [
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 0,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 11825,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "It's all about luck."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 15905,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Okay. Bye. "
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 0,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 2528,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Hello, hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 44,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 13862,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "ஆவணி பോய்ஸ் டு ஬ில்ண ஏய்யோடமே எளிஷ்டாம்."
+      }
+    ]
+  },
+  "status": "completed"
+}

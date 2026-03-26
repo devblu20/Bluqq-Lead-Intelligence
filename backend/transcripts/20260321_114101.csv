@@ -1,0 +1,11 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,1,CALLER,Bye-bye.,11:41:05
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,2,AI,"Hi! Thanks for calling BluQQ, this is Priya speaking. How",11:41:06
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,3,CALLER,Hello.,11:41:08
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,4,AI,Hi there! How can I help you today?,11:41:09
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,5,CALLER,look what your services are like.,11:41:21
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,6,AI,"Sure, we specialize in things like trading bots, dashboards,",11:41:22
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,7,CALLER,Let's take...,11:41:36
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,8,AI,"Absolutely! We also do data pipelines, AI tools,",11:41:36
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,9,CALLER,"Oh, yeah.",11:41:49
+20260321_114101,Unknown,Unknown,2026-03-21,11:41:01,10,AI,Oh great! Could you tell me a bit more about what you’re looking for exactly?,11:41:50

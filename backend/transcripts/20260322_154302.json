@@ -1,0 +1,112 @@
+{
+  "session_id": "20260322_154302",
+  "call_start": "2026-03-22T15:43:02.531527",
+  "call_end": "2026-03-22T15:46:00.594558",
+  "caller_phone": "Unknown",
+  "caller_name": "Unknown",
+  "duration": {
+    "total_duration_seconds": 178.06,
+    "total_duration_formatted": "02:58",
+    "listening_seconds": 0.0,
+    "processing_seconds": 0.0,
+    "speaking_seconds": 2.03,
+    "idle_seconds": 176.03,
+    "latency_ms": {
+      "avg": 0,
+      "min": 0,
+      "max": 0,
+      "all": []
+    }
+  },
+  "total_turns": 0,
+  "tools_used": [],
+  "transcript": [
+    {
+      "role": "ai",
+      "text": "Hi, thanks for calling BluQQ! This is Priya, how can I help you?",
+      "timestamp": "2026-03-22T15:43:08.255469"
+    },
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-22T15:43:08.628610"
+    },
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-22T15:43:14.355422"
+    },
+    {
+      "role": "ai",
+      "text": "Hi there! What can I do for you today?",
+      "timestamp": "2026-03-22T15:43:14.604219"
+    }
+  ],
+  "turn_manager": {
+    "total_turns": 0,
+    "barge_in_count": 0,
+    "state_history": [
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:43:07.540208"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:43:08.618732"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:43:13.896902"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:43:14.846287"
+      }
+    ],
+    "final_state": "IDLE"
+  },
+  "errors": {
+    "total_errors": 0,
+    "total_warnings": 0,
+    "errors": []
+  },
+  "latency": {
+    "session_id": "20260322_154302",
+    "total_turns": 2,
+    "stt_avg_ms": 0,
+    "llm_avg_ms": 5050,
+    "tts_avg_ms": 0,
+    "e2e_avg_ms": 0,
+    "e2e_min_ms": 0,
+    "e2e_max_ms": 0,
+    "e2e_all": [],
+    "quality": "🟢 Excellent",
+    "turns": [
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 0,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": ""
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 5050,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "Hello."
+      }
+    ]
+  },
+  "status": "completed"
+}

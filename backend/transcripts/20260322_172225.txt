@@ -1,0 +1,62 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260322_172225
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-22
+Time         : 17:22:25
+Duration     : 02:07
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[17:22:29] CALLER : Hello.
+
+[17:22:29] AI     : Hi, this is Priya from BluQQ! How can I help you today?
+
+[17:22:42] CALLER : इस पार्सारी से परवाई बलक्स। परवाई बलक्स।
+
+[17:22:43] AI     : Absolutely! Our trading bots are automated software tools that help you execute trades based on pre-defined strategies. They can analyze
+
+[17:22:58] CALLER : Okay.
+
+[17:22:59] AI     : They can analyze market data
+
+[17:23:02] CALLER : All the best, and this is great.
+
+[17:23:03] AI     : Sure! Besides trading bots, we also offer custom dashboards, AI tools, data pipelines, web scraping solutions,
+
+[17:23:19] CALLER : Okay
+
+[17:23:20] AI     : and real estate tech services as well. Is there any specific service you’re more interested in?
+
+[17:23:28] CALLER : Thank you. Thank you. Thank you. 
+
+[17:23:29] AI     : For trading bots, the price range is typically between $500 to $5,000, depending on the complexity and features you need. Would
+
+[17:23:40] AI     : Would you like more details on what's included in that range?
+
+[17:23:41] CALLER : OK.
+
+[17:23:47] CALLER : Next up
+
+[17:23:48] AI     : Sure! For a basic trading bot around $500, you get simple rule-based automation. As you go higher in price,
+
+[17:24:01] CALLER : Okay, okay
+
+[17:24:02] AI     : No worries! Just let me know if you’d like more info later. Are you exploring options or just getting started?
+
+[17:24:16] CALLER : Yes, I am exploring it.
+
+[17:24:18] AI     : Got it! That’s a great place to start. Are you more focused on automating trades or are you also looking into analytics tools?
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

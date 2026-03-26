@@ -1,0 +1,37 @@
+﻿Session ID,Date,Time,Caller Name,Caller Phone,Duration,Turns,Barge-ins,Avg Latency (ms),Tools Used,Total Errors,Status
+20260320_120800,2026-03-20,12:08:00,Unknown,Unknown,00:12,0,0,0,,0,completed
+20260320_120943,2026-03-20,12:09:43,Unknown,Unknown,00:04,0,0,0,,0,completed
+20260320_121015,2026-03-20,12:10:15,Unknown,Unknown,00:02,0,0,0,,0,completed
+20260320_132212,2026-03-20,13:22:12,Unknown,Unknown,05:00,0,0,0,search_knowledge_base,0,completed
+20260320_131751,2026-03-20,13:17:51,Unknown,Unknown,09:25,0,0,0,,0,completed
+20260320_135005,2026-03-20,13:50:05,Unknown,Unknown,06:41,0,0,0,,0,completed
+20260320_135128,2026-03-20,13:51:28,Unknown,Unknown,05:18,0,0,0,,39,completed
+20260321_102207,2026-03-21,10:22:07,Unknown,Unknown,19:00,0,0,0,,0,completed
+20260321_105642,2026-03-21,10:56:42,Unknown,Unknown,04:22,0,0,0,,0,completed
+20260321_110303,2026-03-21,11:03:03,Unknown,Unknown,01:07,0,0,0,,0,completed
+20260321_110155,2026-03-21,11:01:55,Unknown,Unknown,02:15,0,0,0,,0,completed
+20260321_110453,2026-03-21,11:04:53,Unknown,Unknown,02:15,0,0,0,,0,completed
+20260321_110740,2026-03-21,11:07:40,Unknown,Unknown,03:49,0,0,0,,0,completed
+20260321_111820,2026-03-21,11:18:20,Unknown,Unknown,03:56,0,0,0,,0,completed
+20260321_112307,2026-03-21,11:23:07,Unknown,Unknown,09:09,0,0,0,,0,completed
+20260321_114101,2026-03-21,11:41:01,Unknown,Unknown,04:22,0,0,0,,0,completed
+20260321_124235,2026-03-21,12:42:35,Unknown,Unknown,02:30,0,0,0,,0,completed
+20260322_153538,2026-03-22,15:35:38,Unknown,Unknown,06:30,0,0,0,,0,completed
+20260322_154302,2026-03-22,15:43:02,Unknown,Unknown,02:58,0,0,0,,0,completed
+20260322_154354,2026-03-22,15:43:54,Unknown,Unknown,02:06,0,0,0,,0,completed
+20260322_154631,2026-03-22,15:46:31,Unknown,Unknown,00:31,0,0,0,,0,completed
+20260322_154733,2026-03-22,15:47:33,Unknown,Unknown,01:21,0,0,0,,0,completed
+20260322_154923,2026-03-22,15:49:23,Unknown,Unknown,01:16,0,0,0,,9,completed
+20260322_155113,2026-03-22,15:51:13,Unknown,Unknown,00:40,0,0,0,,0,completed
+20260322_160343,2026-03-22,16:03:43,Unknown,Unknown,03:53,0,0,0,,0,completed
+20260322_160806,2026-03-22,16:08:06,Unknown,Unknown,12:44,0,0,0,,0,completed
+20260322_162548,2026-03-22,16:25:48,Unknown,Unknown,09:13,0,0,0,,0,completed
+20260322_172225,2026-03-22,17:22:25,Unknown,Unknown,02:07,0,0,0,,0,completed
+20260322_174711,2026-03-22,17:47:11,Unknown,Unknown,02:40,0,0,0,get_service_info,0,completed
+20260323_102603,2026-03-23,10:26:03,Unknown,Unknown,03:53,0,0,0,,0,completed
+20260323_102414,2026-03-23,10:24:14,Unknown,Unknown,05:43,0,0,0,,0,completed
+20260323_103031,2026-03-23,10:30:31,Unknown,Unknown,03:26,0,0,0,,0,completed
+20260323_103442,2026-03-23,10:34:42,Unknown,Unknown,01:26,0,0,0,,0,completed
+20260323_105825,2026-03-23,10:58:25,Unknown,Unknown,07:03,0,0,0,"book_consultation, update_crm, book_consultation",0,completed
+20260323_125432,2026-03-23,12:54:32,Unknown,Unknown,11:44,0,0,0,,0,completed
+20260323_125301,2026-03-23,12:53:01,Unknown,Unknown,13:15,0,0,0,,0,completed

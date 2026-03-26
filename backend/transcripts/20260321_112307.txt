@@ -1,0 +1,38 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260321_112307
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-21
+Time         : 11:23:07
+Duration     : 09:09
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[11:23:10] CALLER : I know.
+
+[11:23:11] AI     : Hi! Thanks for calling BluQQ, this is Priya. How can
+
+[11:23:19] AI     : Oh, I’m sorry if there’s any issue with the audio. Can you hear me
+
+[11:23:23] CALLER : તુષ્ટુ સ્યોનુ રૂગુ સ્યોમ્મ્.
+
+[11:23:30] CALLER : वर्ट अधर इसे परवाई गरता
+
+[11:23:30] AI     : Sure! We build trading bots, dashboards, data pipelines,
+
+[11:23:37] CALLER : MBC 뉴스 이덕영입니다.
+
+[11:23:37] AI     : and we also work on AI tools and web scraping.
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

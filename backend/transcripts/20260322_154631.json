@@ -1,0 +1,112 @@
+{
+  "session_id": "20260322_154631",
+  "call_start": "2026-03-22T15:46:31.425744",
+  "call_end": "2026-03-22T15:47:03.254867",
+  "caller_phone": "Unknown",
+  "caller_name": "Unknown",
+  "duration": {
+    "total_duration_seconds": 31.83,
+    "total_duration_formatted": "00:31",
+    "listening_seconds": 0.0,
+    "processing_seconds": 0.0,
+    "speaking_seconds": 1.36,
+    "idle_seconds": 30.47,
+    "latency_ms": {
+      "avg": 0,
+      "min": 0,
+      "max": 0,
+      "all": []
+    }
+  },
+  "total_turns": 0,
+  "tools_used": [],
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-22T15:46:35.707711"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya from BluQQ! How can",
+      "timestamp": "2026-03-22T15:46:36.231311"
+    },
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-22T15:46:39.565882"
+    },
+    {
+      "role": "ai",
+      "text": "Hi there! What can I help you with today?",
+      "timestamp": "2026-03-22T15:46:40.286707"
+    }
+  ],
+  "turn_manager": {
+    "total_turns": 0,
+    "barge_in_count": 0,
+    "state_history": [
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:46:36.028139"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:46:36.699916"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:46:39.819382"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:46:40.508058"
+      }
+    ],
+    "final_state": "IDLE"
+  },
+  "errors": {
+    "total_errors": 0,
+    "total_warnings": 0,
+    "errors": []
+  },
+  "latency": {
+    "session_id": "20260322_154631",
+    "total_turns": 2,
+    "stt_avg_ms": 0,
+    "llm_avg_ms": 20,
+    "tts_avg_ms": 0,
+    "e2e_avg_ms": 0,
+    "e2e_min_ms": 0,
+    "e2e_max_ms": 0,
+    "e2e_all": [],
+    "quality": "🟢 Excellent",
+    "turns": [
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 5,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 35,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "Hello."
+      }
+    ]
+  },
+  "status": "completed"
+}

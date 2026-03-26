@@ -1,0 +1,34 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260323_102603
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-23
+Time         : 10:26:03
+Duration     : 03:53
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[10:26:06] CALLER : Hello
+
+[10:26:06] AI     : Hi, this is Priya from BluQQ! How can I help you today?
+
+[10:26:15] CALLER : What do you say I open?
+
+[10:26:16] AI     : Absolutely! We offer a range of AI tools that can help with automation, data analysis, and more. Is there a particular
+
+[10:26:25] AI     : Sure! Our AI tools typically range from $1,500 to $6,000, depending on complexity and customization. Would you
+
+[10:26:25] CALLER : Ну, что-то все девят asta
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

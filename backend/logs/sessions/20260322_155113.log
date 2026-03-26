@@ -1,0 +1,7 @@
+2026-03-22 15:51:13 | INFO     | [20260322_155113] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 15:51:18 | INFO     | [20260322_155113] CALLER_SPOKE — text=Hello.
+2026-03-22 15:51:19 | INFO     | [20260322_155113] AI_SPOKE — text=Hi! Thanks for calling BluQQ, this is Priya speaking. How can I help
+2026-03-22 15:51:26 | INFO     | [20260322_155113] CALLER_SPOKE — text=What is Python?
+2026-03-22 15:51:26 | INFO     | [20260322_155113] AI_SPOKE — text=We offer trading bots, dashboards, data pipelines, AI tools,
+2026-03-22 15:51:40 | INFO     | [20260322_155113] CALLER_SPOKE — text=What is Python?
+2026-03-22 15:51:41 | INFO     | [20260322_155113] AI_SPOKE — text=Sure! Our trading bots range from 500 to 5000 dollars,

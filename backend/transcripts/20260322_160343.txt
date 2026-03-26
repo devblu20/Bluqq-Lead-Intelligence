@@ -1,0 +1,46 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260322_160343
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-22
+Time         : 16:03:43
+Duration     : 03:53
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[16:03:48] CALLER : Hello.
+
+[16:03:49] AI     : Hi, this is Priya from BluQQ! How can I help you today?
+
+[16:03:59] CALLER : What are you doing?
+
+[16:04:00] AI     : We offer trading bots, dashboards, AI tools, data
+
+[16:04:11] CALLER : What is Python?
+
+[16:04:11] AI     : Python is a popular programming language we often use for building
+
+[16:04:25] AI     : We provide trading bots, dashboards, AI tools,
+
+[16:04:26] CALLER : what services provided look.
+
+[16:04:37] CALLER : Why you not speak proper?
+
+[16:04:37] AI     : I’m keeping it short so it’s easy to follow! What would you like to
+
+[16:04:47] CALLER : Okay.
+
+[16:04:48] AI     : Thanks! So, are you interested in any specific service we offer?
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================
