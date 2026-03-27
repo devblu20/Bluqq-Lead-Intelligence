@@ -24,7 +24,26 @@ const NAV = [
       <line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
     </svg>
   )},
-  { href: '/settings/channels', label: 'Channels', icon: '📡' }
+];
+
+const SETTINGS_NAV = [
+  { href: '/settings/channels', label: 'Channels', icon: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  )},
+  { href: '/settings/ai-settings', label: 'AI Settings', icon: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+    </svg>
+  )},
+  { href: '/settings/knowledge', label: 'Knowledge Base', icon: (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </svg>
+  )},
 ];
 
 export default function Sidebar() {
@@ -35,117 +54,115 @@ export default function Sidebar() {
     <>
       <style>{`
         .sidebar {
-          width: 240px;
-          min-height: 100vh;
-          background: #111827;
-          border-right: 1px solid #1F2937;
-          display: flex;
-          flex-direction: column;
-          flex-shrink: 0;
+          width: 240px; min-height: 100vh;
+          background: var(--sidebar-bg);
+          border-right: 1px solid var(--sidebar-border);
+          display: flex; flex-direction: column; flex-shrink: 0;
+          transition: background 0.25s ease, border-color 0.25s ease;
         }
-
-        /* ── Logo — matches first sidebar exactly ── */
         .sidebar-logo {
           padding: 20px 20px 18px;
-          border-bottom: 1px solid #1F2937;
-          position: relative;
-          z-index: 1;
+          border-bottom: 1px solid var(--sidebar-border);
         }
-
         .sidebar-menu-label {
           font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
-          text-transform: uppercase; color: #374151;
+          text-transform: uppercase; color: var(--sidebar-label);
           padding: 20px 20px 8px;
           font-family: 'Inter', sans-serif;
+          transition: color 0.25s ease;
         }
-
-        .sidebar-nav { padding: 0 10px; flex: 1; }
+        .sidebar-nav { padding: 0 10px; }
         .sidebar-link {
           display: flex; align-items: center; gap: 10px;
-          padding: 10px 12px;
-          border-radius: 8px;
+          padding: 10px 12px; border-radius: 8px;
           font-size: 13px; font-weight: 500;
-          color: #6B7280;
+          color: var(--sidebar-link);
           text-decoration: none;
-          transition: all 0.15s;
+          transition: all 0.15s ease;
           margin-bottom: 2px;
           font-family: 'Inter', sans-serif;
+          border: 1px solid transparent;
         }
-        .sidebar-link:hover { background: rgba(255,255,255,0.04); color: #D1D5DB; }
+        .sidebar-link:hover {
+          background: var(--bg-hover);
+          color: var(--text-primary);
+        }
         .sidebar-link.active {
-          background: rgba(37,99,235,0.1);
-          color: #60A5FA;
-          border: 1px solid rgba(37,99,235,0.2);
+          background:   var(--sidebar-active-bg);
+          color:        var(--sidebar-active-color);
+          border-color: var(--sidebar-active-border);
         }
-        .sidebar-link.active svg { stroke: #60A5FA; }
-
+        .sidebar-link.active svg { stroke: var(--sidebar-active-color); }
         .sidebar-footer {
           padding: 16px 10px;
-          border-top: 1px solid #1F2937;
+          border-top: 1px solid var(--sidebar-border);
+          margin-top: auto;
         }
         .sidebar-user {
           display: flex; align-items: center; gap: 10px;
-          padding: 10px 12px; border-radius: 8px;
-          margin-bottom: 4px;
+          padding: 10px 12px; border-radius: 8px; margin-bottom: 4px;
         }
         .sidebar-avatar {
           width: 30px; height: 30px; border-radius: 8px;
           background: linear-gradient(135deg, #1E40AF, #2563EB);
           display: flex; align-items: center; justify-content: center;
           font-size: 12px; font-weight: 700; color: #fff;
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          flex-shrink: 0;
+          font-family: 'Plus Jakarta Sans', sans-serif; flex-shrink: 0;
         }
-        .sidebar-user-name  { font-size: 13px; font-weight: 600; color: #D1D5DB; font-family: 'Inter', sans-serif; }
-        .sidebar-user-email { font-size: 11px; color: #4B5563; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; }
+        .sidebar-user-name  {
+          font-size: 13px; font-weight: 600;
+          color: var(--text-primary);
+          font-family: 'Inter', sans-serif;
+          transition: color 0.25s ease;
+        }
+        .sidebar-user-email {
+          font-size: 11px; color: var(--text-muted);
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px;
+          transition: color 0.25s ease;
+        }
         .sidebar-logout {
           display: flex; align-items: center; gap: 8px;
           width: 100%; padding: 9px 12px; border-radius: 8px;
           background: none; border: none; cursor: pointer;
-          color: #4B5563; font-size: 12px; font-weight: 500;
-          font-family: 'Inter', sans-serif;
-          transition: all 0.15s; text-align: left;
+          color: var(--text-hint); font-size: 12px; font-weight: 500;
+          font-family: 'Inter', sans-serif; transition: all 0.15s; text-align: left;
         }
-        .sidebar-logout:hover { background: rgba(239,68,68,0.08); color: #F87171; }
+        .sidebar-logout:hover { background: rgba(239,68,68,0.08); color: #EF4444; }
       `}</style>
 
       <aside className="sidebar">
-
-        {/* Logo — using transparent PNG image, same as first sidebar */}
         <div className="sidebar-logo">
-          <Image
-            src="/bluqq-logo.png"
-            alt="BluQQ"
-            width={130}
-            height={50}
-            style={{ display: 'block' }}
-          />
+          <Image src="/bluqq-logo.png" alt="BluQQ" width={130} height={50} style={{display:'block'}} />
         </div>
 
-        {/* Nav */}
         <div>
           <p className="sidebar-menu-label">Menu</p>
           <nav className="sidebar-nav">
             {NAV.map(item => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`sidebar-link ${router.pathname === item.href ? 'active' : ''}`}
-              >
-                {item.icon}
-                {item.label}
+              <Link key={item.href} href={item.href}
+                className={`sidebar-link ${router.pathname === item.href ? 'active' : ''}`}>
+                {item.icon}{item.label}
               </Link>
             ))}
           </nav>
         </div>
 
-        {/* Footer */}
+        <div>
+          <p className="sidebar-menu-label">Settings</p>
+          <nav className="sidebar-nav">
+            {SETTINGS_NAV.map(item => (
+              <Link key={item.href} href={item.href}
+                className={`sidebar-link ${router.pathname === item.href ? 'active' : ''}`}>
+                {item.icon}{item.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
         <div className="sidebar-footer">
           <div className="sidebar-user">
-            <div className="sidebar-avatar">
-              {user?.name?.[0]?.toUpperCase() || 'U'}
-            </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
+            <div className="sidebar-avatar">{user?.name?.[0]?.toUpperCase() || 'U'}</div>
+            <div style={{flex:1, minWidth:0}}>
               <div className="sidebar-user-name">{user?.name || 'User'}</div>
               <div className="sidebar-user-email">{user?.email}</div>
             </div>

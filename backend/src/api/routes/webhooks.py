@@ -114,6 +114,22 @@ async def receive_whatsapp(request: Request):
 
         print(f"[WEBHOOK] Saved inbound message for lead: {lead_name}")
 
+        # ── AUTO REPLY — only if we've spoken to this lead before ──
+        # If no outbound message exists, skip auto-reply.
+        # The team must send the first message manually from the dashboard.
+        prior_outbound = query(
+            """
+            SELECT 1 FROM conversations
+            WHERE lead_id = %s AND org_id = %s AND direction = 'outbound'
+            LIMIT 1
+            """,
+            (lead_id, org_id), fetch="one"
+        )
+
+        if not prior_outbound:
+            print(f"[WEBHOOK] No prior outbound for {lead_name} — skipping auto-reply (manual first message required)")
+            return {"status": "ok"}
+
         # ── AUTO REPLY in background thread ──────────────
         # generate_reply is fully sync — no asyncio.run() needed
         def auto_reply(
