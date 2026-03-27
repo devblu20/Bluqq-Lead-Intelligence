@@ -1,5 +1,0 @@
-2026-03-21 11:03:03 | INFO     | [20260321_110303] CALL_STARTED — redis=yes | rag_chunks=4
-2026-03-21 11:03:06 | INFO     | [20260321_110303] AI_SPOKE — text=Hey there! What’s up?
-2026-03-21 11:03:15 | INFO     | [20260321_110303] AI_SPOKE — text=Hey! How's it going?
-2026-03-21 11:03:28 | INFO     | [20260321_110303] AI_SPOKE — text=Luck is kind of like a random chance or something unpredictable that happens to you, either good or 
-2026-03-21 11:04:10 | INFO     | [20260321_110303] CALL_ENDED — duration=01:07 | turns=0 | errors=0

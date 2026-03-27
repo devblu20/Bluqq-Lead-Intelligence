@@ -1,2 +1,0 @@
-2026-03-23 10:34:42 | INFO     | [20260323_103442] CALL_STARTED — redis=yes | rag_chunks=4
-2026-03-23 10:36:08 | INFO     | [20260323_103442] CALL_ENDED — duration=01:26 | turns=0 | errors=0

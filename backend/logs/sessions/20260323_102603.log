@@ -1,8 +1,0 @@
-2026-03-23 10:26:03 | INFO     | [20260323_102603] CALL_STARTED — redis=yes | rag_chunks=4
-2026-03-23 10:26:06 | INFO     | [20260323_102603] CALLER_SPOKE — text=Hello
-2026-03-23 10:26:07 | INFO     | [20260323_102603] AI_SPOKE — text=Hi, this is Priya from BluQQ! How can I help you today?
-2026-03-23 10:26:15 | INFO     | [20260323_102603] CALLER_SPOKE — text=What do you say I open?
-2026-03-23 10:26:16 | INFO     | [20260323_102603] AI_SPOKE — text=Absolutely! We offer a range of AI tools that can help with automation, data analysis, and more. Is 
-2026-03-23 10:26:25 | INFO     | [20260323_102603] AI_SPOKE — text=Sure! Our AI tools typically range from $1,500 to $6,000, depending on complexity and customization.
-2026-03-23 10:26:26 | INFO     | [20260323_102603] CALLER_SPOKE — text=Ну, что-то все девят asta
-2026-03-23 10:29:57 | INFO     | [20260323_102603] CALL_ENDED — duration=03:53 | turns=0 | errors=0

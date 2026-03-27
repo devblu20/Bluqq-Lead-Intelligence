@@ -1,6 +1,0 @@
-2026-03-21 12:42:36 | INFO     | [20260321_124235] CALL_STARTED — redis=yes | rag_chunks=4
-2026-03-21 12:42:42 | INFO     | [20260321_124235] AI_SPOKE — text=Hi! Thanks for calling BluQQ, this is Priya speaking. How
-2026-03-21 12:42:44 | INFO     | [20260321_124235] CALLER_SPOKE — text=Have a nice day.
-2026-03-21 12:42:46 | INFO     | [20260321_124235] CALLER_SPOKE
-2026-03-21 12:42:47 | INFO     | [20260321_124235] AI_SPOKE — text=How can I help you today?
-2026-03-21 12:45:07 | INFO     | [20260321_124235] CALL_ENDED — duration=02:30 | turns=0 | errors=0
