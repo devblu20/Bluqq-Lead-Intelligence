@@ -1,0 +1,193 @@
+{
+  "session_id": "20260327_104505",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T11:15:10.450732",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello",
+      "timestamp": "2026-03-27T10:45:09.723203"
+    },
+    {
+      "role": "ai",
+      "text": "Hi there! What can I do for you today?",
+      "timestamp": "2026-03-27T10:45:09.964363"
+    },
+    {
+      "role": "ai",
+      "text": "Of course! Could you please tell me what kind of information you’re looking for",
+      "timestamp": "2026-03-27T10:45:18.175947"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, if you need to, you can do that. Hello?",
+      "timestamp": "2026-03-27T10:45:18.613037"
+    },
+    {
+      "role": "caller",
+      "text": "Can you provide the details about your services?",
+      "timestamp": "2026-03-27T10:45:23.449299"
+    },
+    {
+      "role": "ai",
+      "text": "We offer AI-powered WhatsApp automation to handle leads, answer FAQs, and book calls automatically. We also help businesses automate",
+      "timestamp": "2026-03-27T10:45:25.167032"
+    },
+    {
+      "role": "ai",
+      "text": "कोई बात नहीं, मैं आपकी म",
+      "timestamp": "2026-03-27T10:45:38.159673"
+    },
+    {
+      "role": "ai",
+      "text": "Sure! We offer services like AI-powered WhatsApp automation for lead qualification, answering FAQs, and booking calls automatically.",
+      "timestamp": "2026-03-27T10:45:42.486981"
+    },
+    {
+      "role": "caller",
+      "text": "फिलीन बोलते के लिए? तो हो भी काट पीछों जा रहे है विलुक्यूप प्यू बोलता है विलुक्यूप प्यू इसको प्रणाम्सिसिन इए आगा रहा है",
+      "timestamp": "2026-03-27T10:45:44.454392"
+    },
+    {
+      "role": "caller",
+      "text": "सवलम सचन आगल परत दबत पतव परद करनानन सवलम सचन आगल परत.",
+      "timestamp": "2026-03-27T10:45:45.945086"
+    },
+    {
+      "role": "ai",
+      "text": "That’s great! Can I get your name and contact details so we can assist you better?",
+      "timestamp": "2026-03-27T10:45:57.477009"
+    },
+    {
+      "role": "caller",
+      "text": "I won't worry about automation.",
+      "timestamp": "2026-03-27T10:45:57.628935"
+    },
+    {
+      "role": "caller",
+      "text": "My name is Bloop Kumar.",
+      "timestamp": "2026-03-27T10:46:07.765436"
+    },
+    {
+      "role": "ai",
+      "text": "Thanks! Could you also share your email or phone number, and we’ll get in touch to move forward?",
+      "timestamp": "2026-03-27T10:46:07.777196"
+    },
+    {
+      "role": "caller",
+      "text": "Bye-bye.",
+      "timestamp": "2026-03-27T10:46:13.747345"
+    },
+    {
+      "role": "ai",
+      "text": "No worries! Could you let me know the best time for a follow-",
+      "timestamp": "2026-03-27T10:46:14.141292"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, thank you! And what’s a good time for you to have a quick consultation",
+      "timestamp": "2026-03-27T10:46:19.347861"
+    },
+    {
+      "role": "caller",
+      "text": "My email is blukkumar at the rate gmail.com",
+      "timestamp": "2026-03-27T10:46:19.758367"
+    },
+    {
+      "role": "caller",
+      "text": "and my mobile number is 1 2 3 4 5 6 7 8 9 0",
+      "timestamp": "2026-03-27T10:46:26.071095"
+    },
+    {
+      "role": "ai",
+      "text": "Thanks for sharing that! What specific area of WhatsApp automation are you most interested in?",
+      "timestamp": "2026-03-27T10:46:26.146731"
+    },
+    {
+      "role": "ai",
+      "text": "That’s definitely possible with our solution!",
+      "timestamp": "2026-03-27T10:46:39.527818"
+    },
+    {
+      "role": "caller",
+      "text": "I want to auto-send the messages to the leads from my WhatsApp.",
+      "timestamp": "2026-03-27T10:46:39.557867"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you very much.",
+      "timestamp": "2026-03-27T10:46:42.475591"
+    },
+    {
+      "role": "caller",
+      "text": "What do you think, Bill?",
+      "timestamp": "2026-03-27T10:46:43.745670"
+    },
+    {
+      "role": "caller",
+      "text": "Ok, so let's build it together.",
+      "timestamp": "2026-03-27T10:46:47.928992"
+    },
+    {
+      "role": "ai",
+      "text": "Great, we’ve got your details and we’ll reach out within 24 hours. Would you like to book a consultation to discuss the details further?",
+      "timestamp": "2026-03-27T10:46:50.030844"
+    },
+    {
+      "role": "caller",
+      "text": "Okay. Thank you.",
+      "timestamp": "2026-03-27T10:46:56.736603"
+    },
+    {
+      "role": "ai",
+      "text": "You’re welcome! Looking forward to helping you automate everything. Anything else on your mind right now?",
+      "timestamp": "2026-03-27T10:46:57.243580"
+    },
+    {
+      "role": "ai",
+      "text": "Bye! Take care and talk soon!",
+      "timestamp": "2026-03-27T10:47:03.303428"
+    },
+    {
+      "role": "caller",
+      "text": "Okay. Bye-bye. Bye. Bye.",
+      "timestamp": "2026-03-27T10:47:04.321944"
+    },
+    {
+      "role": "caller",
+      "text": "No, thank you. Thank you",
+      "timestamp": "2026-03-27T10:47:05.954455"
+    },
+    {
+      "role": "ai",
+      "text": "You’re very welcome! Have a great day!",
+      "timestamp": "2026-03-27T10:47:06.223211"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I’ll wait right here. Take your time.",
+      "timestamp": "2026-03-27T10:47:11.059398"
+    },
+    {
+      "role": "caller",
+      "text": "That is the one thing",
+      "timestamp": "2026-03-27T10:47:11.104387"
+    },
+    {
+      "role": "caller",
+      "text": "Can you please end the call from your end?",
+      "timestamp": "2026-03-27T10:47:20.668669"
+    },
+    {
+      "role": "ai",
+      "text": "Of course, I’ll end it now. Have a wonderful day!",
+      "timestamp": "2026-03-27T10:47:20.730767"
+    }
+  ],
+  "tools_used": [
+    "search_knowledge_base",
+    "submit_lead"
+  ]
+}

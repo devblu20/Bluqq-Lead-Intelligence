@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     RESEND_API_KEY: str
     FROM_EMAIL: str
     ENCRYPTION_KEY: str = ""
+    SUPABASE_URL: str = ""
+    SUPABASE_KEY: str = ""
+
 
     WHATSAPP_ACCESS_TOKEN: str
     WHATSAPP_PHONE_NUMBER_ID: str

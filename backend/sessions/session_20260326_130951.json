@@ -1,0 +1,38 @@
+{
+  "session_id": "20260326_130951",
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-26T13:13:46.094987",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Thank you",
+      "timestamp": "2026-03-26T13:09:56.189083"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya from BluQQ! How can I help you today?",
+      "timestamp": "2026-03-26T13:09:56.684085"
+    },
+    {
+      "role": "caller",
+      "text": "It looks like it is working.",
+      "timestamp": "2026-03-26T13:10:00.422575"
+    },
+    {
+      "role": "ai",
+      "text": "That sounds like you’re working on something pretty complex with your data.",
+      "timestamp": "2026-03-26T13:10:19.203917"
+    },
+    {
+      "role": "caller",
+      "text": "देखो भी दावा करते हैं, वो सारे हिल जाएंगे। यही बात होता है इसते थे।",
+      "timestamp": "2026-03-26T13:10:24.809317"
+    },
+    {
+      "role": "caller",
+      "text": "क्योंकि जा��र दोवनी के वंघा करेंं इंसे पता सिआ अरे चेटू पहले काला तो डेटा तोऽकर ही पतार बाता हैे करें भाई ही के लिला ठीज़ इसाज भी सुन टरी भी अरे मनसी बच्चा है को खुँँ जी के के का पर जैंता है अन सप से पच्चा धा",
+      "timestamp": "2026-03-26T13:10:29.467117"
+    }
+  ],
+  "tools_used": []
+}

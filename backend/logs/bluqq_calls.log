@@ -4758,3 +4758,58 @@
 2026-03-25 12:16:49 | INFO     | ──────────────────────────────────────────────────
 2026-03-25 12:17:09 | INFO     | ✅ RAG loaded
 2026-03-25 12:39:59 | INFO     | ✅ RAG loaded
+2026-03-26 11:19:01 | INFO     | ✅ RAG loaded
+2026-03-26 11:25:21 | INFO     | ✅ RAG loaded
+2026-03-26 11:50:42 | INFO     | ✅ RAG loaded
+2026-03-26 11:58:56 | INFO     | ✅ RAG loaded
+2026-03-26 12:05:26 | INFO     | ✅ RAG loaded
+2026-03-26 12:06:28 | INFO     | ✅ RAG loaded
+2026-03-26 12:13:44 | INFO     | ✅ RAG loaded
+2026-03-26 12:18:59 | INFO     | ✅ RAG loaded
+2026-03-26 12:22:24 | INFO     | [Incoming Call] ✅ TwiML sent → wss://stanniferous-sina-recallingly.ngrok-free.dev/media-stream
+2026-03-26 12:22:25 | INFO     | ==================================================
+2026-03-26 12:22:25 | INFO     | 📞 CALL STARTED — Session: 20260326_122225
+2026-03-26 12:22:25 | INFO     | ==================================================
+2026-03-26 12:22:28 | INFO     | ✅ Priya AI ready!
+
+2026-03-26 12:22:28 | INFO     | 📞 Stream: MZ13ff7d6fb9e6c88a78c86162aa1ae6be | Caller: Unknown
+2026-03-26 12:22:29 | INFO     | Caller: Hello.
+2026-03-26 12:22:30 | INFO     | Priya : Hi, this is Priya from BluQQ! How can I help you today?
+2026-03-26 12:22:40 | INFO     | Caller: I want to create a chatbot for my restaurant.
+2026-03-26 12:22:41 | INFO     | Priya : That sounds great! Are you looking for a chatbot for customer service or for taking orders?
+2026-03-26 12:22:52 | INFO     | Caller: Can you tell me what features I can add in my chatbot?
+2026-03-26 12:22:53 | INFO     | Priya : Absolutely! You can add features like menu browsing, order placement, reservation booking, and even answering common customer questions.
+2026-03-26 12:23:01 | INFO     | Caller: Thank you.
+2026-03-26 12:23:02 | INFO     | Priya : Would you also like it to handle feedback or loyalty programs for your restaurant?
+2026-03-26 12:23:13 | INFO     | Caller: Can we add a voucher?
+2026-03-26 12:23:13 | INFO     | Caller: option in that.
+2026-03-26 12:23:15 | INFO     | Priya : Yes, absolutely! You can include voucher or discount code options in the chatbot to offer special promotions. Would that be something
+2026-03-26 12:23:29 | INFO     | Caller: How can I achieve that?
+2026-03-26 12:23:30 | INFO     | Priya : You can easily integrate a voucher system by connecting the chatbot to your existing promotions database or having it generate custom codes.
+2026-03-26 12:23:44 | INFO     | 📞 Call ended by Twilio
+2026-03-26 12:52:28 | WARNING  | ⏱ Call timeout (30 min)
+2026-03-26 12:52:31 | INFO     | ──────────────────────────────────────────────────
+2026-03-26 12:52:31 | INFO     |   Caller  : 
+2026-03-26 12:52:31 | INFO     |   Turns   : 7
+2026-03-26 12:52:31 | INFO     |   Tools   : []
+2026-03-26 12:52:31 | INFO     | ──────────────────────────────────────────────────
+2026-03-26 13:07:56 | INFO     | ✅ RAG loaded
+2026-03-26 13:09:50 | INFO     | [Incoming Call] ✅ TwiML sent → wss://stanniferous-sina-recallingly.ngrok-free.dev/media-stream
+2026-03-26 13:09:51 | INFO     | ==================================================
+2026-03-26 13:09:51 | INFO     | 📞 CALL STARTED — Session: 20260326_130951
+2026-03-26 13:09:51 | INFO     | ==================================================
+2026-03-26 13:09:54 | INFO     | ✅ Priya AI ready!
+
+2026-03-26 13:09:54 | INFO     | 📞 Stream: MZ0a08f100bf16174c7eb7252f1f4822a5 | Caller: Unknown
+2026-03-26 13:09:56 | INFO     | Caller: Thank you
+2026-03-26 13:09:56 | INFO     | Priya : Hi, this is Priya from BluQQ! How can I help you today?
+2026-03-26 13:10:00 | INFO     | Caller: It looks like it is working.
+2026-03-26 13:10:19 | INFO     | Priya : That sounds like you’re working on something pretty complex with your data.
+2026-03-26 13:10:24 | INFO     | Caller: देखो भी दावा करते हैं, वो सारे हिल जाएंगे। यही बात होता है इसते थे।
+2026-03-26 13:10:25 | INFO     | 📞 Call ended by Twilio
+2026-03-26 13:10:29 | INFO     | Caller: क्योंकि जा��र दोवनी के वंघा करेंं इंसे पता सिआ अरे चेटू पहले काला तो डेटा तोऽकर ही पतार बाता हैे करें भाई ही के लिला ठीज़ इसाज भी सुन टरी भी अरे मनसी बच्चा है को खुँँ जी के के का पर जैंता है अन सप से पच्चा धा
+2026-03-26 13:13:46 | INFO     | ──────────────────────────────────────────────────
+2026-03-26 13:13:46 | INFO     |   Caller  : 
+2026-03-26 13:13:46 | INFO     |   Turns   : 4
+2026-03-26 13:13:46 | INFO     |   Tools   : []
+2026-03-26 13:13:46 | INFO     | ──────────────────────────────────────────────────
