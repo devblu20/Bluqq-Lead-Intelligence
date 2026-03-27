@@ -4637,56 +4637,17 @@
 {"timestamp": "2026-03-25T12:16:49.855227", "level": "INFO", "logger": "bluqq", "message": "──────────────────────────────────────────────────", "module": "main", "line": 345}
 {"timestamp": "2026-03-25T12:17:09.725876", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
 {"timestamp": "2026-03-25T12:39:59.623720", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T11:19:01.106893", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T11:25:21.319342", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T11:50:42.162565", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T11:58:56.498616", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T12:05:26.719478", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T12:06:28.102084", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T12:13:44.928951", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T12:18:59.481377", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T12:22:24.431502", "level": "INFO", "logger": "bluqq", "message": "[Incoming Call] ✅ TwiML sent → wss://stanniferous-sina-recallingly.ngrok-free.dev/media-stream", "module": "main", "line": 188}
-{"timestamp": "2026-03-26T12:22:25.036331", "level": "INFO", "logger": "bluqq", "message": "==================================================", "module": "main", "line": 204}
-{"timestamp": "2026-03-26T12:22:25.037326", "level": "INFO", "logger": "bluqq", "message": "📞 CALL STARTED — Session: 20260326_122225", "module": "main", "line": 205}
-{"timestamp": "2026-03-26T12:22:25.039325", "level": "INFO", "logger": "bluqq", "message": "==================================================", "module": "main", "line": 206}
-{"timestamp": "2026-03-26T12:22:28.527993", "level": "INFO", "logger": "bluqq", "message": "✅ Priya AI ready!\n", "module": "main", "line": 233}
-{"timestamp": "2026-03-26T12:22:28.530500", "level": "INFO", "logger": "bluqq", "message": "📞 Stream: MZ13ff7d6fb9e6c88a78c86162aa1ae6be | Caller: Unknown", "module": "main", "line": 244}
-{"timestamp": "2026-03-26T12:22:29.538198", "level": "INFO", "logger": "bluqq", "message": "Caller: Hello.", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:22:30.317636", "level": "INFO", "logger": "bluqq", "message": "Priya : Hi, this is Priya from BluQQ! How can I help you today?", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T12:22:40.063159", "level": "INFO", "logger": "bluqq", "message": "Caller: I want to create a chatbot for my restaurant.", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:22:41.106615", "level": "INFO", "logger": "bluqq", "message": "Priya : That sounds great! Are you looking for a chatbot for customer service or for taking orders?", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T12:22:52.438162", "level": "INFO", "logger": "bluqq", "message": "Caller: Can you tell me what features I can add in my chatbot?", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:22:53.670850", "level": "INFO", "logger": "bluqq", "message": "Priya : Absolutely! You can add features like menu browsing, order placement, reservation booking, and even answering common customer questions.", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T12:23:01.386057", "level": "INFO", "logger": "bluqq", "message": "Caller: Thank you.", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:23:02.091996", "level": "INFO", "logger": "bluqq", "message": "Priya : Would you also like it to handle feedback or loyalty programs for your restaurant?", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T12:23:13.183929", "level": "INFO", "logger": "bluqq", "message": "Caller: Can we add a voucher?", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:23:13.607599", "level": "INFO", "logger": "bluqq", "message": "Caller: option in that.", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:23:15.916542", "level": "INFO", "logger": "bluqq", "message": "Priya : Yes, absolutely! You can include voucher or discount code options in the chatbot to offer special promotions. Would that be something", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T12:23:29.451768", "level": "INFO", "logger": "bluqq", "message": "Caller: How can I achieve that?", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T12:23:30.308260", "level": "INFO", "logger": "bluqq", "message": "Priya : You can easily integrate a voucher system by connecting the chatbot to your existing promotions database or having it generate custom codes.", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T12:23:44.091671", "level": "INFO", "logger": "bluqq", "message": "📞 Call ended by Twilio", "module": "main", "line": 252}
-{"timestamp": "2026-03-26T12:52:28.598573", "level": "WARNING", "logger": "bluqq", "message": "⏱ Call timeout (30 min)", "module": "main", "line": 317}
-{"timestamp": "2026-03-26T12:52:31.170063", "level": "INFO", "logger": "bluqq", "message": "──────────────────────────────────────────────────", "module": "main", "line": 341}
-{"timestamp": "2026-03-26T12:52:31.178126", "level": "INFO", "logger": "bluqq", "message": "  Caller  : ", "module": "main", "line": 342}
-{"timestamp": "2026-03-26T12:52:31.179124", "level": "INFO", "logger": "bluqq", "message": "  Turns   : 7", "module": "main", "line": 343}
-{"timestamp": "2026-03-26T12:52:31.181126", "level": "INFO", "logger": "bluqq", "message": "  Tools   : []", "module": "main", "line": 344}
-{"timestamp": "2026-03-26T12:52:31.184128", "level": "INFO", "logger": "bluqq", "message": "──────────────────────────────────────────────────", "module": "main", "line": 345}
-{"timestamp": "2026-03-26T13:07:56.169556", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
-{"timestamp": "2026-03-26T13:09:50.574393", "level": "INFO", "logger": "bluqq", "message": "[Incoming Call] ✅ TwiML sent → wss://stanniferous-sina-recallingly.ngrok-free.dev/media-stream", "module": "main", "line": 188}
-{"timestamp": "2026-03-26T13:09:51.463849", "level": "INFO", "logger": "bluqq", "message": "==================================================", "module": "main", "line": 204}
-{"timestamp": "2026-03-26T13:09:51.464869", "level": "INFO", "logger": "bluqq", "message": "📞 CALL STARTED — Session: 20260326_130951", "module": "main", "line": 205}
-{"timestamp": "2026-03-26T13:09:51.466887", "level": "INFO", "logger": "bluqq", "message": "==================================================", "module": "main", "line": 206}
-{"timestamp": "2026-03-26T13:09:54.949883", "level": "INFO", "logger": "bluqq", "message": "✅ Priya AI ready!\n", "module": "main", "line": 233}
-{"timestamp": "2026-03-26T13:09:54.951913", "level": "INFO", "logger": "bluqq", "message": "📞 Stream: MZ0a08f100bf16174c7eb7252f1f4822a5 | Caller: Unknown", "module": "main", "line": 244}
-{"timestamp": "2026-03-26T13:09:56.187163", "level": "INFO", "logger": "bluqq", "message": "Caller: Thank you", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T13:09:56.682956", "level": "INFO", "logger": "bluqq", "message": "Priya : Hi, this is Priya from BluQQ! How can I help you today?", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T13:10:00.419562", "level": "INFO", "logger": "bluqq", "message": "Caller: It looks like it is working.", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T13:10:19.190549", "level": "INFO", "logger": "bluqq", "message": "Priya : That sounds like you’re working on something pretty complex with your data.", "module": "main", "line": 289}
-{"timestamp": "2026-03-26T13:10:24.801580", "level": "INFO", "logger": "bluqq", "message": "Caller: देखो भी दावा करते हैं, वो सारे हिल जाएंगे। यही बात होता है इसते थे।", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T13:10:25.339704", "level": "INFO", "logger": "bluqq", "message": "📞 Call ended by Twilio", "module": "main", "line": 252}
-{"timestamp": "2026-03-26T13:10:29.464236", "level": "INFO", "logger": "bluqq", "message": "Caller: क्योंकि जा��र दोवनी के वंघा करेंं इंसे पता सिआ अरे चेटू पहले काला तो डेटा तोऽकर ही पतार बाता हैे करें भाई ही के लिला ठीज़ इसाज भी सुन टरी भी अरे मनसी बच्चा है को खुँँ जी के के का पर जैंता है अन सप से पच्चा धा", "module": "main", "line": 283}
-{"timestamp": "2026-03-26T13:13:46.097985", "level": "INFO", "logger": "bluqq", "message": "──────────────────────────────────────────────────", "module": "main", "line": 341}
-{"timestamp": "2026-03-26T13:13:46.099988", "level": "INFO", "logger": "bluqq", "message": "  Caller  : ", "module": "main", "line": 342}
-{"timestamp": "2026-03-26T13:13:46.099988", "level": "INFO", "logger": "bluqq", "message": "  Turns   : 4", "module": "main", "line": 343}
-{"timestamp": "2026-03-26T13:13:46.101013", "level": "INFO", "logger": "bluqq", "message": "  Tools   : []", "module": "main", "line": 344}
-{"timestamp": "2026-03-26T13:13:46.101013", "level": "INFO", "logger": "bluqq", "message": "──────────────────────────────────────────────────", "module": "main", "line": 345}
+{"timestamp": "2026-03-26T11:07:44.573588", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T11:47:07.771065", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T11:47:35.254712", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T11:47:55.228160", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T11:48:39.538625", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T11:48:45.324988", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T11:48:58.942563", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 365}
+{"timestamp": "2026-03-26T11:49:07.356858", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 366}
+{"timestamp": "2026-03-26T11:49:48.249205", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 367}
+{"timestamp": "2026-03-26T11:50:23.562199", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 368}
+{"timestamp": "2026-03-26T12:04:41.485815", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 368}
+{"timestamp": "2026-03-26T12:14:45.480827", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T12:16:48.017704", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}
+{"timestamp": "2026-03-26T12:35:37.877280", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded", "module": "main", "line": 364}

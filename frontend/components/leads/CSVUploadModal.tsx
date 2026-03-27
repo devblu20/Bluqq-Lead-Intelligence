@@ -8,33 +8,29 @@ interface Props {
 }
 
 const SCORING_STEPS = [
-  { id: 1, label: 'Parsing CSV file',              duration: 800  },
-  { id: 2, label: 'Validating lead records',        duration: 1000 },
-  { id: 3, label: 'Importing to database',          duration: 1200 },
-  { id: 4, label: 'Analyzing contact signals',      duration: 1500 },
-  { id: 5, label: 'Running AI qualification',       duration: 2000 },
-  { id: 6, label: 'Calculating scores & priority',  duration: 1000 },
+  { id: 1, label: 'Parsing CSV file',             duration: 800  },
+  { id: 2, label: 'Validating lead records',       duration: 1000 },
+  { id: 3, label: 'Importing to database',         duration: 1200 },
+  { id: 4, label: 'Analyzing contact signals',     duration: 1500 },
+  { id: 5, label: 'Running AI qualification',      duration: 2000 },
+  { id: 6, label: 'Calculating scores & priority', duration: 1000 },
 ];
 
 export default function CSVUploadModal({ onClose, onSuccess }: Props) {
-  const [file, setFile]           = useState<File | null>(null);
-  const [dragging, setDragging]   = useState(false);
-  const [phase, setPhase]         = useState<'select' | 'processing' | 'done'>('select');
+  const [file,        setFile]    = useState<File | null>(null);
+  const [dragging,    setDragging]= useState(false);
+  const [phase,       setPhase]   = useState<'select'|'processing'|'done'>('select');
   const [currentStep, setStep]    = useState(0);
-  const [result, setResult]       = useState<any>(null);
+  const [result,      setResult]  = useState<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFile = (f: File) => {
-    if (!f.name.endsWith('.csv')) {
-      toast.error('Please upload a .csv file only');
-      return;
-    }
+    if (!f.name.endsWith('.csv')) { toast.error('Please upload a .csv file only'); return; }
     setFile(f);
   };
 
   const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setDragging(false);
+    e.preventDefault(); setDragging(false);
     const f = e.dataTransfer.files[0];
     if (f) handleFile(f);
   };
@@ -48,252 +44,242 @@ export default function CSVUploadModal({ onClose, onSuccess }: Props) {
 
   const handleUpload = async () => {
     if (!file) return;
-    setPhase('processing');
-    setStep(0);
-
+    setPhase('processing'); setStep(0);
     try {
-      // Run visual steps + API call in parallel
-      const [res] = await Promise.all([
-        leadsAPI.uploadCSV(file),
-        runSteps()
-      ]);
-
-      setResult(res.data);
-      setPhase('done');
-
-      if (res.data.imported > 0) {
-        toast.success(`${res.data.imported} leads imported!`);
-        onSuccess();
-      }
+      const [res] = await Promise.all([leadsAPI.uploadCSV(file), runSteps()]);
+      setResult(res.data); setPhase('done');
+      if (res.data.imported > 0) { toast.success(`${res.data.imported} leads imported!`); onSuccess(); }
     } catch (err: any) {
       toast.error(err.response?.data?.detail || 'Upload failed');
       setPhase('select');
     }
   };
 
+  const pct = Math.round((currentStep / SCORING_STEPS.length) * 100);
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
-      <div className="bg-[#0d1117] border border-gray-800 rounded-2xl shadow-2xl w-full max-w-md">
+    <>
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+        .csv-spinner { animation: spin 0.8s linear infinite; }
+        .csv-pulse   { animation: pulse 1.5s ease-in-out infinite; }
+      `}</style>
 
-        {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-gray-800">
-          <div>
-            <h2 className="text-base font-bold text-white">
-              {phase === 'select'     ? 'Import Leads from CSV'  :
-               phase === 'processing' ? 'Processing Your Leads'  :
-               'Import Complete'}
-            </h2>
-            <p className="text-xs text-gray-500 mt-0.5">
-              {phase === 'select'     ? 'Upload a CSV to bulk import leads' :
-               phase === 'processing' ? 'AI scoring is running automatically' :
-               'All leads have been scored and prioritized'}
-            </p>
+      {/* ── Overlay ── */}
+      <div
+        onClick={phase !== 'processing' ? onClose : undefined}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'rgba(0,0,0,0.7)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          padding: '16px',
+        }}
+      >
+        {/* ── Modal box ── */}
+        <div
+          onClick={e => e.stopPropagation()}
+          style={{
+            background: '#0d1117',
+            border: '1px solid #1F2937',
+            borderRadius: '16px',
+            width: '100%',
+            maxWidth: '440px',
+            boxShadow: '0 25px 60px rgba(0,0,0,0.6)',
+            fontFamily: "'Inter', sans-serif",
+          }}
+        >
+
+          {/* Header */}
+          <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'18px 20px', borderBottom:'1px solid #1F2937'}}>
+            <div>
+              <h2 style={{margin:0, fontSize:'15px', fontWeight:700, color:'#F9FAFB'}}>
+                {phase==='select' ? 'Import Leads from CSV' : phase==='processing' ? 'Processing Your Leads' : 'Import Complete'}
+              </h2>
+              <p style={{margin:'3px 0 0', fontSize:'12px', color:'#6B7280'}}>
+                {phase==='select' ? 'Upload a CSV to bulk import leads' : phase==='processing' ? 'AI scoring is running automatically' : 'All leads have been scored and prioritized'}
+              </p>
+            </div>
+            {phase !== 'processing' && (
+              <button
+                onClick={onClose}
+                style={{background:'none', border:'none', cursor:'pointer', color:'#6B7280', fontSize:'20px', padding:'4px 8px', borderRadius:'6px', lineHeight:1}}
+                onMouseOver={e=>(e.currentTarget.style.background='#1F2937')}
+                onMouseOut={e=>(e.currentTarget.style.background='none')}
+              >×</button>
+            )}
           </div>
-          {phase !== 'processing' && (
-            <button onClick={onClose}
-              className="text-gray-500 hover:text-gray-300 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-800 text-lg">
-              ×
-            </button>
-          )}
-        </div>
 
-        <div className="p-5">
+          {/* Body */}
+          <div style={{padding:'20px'}}>
 
-          {/* ── SELECT PHASE ─────────────────────────────── */}
-          {phase === 'select' && (
-            <div className="space-y-4">
+            {/* ── SELECT ── */}
+            {phase === 'select' && (
+              <div>
+                {/* Info box */}
+                <div style={{background:'rgba(0,87,184,0.12)', border:'1px solid rgba(0,87,184,0.3)', borderRadius:'10px', padding:'12px 14px', marginBottom:'14px'}}>
+                  <p style={{margin:'0 0 4px', fontSize:'12px', fontWeight:600, color:'#93C5FD'}}>Required columns</p>
+                  <p style={{margin:'0 0 4px', fontSize:'12px', color:'#60A5FA', fontFamily:'monospace'}}>name, message</p>
+                  <p style={{margin:0, fontSize:'11px', color:'#6B7280'}}>Optional: company, email, phone, source, service_interest</p>
+                </div>
 
-              {/* Format hint */}
-              <div className="bg-[#003087]/20 border border-[#0057b8]/30 rounded-xl p-3">
-                <p className="text-xs font-medium text-blue-300 mb-1">
-                  Required columns
-                </p>
-                <p className="text-xs text-blue-400 font-mono">
-                  name, message
-                </p>
-                <p className="text-xs text-gray-500 mt-1">
-                  Optional: company, email, phone, source, service_interest
-                </p>
-              </div>
-
-              {/* Drop zone */}
-              <div
-                onDragOver={e => { e.preventDefault(); setDragging(true); }}
-                onDragLeave={() => setDragging(false)}
-                onDrop={handleDrop}
-                onClick={() => inputRef.current?.click()}
-                className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all
-                  ${dragging    ? 'border-[#0057b8] bg-[#0057b8]/10' :
-                    file        ? 'border-green-600 bg-green-900/20'  :
-                    'border-gray-700 hover:border-gray-500'
-                  }`}
-              >
-                <input ref={inputRef} type="file" accept=".csv"
-                  className="hidden"
-                  onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }}
-                />
-                {file ? (
-                  <div>
-                    <div className="text-3xl mb-2">📄</div>
-                    <p className="text-green-400 font-medium text-sm">{file.name}</p>
-                    <p className="text-gray-500 text-xs mt-1">
-                      {(file.size / 1024).toFixed(1)} KB
-                    </p>
-                    <button onClick={e => { e.stopPropagation(); setFile(null); }}
-                      className="text-xs text-red-400 hover:text-red-300 mt-2">
-                      Remove
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <div className="text-3xl mb-2">📂</div>
-                    <p className="text-gray-300 text-sm font-medium">
-                      Drop your CSV here
-                    </p>
-                    <p className="text-gray-600 text-xs mt-1">or click to browse</p>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex gap-3">
-                <button onClick={onClose} className="btn-secondary flex-1 py-2.5 text-sm">
-                  Cancel
-                </button>
-                <button onClick={handleUpload} disabled={!file}
-                  className="flex-1 py-2.5 bg-[#0057b8] hover:bg-[#003087] text-white font-semibold rounded-xl transition-all disabled:opacity-40 text-sm">
-                  Import & Score Leads
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* ── PROCESSING PHASE ─────────────────────────── */}
-          {phase === 'processing' && (
-            <div className="py-2 space-y-3">
-              {SCORING_STEPS.map((step, i) => {
-                const done    = currentStep > step.id;
-                const active  = currentStep === step.id;
-                const pending = currentStep < step.id;
-
-                return (
-                  <div key={step.id}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
-                      ${active  ? 'bg-[#0057b8]/15 border border-[#0057b8]/30' :
-                        done    ? 'opacity-60' : 'opacity-30'
-                      }`}
-                  >
-                    {/* Icon */}
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs
-                      ${done   ? 'bg-green-800 text-green-300' :
-                        active  ? 'bg-[#0057b8] text-white'     :
-                        'bg-gray-800 text-gray-600'
-                      }`}
-                    >
-                      {done ? '✓' : active ? (
-                        <svg className="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10"
-                            stroke="currentColor" strokeWidth="4"/>
-                          <path className="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8v8H4z"/>
-                        </svg>
-                      ) : step.id}
+                {/* Drop zone */}
+                <div
+                  onDragOver={e=>{e.preventDefault();setDragging(true);}}
+                  onDragLeave={()=>setDragging(false)}
+                  onDrop={handleDrop}
+                  onClick={()=>inputRef.current?.click()}
+                  style={{
+                    border: `2px dashed ${dragging ? '#2563EB' : file ? '#16A34A' : '#374151'}`,
+                    borderRadius: '12px',
+                    padding: '32px 20px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    background: dragging ? 'rgba(37,99,235,0.08)' : file ? 'rgba(22,163,74,0.08)' : 'transparent',
+                    transition: 'all 0.2s',
+                    marginBottom: '14px',
+                  }}
+                >
+                  <input ref={inputRef} type="file" accept=".csv" style={{display:'none'}} onChange={e=>{const f=e.target.files?.[0];if(f)handleFile(f);}} />
+                  {file ? (
+                    <div>
+                      <div style={{fontSize:'28px',marginBottom:'8px'}}>📄</div>
+                      <p style={{margin:'0 0 4px',fontSize:'13px',fontWeight:600,color:'#4ADE80'}}>{file.name}</p>
+                      <p style={{margin:'0 0 8px',fontSize:'11px',color:'#6B7280'}}>{(file.size/1024).toFixed(1)} KB</p>
+                      <button onClick={e=>{e.stopPropagation();setFile(null);}} style={{background:'none',border:'none',cursor:'pointer',color:'#F87171',fontSize:'12px'}}>Remove</button>
                     </div>
+                  ) : (
+                    <div>
+                      <div style={{fontSize:'28px',marginBottom:'8px'}}>📂</div>
+                      <p style={{margin:'0 0 4px',fontSize:'13px',fontWeight:600,color:'#D1D5DB'}}>Drop your CSV here</p>
+                      <p style={{margin:0,fontSize:'11px',color:'#6B7280'}}>or click to browse</p>
+                    </div>
+                  )}
+                </div>
 
-                    {/* Label */}
-                    <span className={`text-sm font-medium
-                      ${done   ? 'text-gray-400' :
-                        active  ? 'text-white'    :
-                        'text-gray-600'
-                      }`}
-                    >
-                      {step.label}
-                    </span>
+                {/* Buttons */}
+                <div style={{display:'flex',gap:'10px'}}>
+                  <button
+                    onClick={onClose}
+                    style={{flex:1,padding:'10px',background:'transparent',border:'1px solid #374151',borderRadius:'10px',color:'#9CA3AF',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'Inter,sans-serif'}}
+                    onMouseOver={e=>e.currentTarget.style.borderColor='#4B5563'}
+                    onMouseOut={e=>e.currentTarget.style.borderColor='#374151'}
+                  >Cancel</button>
+                  <button
+                    onClick={handleUpload}
+                    disabled={!file}
+                    style={{flex:1,padding:'10px',background:file?'#2563EB':'#1E3A5F',border:'none',borderRadius:'10px',color:file?'#fff':'#4B5563',fontSize:'13px',fontWeight:700,cursor:file?'pointer':'not-allowed',fontFamily:'Inter,sans-serif',transition:'background 0.15s'}}
+                    onMouseOver={e=>{if(file)e.currentTarget.style.background='#1D4ED8';}}
+                    onMouseOut={e=>{if(file)e.currentTarget.style.background='#2563EB';}}
+                  >Import &amp; Score Leads</button>
+                </div>
+              </div>
+            )}
 
-                    {done && (
-                      <span className="ml-auto text-xs text-green-500">Done</span>
-                    )}
-                    {active && (
-                      <span className="ml-auto text-xs text-blue-400 animate-pulse">
-                        Running...
+            {/* ── PROCESSING ── */}
+            {phase === 'processing' && (
+              <div>
+                {SCORING_STEPS.map((step) => {
+                  const done   = currentStep > step.id;
+                  const active = currentStep === step.id;
+                  return (
+                    <div key={step.id} style={{
+                      display:'flex', alignItems:'center', gap:'12px',
+                      padding:'10px 14px', borderRadius:'10px', marginBottom:'6px',
+                      background: active ? 'rgba(37,99,235,0.12)' : 'transparent',
+                      border: active ? '1px solid rgba(37,99,235,0.25)' : '1px solid transparent',
+                      opacity: done ? 0.6 : active ? 1 : 0.3,
+                      transition: 'all 0.3s',
+                    }}>
+                      {/* Icon */}
+                      <div style={{
+                        width:'24px', height:'24px', borderRadius:'50%', flexShrink:0,
+                        display:'flex', alignItems:'center', justifyContent:'center',
+                        fontSize:'11px', fontWeight:700,
+                        background: done ? '#14532D' : active ? '#2563EB' : '#1F2937',
+                        color: done ? '#4ADE80' : active ? '#fff' : '#4B5563',
+                      }}>
+                        {done ? '✓' : active ? (
+                          <svg className="csv-spinner" width="12" height="12" fill="none" viewBox="0 0 24 24">
+                            <circle style={{opacity:0.25}} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                            <path style={{opacity:0.75}} fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                          </svg>
+                        ) : step.id}
+                      </div>
+                      {/* Label */}
+                      <span style={{fontSize:'13px', fontWeight:500, color: done?'#9CA3AF': active?'#F9FAFB':'#4B5563', flex:1}}>
+                        {step.label}
                       </span>
-                    )}
-                  </div>
-                );
-              })}
-
-              {/* Progress bar */}
-              <div className="mt-4">
-                <div className="flex justify-between text-xs text-gray-500 mb-1.5">
-                  <span>Overall progress</span>
-                  <span>{Math.round((currentStep / SCORING_STEPS.length) * 100)}%</span>
-                </div>
-                <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-[#0057b8] rounded-full transition-all duration-500"
-                    style={{ width: `${(currentStep / SCORING_STEPS.length) * 100}%` }}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* ── DONE PHASE ───────────────────────────────── */}
-          {phase === 'done' && result && (
-            <div className="space-y-4">
-
-              {/* Summary */}
-              <div className="bg-green-900/20 border border-green-800/40 rounded-xl p-4">
-                <p className="text-green-300 font-semibold text-sm mb-3">
-                  ✓ {result.message}
-                </p>
-                <div className="grid grid-cols-3 gap-3 text-center">
-                  {[
-                    { label: 'In File',   value: result.total_in_file, color: 'text-white'       },
-                    { label: 'Imported',  value: result.imported,      color: 'text-green-400'   },
-                    { label: 'Skipped',   value: result.skipped,       color: 'text-yellow-400'  },
-                  ].map(stat => (
-                    <div key={stat.label} className="bg-black/20 rounded-lg p-3">
-                      <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+                      {done   && <span style={{fontSize:'11px',color:'#4ADE80'}}>Done</span>}
+                      {active && <span className="csv-pulse" style={{fontSize:'11px',color:'#60A5FA'}}>Running...</span>}
                     </div>
-                  ))}
+                  );
+                })}
+
+                {/* Progress bar */}
+                <div style={{marginTop:'16px'}}>
+                  <div style={{display:'flex',justifyContent:'space-between',fontSize:'11px',color:'#6B7280',marginBottom:'6px'}}>
+                    <span>Overall progress</span><span>{pct}%</span>
+                  </div>
+                  <div style={{height:'4px',background:'#1F2937',borderRadius:'99px',overflow:'hidden'}}>
+                    <div style={{height:'100%',background:'#2563EB',borderRadius:'99px',width:`${pct}%`,transition:'width 0.5s ease'}}/>
+                  </div>
                 </div>
               </div>
+            )}
 
-              {/* AI scoring note */}
-              <div className="bg-[#0057b8]/10 border border-[#0057b8]/20 rounded-xl p-3 flex items-start gap-2">
-                <span className="text-blue-400 mt-0.5">🤖</span>
-                <p className="text-xs text-blue-300 leading-relaxed">
-                  AI scoring is running in the background. Scores and priorities
-                  will appear on your leads within 30–60 seconds.
-                </p>
-              </div>
-
-              {/* Errors */}
-              {result.errors?.length > 0 && (
-                <div className="bg-red-900/20 border border-red-800/30 rounded-xl p-3">
-                  <p className="text-xs font-semibold text-red-400 mb-2">
-                    Skipped rows
-                  </p>
-                  <div className="space-y-1 max-h-20 overflow-y-auto">
-                    {result.errors.map((e: any, i: number) => (
-                      <p key={i} className="text-xs text-red-400">
-                        Row {e.row}: {e.reason}
-                      </p>
+            {/* ── DONE ── */}
+            {phase === 'done' && result && (
+              <div>
+                {/* Summary */}
+                <div style={{background:'rgba(22,163,74,0.1)',border:'1px solid rgba(22,163,74,0.25)',borderRadius:'12px',padding:'16px',marginBottom:'12px'}}>
+                  <p style={{margin:'0 0 12px',fontSize:'13px',fontWeight:600,color:'#4ADE80'}}>✓ {result.message}</p>
+                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'10px',textAlign:'center'}}>
+                    {[
+                      {label:'In File',  value:result.total_in_file, color:'#F9FAFB'},
+                      {label:'Imported', value:result.imported,      color:'#4ADE80'},
+                      {label:'Skipped',  value:result.skipped,       color:'#FBBF24'},
+                    ].map(s=>(
+                      <div key={s.label} style={{background:'rgba(0,0,0,0.3)',borderRadius:'8px',padding:'10px'}}>
+                        <p style={{margin:'0 0 2px',fontSize:'22px',fontWeight:700,color:s.color}}>{s.value}</p>
+                        <p style={{margin:0,fontSize:'11px',color:'#6B7280'}}>{s.label}</p>
+                      </div>
                     ))}
                   </div>
                 </div>
-              )}
 
-              <button onClick={onClose}
-                className="w-full py-2.5 bg-[#0057b8] hover:bg-[#003087] text-white font-semibold rounded-xl transition-all text-sm">
-                View Leads →
-              </button>
-            </div>
-          )}
+                {/* AI note */}
+                <div style={{background:'rgba(37,99,235,0.08)',border:'1px solid rgba(37,99,235,0.2)',borderRadius:'10px',padding:'12px',display:'flex',gap:'8px',alignItems:'flex-start',marginBottom:'12px'}}>
+                  <span style={{fontSize:'16px'}}>🤖</span>
+                  <p style={{margin:0,fontSize:'12px',color:'#93C5FD',lineHeight:1.6}}>
+                    AI scoring is running in the background. Scores and priorities will appear on your leads within 30–60 seconds.
+                  </p>
+                </div>
 
+                {/* Errors */}
+                {result.errors?.length > 0 && (
+                  <div style={{background:'rgba(239,68,68,0.08)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:'10px',padding:'12px',marginBottom:'12px'}}>
+                    <p style={{margin:'0 0 8px',fontSize:'12px',fontWeight:600,color:'#F87171'}}>Skipped rows</p>
+                    <div style={{maxHeight:'80px',overflowY:'auto'}}>
+                      {result.errors.map((e:any,i:number)=>(
+                        <p key={i} style={{margin:'0 0 4px',fontSize:'11px',color:'#F87171'}}>Row {e.row}: {e.reason}</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  onClick={onClose}
+                  style={{width:'100%',padding:'11px',background:'#2563EB',border:'none',borderRadius:'10px',color:'#fff',fontSize:'13px',fontWeight:700,cursor:'pointer',fontFamily:'Inter,sans-serif'}}
+                  onMouseOver={e=>e.currentTarget.style.background='#1D4ED8'}
+                  onMouseOut={e=>e.currentTarget.style.background='#2563EB'}
+                >View Leads →</button>
+              </div>
+            )}
+
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

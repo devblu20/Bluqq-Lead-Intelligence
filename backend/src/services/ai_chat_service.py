@@ -6,6 +6,8 @@ Fixed for actual stack:
 - orchestrate() signature: org_id, lead_id, platform, message, service_interest
 - %s placeholders (not $1/$2)
 - generate_reply is async only for OpenAI call
+- Fixed: call trigger false positives (ambiguous words removed)
+- Added: SOFT_OFFER mode for complex/ready leads
 """
 
 import logging
@@ -106,67 +108,73 @@ STAGE_INSTRUCTIONS = {
 
 CALL_SUGGEST_TRIGGERS = {
     "lead_asked": [
-        # English — full phrases
-        "can we connect", "can we talk", "can we call", "let's connect", "let's talk",
-        "call me", "schedule a call", "book a call", "want to speak", "want to connect",
+        # Must be explicit, unambiguous call requests only
+        "can we connect on a call", "can we connect over a call",
+        "can we talk on a call", "can we call", "let's connect on a call",
+        "let's talk on a call", "let's get on a call",
+        "call me", "schedule a call", "book a call",
+        "want to speak", "want to have a call",
         "phone call", "video call", "hop on a call", "get on a call",
-        "zoom", "google meet", "teams call",
-        # English — short/casual (the ones being missed!)
-        "connect", "schedule", "schedule a", "schedule call",
-        "call with", "call with you", "call with your",
-        "speak with", "speak to", "talk to", "talk with",
-        # Hindi/Hinglish
-        "baat karte", "baat karo", "time de do", "call karo", "call krte",
-        "milte", "connect karo", "schedule karo",
+        "zoom call", "google meet", "teams call",
+        "can we have a call", "can we discuss over call",
+        "discuss it over call", "discuss over a call",
+        "connect over call", "connect over a call",
+        "talk over call", "talk over a call",
+        "speak over call", "speak over a call",
+        # Hindi/Hinglish — explicit only
+        "baat karte hain call pe", "call pe baat karte",
+        "call karo", "call krte hain", "call krte h",
+        "time de do call ke liye", "call schedule karo",
+        "call pe milte", "call pe connect",
     ],
     "budget_discussion": [
-        "how much does it cost", "how much", "pricing", "price", "cost",
-        "expensive", "affordable", "discount", "what are your rates", "fee", "kitna",
-        "can we negotiate", "charges",
+        "how much does it cost", "what is the pricing",
+        "what are your rates", "can we negotiate",
+        "what are the charges", "cost for this project",
+        "how much will it cost", "pricing details", "kitna lagega",
     ],
     "high_urgency": [
-        "urgent", "asap", "immediately", "this week", "by tomorrow", "deadline",
-        "need it done fast", "as soon as possible", "going live", "client is waiting",
+        "urgent", "asap", "immediately", "this week", "by tomorrow",
+        "deadline", "going live", "client is waiting", "need it done fast",
     ],
     "complex_requirement": [
         "multiple services", "full solution", "end to end", "enterprise",
         "custom solution", "large scale", "entire company", "white label", "partnership",
     ],
     "ready_to_buy": [
-        "ready to start", "want to proceed", "let's go ahead", "send me the contract",
-        "send proposal", "ready to sign", "move forward", "next steps", "proceed",
+        "ready to start", "want to proceed", "let's go ahead",
+        "send me the contract", "send proposal", "ready to sign",
+        "move forward", "next steps",
     ],
 }
 
-ALL_CALL_TRIGGERS = list(CALL_SUGGEST_TRIGGERS.items())
+# These trigger a SOFT OFFER ("would you like a call?") not immediate scheduling
+CALL_OFFER_TRIGGERS = [
+    "complex_requirement",
+    "ready_to_buy",
+]
 
-# These are SHORT single words/phrases that only count as call triggers
-# when the PREVIOUS AI message was already asking about a call
-# e.g. lead says "evening" after AI asked "morning or evening?"
+# Short time words — only count if previous AI message was about scheduling a call
 CALL_CONTEXT_FOLLOWUP = [
     "morning", "evening", "afternoon", "night", "anytime",
-    "tomorrow", "today", "now", "later", "weekend", "monday",
-    "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+    "tomorrow", "today", "now", "later", "weekend",
+    "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
     "subah", "shaam", "raat", "dopahar", "kal", "aaj",
     "6pm", "7pm", "8pm", "9am", "10am", "11am", "12pm",
 ]
 
-# If the last AI message was asking about timing, and lead replies with time,
-# this is a SCHEDULING CONFIRMATION — not a new trigger
 TIMING_QUESTION_SIGNALS = [
     "when works best", "what time", "morning or evening", "evening or morning",
     "kab free", "subah ya shaam", "shaam ya subah",
     "what's a good time", "when are you free", "best time for you",
     "convenient time", "when can we", "good time for you",
     "when works", "works for you", "free for a call",
-    # exact phrases AI sends
     "morning or evening?", "our team will reach out", "our team will connect",
 ]
 
 
 def _last_ai_message(messages: list[dict]) -> str:
     """Get the last outbound (AI) message text."""
-    # DB may store direction as 'outbound' or AI messages marked is_automated=True
     outbound = [
         m for m in messages
         if m.get("direction") == "outbound" or m.get("is_automated") == True
@@ -182,17 +190,22 @@ def _should_suggest_call(
     lead: dict,
     messages: list[dict] = None,
 ) -> tuple[bool, str]:
+    """
+    Returns (should_suggest, mode)
+
+    Modes:
+      "TIMING_CONFIRMED:<time>"  — lead replied with a time after AI asked
+      "EXPLICIT_CALL_REQUEST"    — lead directly and clearly asked for a call
+      "SOFT_OFFER"               — lead has complex need/ready to buy; gently offer a call
+      ""                         — no call mention, stay in chat
+    """
     msg_lower = inbound_message.lower().strip()
     messages  = messages or []
     last_ai   = _last_ai_message(messages)
 
-    print(f"[TIMING DEBUG] inbound: '{msg_lower}' | last_ai has timing: {any(sig in last_ai for sig in TIMING_QUESTION_SIGNALS)}")
+    print(f"[TIMING DEBUG] inbound: '{msg_lower[:80]}'")
 
-    # ── TIMING REPLY DETECTION ──
-    # Conditions:
-    # 1. Last AI message asked about time/availability
-    # 2. Lead reply is short (≤4 words)
-    # 3. Reply contains a time-related word
+    # ── 1. TIMING REPLY — lead replied with a time after AI asked about scheduling ──
     ai_asked_timing = any(sig in last_ai for sig in TIMING_QUESTION_SIGNALS)
     word_count      = len(msg_lower.split())
     has_time_word   = any(t in msg_lower for t in CALL_CONTEXT_FOLLOWUP)
@@ -203,23 +216,26 @@ def _should_suggest_call(
         print(f"[TIMING DEBUG] → TIMING_CONFIRMED: {inbound_message.strip()}")
         return True, f"TIMING_CONFIRMED:{inbound_message.strip()}"
 
-    # ── NORMAL CALL TRIGGER CHECK ──
-    reason_map = {
-        "lead_asked":          "The lead has explicitly asked to connect or speak.",
-        "budget_discussion":   "The lead is asking about pricing — needs a human discussion.",
-        "high_urgency":        "The lead has an urgent timeline — a quick call saves time.",
-        "complex_requirement": "Complex requirement — needs a proper discovery call.",
-        "ready_to_buy":        "Lead is ready to move forward — close it with a personal touch.",
-    }
-    for trigger_type, phrases in ALL_CALL_TRIGGERS:
-        if any(phrase in msg_lower for phrase in phrases):
-            print(f"[TIMING DEBUG] → CALL TRIGGER: {trigger_type}")
-            return True, reason_map.get(trigger_type, "A call is appropriate here.")
+    # ── 2. EXPLICIT CALL REQUEST — lead clearly asked for a call ──
+    for phrase in CALL_SUGGEST_TRIGGERS["lead_asked"]:
+        if phrase in msg_lower:
+            print(f"[CALL DEBUG] → EXPLICIT_CALL_REQUEST matched: '{phrase}'")
+            return True, "EXPLICIT_CALL_REQUEST"
 
+    # ── 3. SOFT OFFER — complex requirement or ready to buy ──
+    #    We answer their question first, then gently offer a call at the end
+    for trigger_type in CALL_OFFER_TRIGGERS:
+        for phrase in CALL_SUGGEST_TRIGGERS[trigger_type]:
+            if phrase in msg_lower:
+                print(f"[CALL DEBUG] → SOFT_OFFER matched: '{phrase}' in '{trigger_type}'")
+                return True, "SOFT_OFFER"
+
+    # High urgency lead at conversion stage → soft offer
     if lead.get("urgency") == "high" and stage == "ready_to_convert":
-        return True, "High urgency lead ready to convert."
+        print(f"[CALL DEBUG] → SOFT_OFFER: high urgency + ready_to_convert")
+        return True, "SOFT_OFFER"
 
-    print(f"[TIMING DEBUG] → no call trigger")
+    print(f"[CALL DEBUG] → no call trigger")
     return False, ""
 
 
@@ -377,6 +393,7 @@ def _build_system_prompt(
         memory_note = f"\nPREVIOUS SESSION MEMORY:\n{ai_context['context_snapshot']}\n"
 
     should_call, call_reason = call_suggestion
+
     if should_call and call_reason.startswith("TIMING_CONFIRMED:"):
         confirmed_time = call_reason.split("TIMING_CONFIRMED:")[1].strip()
         call_rule = f"""
@@ -387,17 +404,34 @@ YOUR ONLY JOB: Write 2 sentences confirming this.
 DO NOT: ask any question, mention features, say anything else.
 EXAMPLE REPLY: "Perfect, {confirmed_time} it is! Our team will connect with you then."
 """
-    elif should_call:
-        call_rule = f"""
-THE LEAD WANTS TO CONNECT / SCHEDULE A CALL.
+
+    elif should_call and call_reason == "EXPLICIT_CALL_REQUEST":
+        call_rule = """
+THE LEAD HAS EXPLICITLY ASKED FOR A CALL.
 YOUR ONLY JOB: Write 2-3 sentences doing exactly this:
-  Sentence 1: Acknowledge warmly. Example: "Of course, happy to connect!"
+  Sentence 1: Acknowledge warmly. Example: "Happy to connect!"
   Sentence 2: Ask their preferred time. Example: "When works best for you — morning or evening?"
   Sentence 3: Reassure. Example: "Our team will reach out to you soon."
-DO NOT: talk about features, ask about their project, ignore the call request.
-DO NOT: answer any other question in this reply — the call request is the ONLY priority.
-EXAMPLE REPLY: "Sure, let's get you connected! When's a good time — morning or evening? Our team will reach out to you soon."
+DO NOT: talk about features, answer any other question, ignore the call request.
+EXAMPLE REPLY: "Happy to connect! When's a good time — morning or evening? Our team will reach out to you soon."
 """
+
+    elif should_call and call_reason == "SOFT_OFFER":
+        call_rule = """
+THE LEAD HAS A COMPLEX REQUIREMENT OR SEEMS READY TO MOVE FORWARD.
+YOUR JOB:
+  Step 1: Answer their message or question naturally (1-2 sentences max).
+  Step 2: At the very end, add ONE soft offer for a call — casual and non-pushy.
+
+GOOD soft offer examples:
+  "Would you like to hop on a quick call to discuss this in detail?"
+  "Want to connect over a call so we can walk you through everything?"
+  "Happy to set up a quick call if that'd be easier — just let me know!"
+
+DO NOT: jump straight to scheduling, ask for their time, or ignore their message.
+Make the call feel like a helpful offer, not a sales push.
+"""
+
     else:
         call_rule = """
 DO NOT suggest a call or meeting in this reply.
@@ -578,11 +612,11 @@ def generate_first_message(lead_id: str, org_id: str) -> str:
         service_interest=lead.get("service_interest"),
     )
 
-    service_name   = lead.get("service_interest") or "our services"
-    lead_name      = lead.get("name", "").split()[0] if lead.get("name") else ""
-    company        = f" at {lead['company']}" if lead.get("company") else ""
-    initial_msg    = lead.get("message", "")
-    reference_line = f'They mentioned: "{initial_msg[:100]}". ' if initial_msg else ""
+    service_name    = lead.get("service_interest") or "our services"
+    lead_name       = lead.get("name", "").split()[0] if lead.get("name") else ""
+    company         = f" at {lead['company']}" if lead.get("company") else ""
+    initial_msg     = lead.get("message", "")
+    reference_line  = f'They mentioned: "{initial_msg[:100]}". ' if initial_msg else ""
     knowledge_block = _build_knowledge_block(retrieved)
 
     system = f"""{org_config.get('system_prompt', 'You are a helpful sales assistant.')}
