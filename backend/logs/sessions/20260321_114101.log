@@ -1,0 +1,12 @@
+2026-03-21 11:41:01 | INFO     | [20260321_114101] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-21 11:41:05 | INFO     | [20260321_114101] CALLER_SPOKE — text=Bye-bye.
+2026-03-21 11:41:06 | INFO     | [20260321_114101] AI_SPOKE — text=Hi! Thanks for calling BluQQ, this is Priya speaking. How
+2026-03-21 11:41:09 | INFO     | [20260321_114101] CALLER_SPOKE — text=Hello.
+2026-03-21 11:41:10 | INFO     | [20260321_114101] AI_SPOKE — text=Hi there! How can I help you today?
+2026-03-21 11:41:21 | INFO     | [20260321_114101] CALLER_SPOKE — text=look what your services are like.
+2026-03-21 11:41:22 | INFO     | [20260321_114101] AI_SPOKE — text=Sure, we specialize in things like trading bots, dashboards,
+2026-03-21 11:41:36 | INFO     | [20260321_114101] CALLER_SPOKE — text=Let's take...
+2026-03-21 11:41:37 | INFO     | [20260321_114101] AI_SPOKE — text=Absolutely! We also do data pipelines, AI tools,
+2026-03-21 11:41:49 | INFO     | [20260321_114101] CALLER_SPOKE — text=Oh, yeah.
+2026-03-21 11:41:50 | INFO     | [20260321_114101] AI_SPOKE — text=Oh great! Could you tell me a bit more about what you’re looking for exactly?
+2026-03-21 11:45:24 | INFO     | [20260321_114101] CALL_ENDED — duration=04:22 | turns=0 | errors=0

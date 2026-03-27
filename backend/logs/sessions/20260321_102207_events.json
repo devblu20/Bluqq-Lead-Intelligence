@@ -1,0 +1,45 @@
+{
+  "session_id": "20260321_102207",
+  "start_time": "2026-03-21T10:22:07.051110",
+  "end_time": "2026-03-21T10:41:07.631154",
+  "total_events": 4,
+  "events": [
+    {
+      "timestamp": "2026-03-21T10:22:07.245515",
+      "session_id": "20260321_102207",
+      "event": "CALL_STARTED",
+      "data": {
+        "phone": "",
+        "redis": "yes",
+        "rag_chunks": 4
+      }
+    },
+    {
+      "timestamp": "2026-03-21T10:22:12.978765",
+      "session_id": "20260321_102207",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Hello! How can I assist you today?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-21T10:22:13.389019",
+      "session_id": "20260321_102207",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Hello."
+      }
+    },
+    {
+      "timestamp": "2026-03-21T10:41:07.627135",
+      "session_id": "20260321_102207",
+      "event": "CALL_ENDED",
+      "data": {
+        "duration": "19:00",
+        "turns": 0,
+        "errors": 0
+      }
+    }
+  ]
+}

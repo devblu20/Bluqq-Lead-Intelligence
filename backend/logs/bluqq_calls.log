@@ -1,0 +1,31 @@
+2026-03-27 11:21:37 | INFO     | ✅ RAG loaded from DB
+2026-03-27 11:23:02 | INFO     | [Incoming Call] ✅ TwiML → wss://stanniferous-sina-recallingly.ngrok-free.dev/media-stream
+2026-03-27 11:23:03 | INFO     | =======================================================
+2026-03-27 11:23:03 | INFO     | 📞 CALL STARTED — Session: 20260327_112303
+2026-03-27 11:23:03 | INFO     | =======================================================
+2026-03-27 11:23:06 | INFO     | ✅ Priya AI ready!
+2026-03-27 11:23:06 | INFO     | 📞 Stream   : MZ21dc1b0cbe8d62bbedc85b735023ed3f
+2026-03-27 11:23:06 | INFO     | 📞 Caller   : Unknown
+2026-03-27 11:23:06 | INFO     | 📞 To Number: +18145545755
+2026-03-27 11:23:07 | ERROR    | [Org] DB error: column c.phone_number does not exist
+LINE 4: ...      WHERE c.phone_number_id = '+18145545755' OR c.phone_nu...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "c.phone_number_id".
+
+2026-03-27 11:23:07 | WARNING  | ⚠ No org found — using default prompt
+2026-03-27 11:23:09 | INFO     | Caller : 以上言論不代表本台立場
+2026-03-27 11:23:10 | INFO     | Caller : Маленькая и прикольная.
+2026-03-27 11:23:10 | INFO     | Caller : Hello. 
+2026-03-27 11:23:10 | INFO     | Priya  : Sure, I can help with that. What kind of loan are you looking for?
+2026-03-27 11:23:12 | INFO     | Caller : there.
+2026-03-27 11:23:15 | INFO     | Caller : See you tomorrow. 
+2026-03-27 11:23:15 | INFO     | Priya  : Yes,
+2026-03-27 11:23:21 | INFO     | 📞 Call ended by Twilio
+2026-03-27 11:23:22 | INFO     | Caller : इसको जैसे कट करने नहीं।
+2026-03-27 11:23:25 | INFO     | Caller : मेन अगर यह लोग होना यह पिन् से भीलिक्गSí, कीन
+2026-03-27 11:44:43 | INFO     | ───────────────────────────────────────────────────────
+2026-03-27 11:44:43 | INFO     |   Org     : None (None)
+2026-03-27 11:44:43 | INFO     |   Caller  : 
+2026-03-27 11:44:43 | INFO     |   Turns   : 7
+2026-03-27 11:44:43 | INFO     |   Tools   : []
+2026-03-27 11:44:43 | INFO     | ───────────────────────────────────────────────────────

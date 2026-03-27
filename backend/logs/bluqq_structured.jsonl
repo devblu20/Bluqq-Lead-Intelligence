@@ -1,0 +1,27 @@
+{"timestamp": "2026-03-27T11:21:37.997621", "level": "INFO", "logger": "bluqq", "message": "✅ RAG loaded from DB", "module": "main", "line": 560}
+{"timestamp": "2026-03-27T11:23:02.696766", "level": "INFO", "logger": "bluqq", "message": "[Incoming Call] ✅ TwiML → wss://stanniferous-sina-recallingly.ngrok-free.dev/media-stream", "module": "main", "line": 315}
+{"timestamp": "2026-03-27T11:23:03.319363", "level": "INFO", "logger": "bluqq", "message": "=======================================================", "module": "main", "line": 342}
+{"timestamp": "2026-03-27T11:23:03.324375", "level": "INFO", "logger": "bluqq", "message": "📞 CALL STARTED — Session: 20260327_112303", "module": "main", "line": 343}
+{"timestamp": "2026-03-27T11:23:03.328376", "level": "INFO", "logger": "bluqq", "message": "=======================================================", "module": "main", "line": 344}
+{"timestamp": "2026-03-27T11:23:06.781919", "level": "INFO", "logger": "bluqq", "message": "✅ Priya AI ready!", "module": "main", "line": 371}
+{"timestamp": "2026-03-27T11:23:06.784035", "level": "INFO", "logger": "bluqq", "message": "📞 Stream   : MZ21dc1b0cbe8d62bbedc85b735023ed3f", "module": "main", "line": 387}
+{"timestamp": "2026-03-27T11:23:06.785028", "level": "INFO", "logger": "bluqq", "message": "📞 Caller   : Unknown", "module": "main", "line": 388}
+{"timestamp": "2026-03-27T11:23:06.786021", "level": "INFO", "logger": "bluqq", "message": "📞 To Number: +18145545755", "module": "main", "line": 389}
+{"timestamp": "2026-03-27T11:23:07.280389", "level": "ERROR", "logger": "bluqq", "message": "[Org] DB error: column c.phone_number does not exist\nLINE 4: ...      WHERE c.phone_number_id = '+18145545755' OR c.phone_nu...\n                                                             ^\nHINT:  Perhaps you meant to reference the column \"c.phone_number_id\".\n", "module": "main", "line": 84}
+{"timestamp": "2026-03-27T11:23:07.283408", "level": "WARNING", "logger": "bluqq", "message": "⚠ No org found — using default prompt", "module": "main", "line": 415}
+{"timestamp": "2026-03-27T11:23:09.184186", "level": "INFO", "logger": "bluqq", "message": "Caller : 以上言論不代表本台立場", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:23:10.078152", "level": "INFO", "logger": "bluqq", "message": "Caller : Маленькая и прикольная.", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:23:10.082299", "level": "INFO", "logger": "bluqq", "message": "Caller : Hello. ", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:23:10.948671", "level": "INFO", "logger": "bluqq", "message": "Priya  : Sure, I can help with that. What kind of loan are you looking for?", "module": "main", "line": 466}
+{"timestamp": "2026-03-27T11:23:12.896187", "level": "INFO", "logger": "bluqq", "message": "Caller : there.", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:23:15.422383", "level": "INFO", "logger": "bluqq", "message": "Caller : See you tomorrow. ", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:23:15.507989", "level": "INFO", "logger": "bluqq", "message": "Priya  : Yes,", "module": "main", "line": 466}
+{"timestamp": "2026-03-27T11:23:21.762544", "level": "INFO", "logger": "bluqq", "message": "📞 Call ended by Twilio", "module": "main", "line": 425}
+{"timestamp": "2026-03-27T11:23:22.539632", "level": "INFO", "logger": "bluqq", "message": "Caller : इसको जैसे कट करने नहीं।", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:23:25.921994", "level": "INFO", "logger": "bluqq", "message": "Caller : मेन अगर यह लोग होना यह पिन् से भीलिक्गSí, कीन", "module": "main", "line": 457}
+{"timestamp": "2026-03-27T11:44:43.602726", "level": "INFO", "logger": "bluqq", "message": "───────────────────────────────────────────────────────", "module": "main", "line": 530}
+{"timestamp": "2026-03-27T11:44:43.616975", "level": "INFO", "logger": "bluqq", "message": "  Org     : None (None)", "module": "main", "line": 531}
+{"timestamp": "2026-03-27T11:44:43.617917", "level": "INFO", "logger": "bluqq", "message": "  Caller  : ", "module": "main", "line": 532}
+{"timestamp": "2026-03-27T11:44:43.618919", "level": "INFO", "logger": "bluqq", "message": "  Turns   : 7", "module": "main", "line": 533}
+{"timestamp": "2026-03-27T11:44:43.618919", "level": "INFO", "logger": "bluqq", "message": "  Tools   : []", "module": "main", "line": 534}
+{"timestamp": "2026-03-27T11:44:43.620453", "level": "INFO", "logger": "bluqq", "message": "───────────────────────────────────────────────────────", "module": "main", "line": 535}

@@ -1,0 +1,55 @@
+{
+  "session_id": "20260327_112303",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T11:44:43.594086",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "以上言論不代表本台立場",
+      "timestamp": "2026-03-27T11:23:09.187184"
+    },
+    {
+      "role": "caller",
+      "text": "Маленькая и прикольная.",
+      "timestamp": "2026-03-27T11:23:10.081299"
+    },
+    {
+      "role": "caller",
+      "text": "Hello. ",
+      "timestamp": "2026-03-27T11:23:10.083298"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I can help with that. What kind of loan are you looking for?",
+      "timestamp": "2026-03-27T11:23:10.949557"
+    },
+    {
+      "role": "caller",
+      "text": "there.",
+      "timestamp": "2026-03-27T11:23:12.898175"
+    },
+    {
+      "role": "caller",
+      "text": "See you tomorrow. ",
+      "timestamp": "2026-03-27T11:23:15.424408"
+    },
+    {
+      "role": "ai",
+      "text": "Yes,",
+      "timestamp": "2026-03-27T11:23:15.508614"
+    },
+    {
+      "role": "caller",
+      "text": "इसको जैसे कट करने नहीं।",
+      "timestamp": "2026-03-27T11:23:22.542554"
+    },
+    {
+      "role": "caller",
+      "text": "मेन अगर यह लोग होना यह पिन् से भीलिक्गSí, कीन",
+      "timestamp": "2026-03-27T11:23:25.924121"
+    }
+  ],
+  "tools_used": []
+}

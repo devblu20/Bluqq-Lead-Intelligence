@@ -1,0 +1,28 @@
+{
+  "session_id": "20260323_103442",
+  "start_time": "2026-03-23T10:34:42.230926",
+  "end_time": "2026-03-23T10:36:08.659538",
+  "total_events": 2,
+  "events": [
+    {
+      "timestamp": "2026-03-23T10:34:42.339528",
+      "session_id": "20260323_103442",
+      "event": "CALL_STARTED",
+      "data": {
+        "phone": "",
+        "redis": "yes",
+        "rag_chunks": 4
+      }
+    },
+    {
+      "timestamp": "2026-03-23T10:36:08.657341",
+      "session_id": "20260323_103442",
+      "event": "CALL_ENDED",
+      "data": {
+        "duration": "01:26",
+        "turns": 0,
+        "errors": 0
+      }
+    }
+  ]
+}

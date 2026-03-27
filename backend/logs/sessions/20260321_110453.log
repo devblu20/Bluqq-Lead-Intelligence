@@ -1,0 +1,3 @@
+2026-03-21 11:04:53 | INFO     | [20260321_110453] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-21 11:04:57 | INFO     | [20260321_110453] AI_SPOKE — text=¡Hola! ¿Qué tal? ¿Cómo te va hoy?
+2026-03-21 11:07:08 | INFO     | [20260321_110453] CALL_ENDED — duration=02:15 | turns=0 | errors=0

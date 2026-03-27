@@ -1,0 +1,14 @@
+2026-03-22 16:35:34 | INFO     | [20260322_163534] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 16:35:39 | INFO     | [20260322_163534] AI_SPOKE — text=Hi, this is Priya from BluQQ! How
+2026-03-22 16:35:41 | INFO     | [20260322_163534] CALLER_SPOKE — text=Hello.
+2026-03-22 16:35:50 | INFO     | [20260322_163534] CALLER_SPOKE — text=Okay.
+2026-03-22 16:35:50 | INFO     | [20260322_163534] AI_SPOKE — text=How can I help today?
+2026-03-22 16:35:55 | INFO     | [20260322_163534] CALLER_SPOKE — text=Oh
+2026-03-22 16:35:58 | INFO     | [20260322_163534] CALLER_SPOKE — text=Or our services provide look.
+2026-03-22 16:35:58 | INFO     | [20260322_163534] AI_SPOKE — text=We provide trading bots, dashboards,
+2026-03-22 16:36:13 | INFO     | [20260322_163534] AI_SPOKE — text=We also offer AI tools and data
+2026-03-22 16:36:13 | INFO     | [20260322_163534] CALLER_SPOKE — text=You provide only two services, training boards and desktops.
+2026-03-22 16:36:17 | INFO     | [20260322_163534] CALLER_SPOKE — text=Peace.
+2026-03-22 16:36:18 | INFO     | [20260322_163534] AI_SPOKE — text=pipelines to help with automation and analysis.
+2026-03-22 16:36:34 | INFO     | [20260322_163534] AI_SPOKE — text=Sure, do you have a specific service in mind?
+2026-03-22 16:36:34 | INFO     | [20260322_163534] CALLER_SPOKE

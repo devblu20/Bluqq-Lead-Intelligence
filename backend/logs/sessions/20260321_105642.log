@@ -1,0 +1,6 @@
+2026-03-21 10:56:42 | INFO     | [20260321_105642] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-21 10:56:46 | INFO     | [20260321_105642] CALLER_SPOKE — text=Thank you.
+2026-03-21 10:56:46 | INFO     | [20260321_105642] AI_SPOKE — text=Hello! How can I assist you today?
+2026-03-21 10:56:50 | INFO     | [20260321_105642] AI_SPOKE — text=Sure, what kind of information are you looking for?
+2026-03-21 10:56:50 | INFO     | [20260321_105642] CALLER_SPOKE — text=Thank you.
+2026-03-21 11:01:05 | INFO     | [20260321_105642] CALL_ENDED — duration=04:22 | turns=0 | errors=0
