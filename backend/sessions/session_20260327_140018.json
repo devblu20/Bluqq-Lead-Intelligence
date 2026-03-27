@@ -1,0 +1,125 @@
+{
+  "session_id": "20260327_140018",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T14:21:30.154385",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "This call is now being recorded.",
+      "timestamp": "2026-03-27T14:00:23.756361"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, thanks for letting me know. What would you like to talk about today?",
+      "timestamp": "2026-03-27T14:00:23.792305"
+    },
+    {
+      "role": "caller",
+      "text": "I am looking for co-working space in Andheri.",
+      "timestamp": "2026-03-27T14:00:33.788081"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I can help with that! Are you looking for a private office or more of an open desk setup?",
+      "timestamp": "2026-03-27T14:00:34.571291"
+    },
+    {
+      "role": "caller",
+      "text": "a private office for three people",
+      "timestamp": "2026-03-27T14:00:45.254781"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, a private office for three people. Do you have a preferred budget in mind?",
+      "timestamp": "2026-03-27T14:00:46.168957"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, around...",
+      "timestamp": "2026-03-27T14:00:56.730169"
+    },
+    {
+      "role": "caller",
+      "text": "30k per month",
+      "timestamp": "2026-03-27T14:00:58.127305"
+    },
+    {
+      "role": "ai",
+      "text": "Thanks for sharing that. Would you prefer a space closer to the metro, or is that not a big factor for you?",
+      "timestamp": "2026-03-27T14:00:59.631934"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, if it's closer to metro, then it will be much better.",
+      "timestamp": "2026-03-27T14:01:12.583951"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, close to the metro and around 30K per month. When do you need to move in?",
+      "timestamp": "2026-03-27T14:01:12.712259"
+    },
+    {
+      "role": "caller",
+      "text": "next month, 15th of April.",
+      "timestamp": "2026-03-27T14:01:23.912015"
+    },
+    {
+      "role": "ai",
+      "text": "Perfect, so mid-April move-in. Would you like me to find some available options and share details with you?",
+      "timestamp": "2026-03-27T14:01:25.389523"
+    },
+    {
+      "role": "ai",
+      "text": "I can definitely summarize the details for you first. Just to confirm, you're looking for a private office for three people in Andheri,",
+      "timestamp": "2026-03-27T14:01:40.465653"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, do please drop this message on whatsapp and first let me know here",
+      "timestamp": "2026-03-27T14:01:41.048475"
+    },
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-27T14:02:04.447689"
+    },
+    {
+      "role": "ai",
+      "text": "Hi again! I just wanted to confirm the details before I share anything further. Are you okay if I send a summary of your requirements on WhatsApp once",
+      "timestamp": "2026-03-27T14:02:05.627835"
+    },
+    {
+      "role": "caller",
+      "text": "Can you let me know about the summary first? What are all the options you have?",
+      "timestamp": "2026-03-27T14:02:20.605097"
+    },
+    {
+      "role": "ai",
+      "text": "Sure! So, based on what you've shared: \n\n- You need a private office for 3 people in Andheri.  \n- Your budget is around 30K",
+      "timestamp": "2026-03-27T14:02:21.641371"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-27T14:02:29.930957"
+    },
+    {
+      "role": "ai",
+      "text": "Got it. And you’re looking to move in around April 15th, with a preference for something close to the metro. Does that sound right so far?",
+      "timestamp": "2026-03-27T14:02:31.186480"
+    },
+    {
+      "role": "caller",
+      "text": "Loving you.",
+      "timestamp": "2026-03-27T14:02:44.509679"
+    },
+    {
+      "role": "ai",
+      "text": "Awesome! I'll get that all summarized and look into some options for you. Would you like me to send these details over WhatsApp once I have more info?",
+      "timestamp": "2026-03-27T14:02:45.447987"
+    }
+  ],
+  "tools_used": []
+}

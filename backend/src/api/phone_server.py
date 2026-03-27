@@ -669,7 +669,7 @@ async def media_stream(twilio_ws: WebSocket):
     if redis_ok(): redis_start_call(session_id, call_start)
 
     async with client.beta.realtime.connect(
-        model="gpt-4o-realtime-preview"
+        model="gpt-realtime-1.5"
     ) as openai_conn:
 
         session_cfg = {
@@ -677,9 +677,9 @@ async def media_stream(twilio_ws: WebSocket):
             "instructions": BASE_SYSTEM_PROMPT,
             "turn_detection": {
                 "type":                "server_vad",
-                "threshold":           0.75,
+                "threshold":           0.7,
                 "prefix_padding_ms":   300,
-                "silence_duration_ms": 600
+                "silence_duration_ms": 1800
             },
             "voice":                      "shimmer",
             "input_audio_format":         "g711_ulaw",
@@ -780,7 +780,8 @@ async def media_stream(twilio_ws: WebSocket):
                     text       = event.transcript
                     confidence = getattr(event, "confidence", 1.0)
 
-                    if confidence < 0.6:
+                    if confidence < 0.75 or len(text.strip()) < 3:
+                
                         log.warning(f"⚠ Low confidence ({confidence:.2f}): '{text}' — asking to repeat")
                         await openai_conn.conversation.item.create(item={
                             "type":    "message",

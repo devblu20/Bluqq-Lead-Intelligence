@@ -1,0 +1,50 @@
+{
+  "session_id": "20260327_134804",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T13:52:26.220482",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello",
+      "timestamp": "2026-03-27T13:48:10.089952"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya! How can I help you today?",
+      "timestamp": "2026-03-27T13:48:10.111018"
+    },
+    {
+      "role": "caller",
+      "text": "Bye-bye.",
+      "timestamp": "2026-03-27T13:48:14.394990"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I'd be happy to help with that. What kind of services are you looking for exactly?",
+      "timestamp": "2026-03-27T13:48:15.566249"
+    },
+    {
+      "role": "caller",
+      "text": "I'm looking for a co-working experience.",
+      "timestamp": "2026-03-27T13:48:18.601025"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! Are you looking for a private office, a dedicated desk, or something more flexible?",
+      "timestamp": "2026-03-27T13:48:19.888453"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you. ",
+      "timestamp": "2026-03-27T13:48:26.210807"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, a dedicated desk it is! Do you have a particular location or neighborhood in mind?",
+      "timestamp": "2026-03-27T13:48:28.143850"
+    }
+  ],
+  "tools_used": []
+}

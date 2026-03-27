@@ -187,6 +187,32 @@ def get_rag_context(query_text: str, top_k: int = 3, org_id: str = None) -> str:
             for p in policies:
                 parts.append(f"[POLICY] {p['rule_text']}")
 
+        # ─────────────────────────────────────────────
+        # ✅ NEW: CALL KNOWLEDGE TABLE ADD (NO DELETE)
+        # ─────────────────────────────────────────────
+        if org_id:
+            ck_rows = query(
+                """SELECT category, title, content
+                   FROM call_knowledge
+                   WHERE org_id = %s AND is_active = TRUE
+                   LIMIT %s""",
+                (org_id, top_k), fetch="all"
+            )
+        else:
+            ck_rows = query(
+                """SELECT category, title, content
+                   FROM call_knowledge
+                   WHERE is_active = TRUE
+                   LIMIT %s""",
+                (top_k,), fetch="all"
+            )
+
+        if ck_rows:
+            for r in ck_rows:
+                parts.append(f"[{r['category'].upper()}] {r['title']}: {r['content']}")
+
+        # ─────────────────────────────────────────────
+
         if not parts:
             return ""
 

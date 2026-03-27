@@ -1,0 +1,163 @@
+{
+  "session_id": "20260327_141540",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T14:21:30.116650",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello",
+      "timestamp": "2026-03-27T14:15:43.087241"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya! How can I help you today?",
+      "timestamp": "2026-03-27T14:15:43.786963"
+    },
+    {
+      "role": "caller",
+      "text": "I am looking for a co-working space.",
+      "timestamp": "2026-03-27T14:15:51.106778"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! Are you looking for a private office or more of a shared desk setup?",
+      "timestamp": "2026-03-27T14:15:52.066874"
+    },
+    {
+      "role": "caller",
+      "text": "a private office.",
+      "timestamp": "2026-03-27T14:16:00.741926"
+    },
+    {
+      "role": "ai",
+      "text": "Great! Any specific location or neighborhood you're interested in?",
+      "timestamp": "2026-03-27T14:16:01.313310"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, and then maybe",
+      "timestamp": "2026-03-27T14:16:09.559971"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, in the Delhi area. How soon are you looking to start?",
+      "timestamp": "2026-03-27T14:16:10.776086"
+    },
+    {
+      "role": "caller",
+      "text": "next month on 15th April.",
+      "timestamp": "2026-03-27T14:16:21.278534"
+    },
+    {
+      "role": "ai",
+      "text": "Perfect, that gives us some time to find good options. What’s your budget range for the private office?",
+      "timestamp": "2026-03-27T14:16:21.844143"
+    },
+    {
+      "role": "caller",
+      "text": "But I am looking for a lady in Mumbai, not in Delhi.",
+      "timestamp": "2026-03-27T14:16:33.361888"
+    },
+    {
+      "role": "ai",
+      "text": "Oh, got it! You’re looking for a private office in Mumbai, starting mid-April. Thanks for clarifying! Any specific area in Mumbai you prefer?",
+      "timestamp": "2026-03-27T14:16:34.904304"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, and I'm leaving.",
+      "timestamp": "2026-03-27T14:16:45.388439"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, Andheri it is! Do you need any specific amenities, like meeting rooms or high-speed internet?",
+      "timestamp": "2026-03-27T14:16:46.853545"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, I need private meeting rooms.",
+      "timestamp": "2026-03-27T14:16:58.764132"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, private meeting rooms included. Would you like me to help arrange a consultation for available spaces in Andheri?",
+      "timestamp": "2026-03-27T14:16:59.643640"
+    },
+    {
+      "role": "caller",
+      "text": "Can you tell me like what are the facilities included in private meeting rooms?",
+      "timestamp": "2026-03-27T14:17:13.270370"
+    },
+    {
+      "role": "ai",
+      "text": "So, private meeting rooms typically include high-speed internet, conference calling equipment, whiteboards, and sometimes refreshments.",
+      "timestamp": "2026-03-27T14:17:17.401246"
+    },
+    {
+      "role": "caller",
+      "text": "What is the pricing of it?",
+      "timestamp": "2026-03-27T14:17:29.466438"
+    },
+    {
+      "role": "ai",
+      "text": "Pricing can vary based on location and amenities. I can have a team member share a detailed proposal with you if you'd like. Would that",
+      "timestamp": "2026-03-27T14:17:30.875242"
+    },
+    {
+      "role": "caller",
+      "text": "Can you book a visit?",
+      "timestamp": "2026-03-27T14:17:42.350146"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I can help with that! Could you please share your name and email so we can arrange the visit?",
+      "timestamp": "2026-03-27T14:17:42.866160"
+    },
+    {
+      "role": "caller",
+      "text": "Yeah, my name is Tanisha.",
+      "timestamp": "2026-03-27T14:17:51.386344"
+    },
+    {
+      "role": "ai",
+      "text": "Thanks, Tanisha! Could you also share your email address so we can confirm the visit details?",
+      "timestamp": "2026-03-27T14:17:52.545906"
+    },
+    {
+      "role": "caller",
+      "text": "तनीशा जाएं एज़रेट जीमरेट डाट फांब।",
+      "timestamp": "2026-03-27T14:18:02.648447"
+    },
+    {
+      "role": "ai",
+      "text": "Perfect, thank you! And what’s your preferred time for the visit around mid-April?",
+      "timestamp": "2026-03-27T14:18:03.434460"
+    },
+    {
+      "role": "caller",
+      "text": "on Monday 1 p.m.",
+      "timestamp": "2026-03-27T14:18:13.198037"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! The visit is tentatively scheduled for Monday, April 15 at 1 PM. The team will confirm shortly. Anything else you'd like to",
+      "timestamp": "2026-03-27T14:18:23.314768"
+    },
+    {
+      "role": "caller",
+      "text": "Okay, thank you.",
+      "timestamp": "2026-03-27T14:18:34.046294"
+    },
+    {
+      "role": "ai",
+      "text": "You're welcome, Tanisha! Have a great day!",
+      "timestamp": "2026-03-27T14:18:34.450618"
+    }
+  ],
+  "tools_used": [
+    "search_knowledge_base",
+    "book_consultation"
+  ]
+}

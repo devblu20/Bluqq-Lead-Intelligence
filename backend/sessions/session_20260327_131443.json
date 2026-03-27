@@ -1,0 +1,52 @@
+{
+  "session_id": "20260327_131443",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T13:24:38.801440",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Bye.",
+      "timestamp": "2026-03-27T13:14:49.428630"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya! How can I help you today?",
+      "timestamp": "2026-03-27T13:14:50.028788"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! What kind of trip are you planning?",
+      "timestamp": "2026-03-27T13:14:54.788975"
+    },
+    {
+      "role": "caller",
+      "text": "Bye-bye.",
+      "timestamp": "2026-03-27T13:14:54.836165"
+    },
+    {
+      "role": "caller",
+      "text": "I am looking for a workspace.",
+      "timestamp": "2026-03-27T13:14:57.650435"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! Are you looking for a co-working space or a private office?",
+      "timestamp": "2026-03-27T13:14:58.129368"
+    },
+    {
+      "role": "caller",
+      "text": "What services do you offer?",
+      "timestamp": "2026-03-27T13:15:08.559209"
+    },
+    {
+      "role": "ai",
+      "text": "We offer AI-powered automation solutions for businesses, like automating customer interactions and booking processes. Are you",
+      "timestamp": "2026-03-27T13:15:10.901115"
+    }
+  ],
+  "tools_used": [
+    "search_knowledge_base"
+  ]
+}
