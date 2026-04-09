@@ -1,0 +1,30 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260320_135128
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-20
+Time         : 13:51:28
+Duration     : 05:18
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 39
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[13:51:33] CALLER : Hello
+
+[13:51:34] AI     : Hello! How can I assist you today?
+
+[13:51:38] CALLER : You
+
+[13:52:25] AI     : Certainly! Could you tell me a bit more about your company’s needs or what services you’re interested in? That way, I can provide the best information.
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

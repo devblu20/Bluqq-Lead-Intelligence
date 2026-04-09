@@ -1,0 +1,34 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260323_125301
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-23
+Time         : 12:53:01
+Duration     : 13:15
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[12:53:05] CALLER : Hello
+
+[12:53:06] AI     : Hi, this is Priya from BluQQ! How can I help you today?
+
+[12:53:14] CALLER : What are the resources you provide?
+
+[12:53:16] AI     : We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate
+
+[12:53:28] CALLER : OK.
+
+[12:53:29] AI     : Absolutely! Is there a specific service you're looking for more details on?
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

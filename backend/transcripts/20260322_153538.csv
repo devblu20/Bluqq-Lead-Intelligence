@@ -1,0 +1,9 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,1,AI,"Hi! Thanks for calling BluQQ, this is Priya. How can I help you",15:35:43
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,2,CALLER,Hello.,15:35:43
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,3,CALLER,How are you?,15:35:52
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,4,AI,"I’m doing great, thanks for asking! What about you? What can I help you with",15:35:53
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,5,CALLER,What is your name?,15:36:02
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,6,AI,I’m Priya! And you?,15:36:03
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,7,AI,"Lovely to meet you, Anurag! What would you like to chat about today?",15:36:11
+20260322_153538,Unknown,Unknown,2026-03-22,15:35:38,8,CALLER,My name is Anurag.,15:36:12

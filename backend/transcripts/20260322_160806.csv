@@ -1,0 +1,16 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,1,CALLER,Hello.,16:08:11
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,2,AI,"Hi, this is Priya from BluQQ! How can I help you today?",16:08:12
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,3,AI,"Right now, I’m here to help you with anything related to our services—whether it's about trading bots, dashboards,",16:08:23
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,4,CALLER,Go Diary.,16:08:23
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,5,CALLER,Okay.,16:08:36
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,6,AI,Great! Is there a particular service you're interested in learning more about?,16:08:37
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,7,CALLER,I am interested in build AI trading automation.,16:08:52
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,8,AI,"Absolutely, we offer AI-powered trading bots that can automate your trades based on your strategies.",16:08:52
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,9,CALLER,And I am also interested in,16:08:58
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,10,AI,Got it! AI trading automation and dashboards—both are right up our alley. Do you have any specific,16:08:59
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,11,CALLER,Okay. ,16:09:18
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,12,AI,No worries! We can definitely explore both options and see what's the best fit for you. Would you like,16:09:19
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,13,CALLER,Your voice is not proper. How to fix it?,16:09:35
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,14,CALLER,Bye. ,16:09:37
+20260322_160806,Unknown,Unknown,2026-03-22,16:08:06,15,AI,I’m really sorry if it’s not coming through clearly. Maybe it’s a network issue. Would you like me to try calling back,16:09:37

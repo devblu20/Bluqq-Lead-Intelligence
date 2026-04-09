@@ -1,0 +1,8 @@
+2026-03-23 10:58:25 | INFO     | [20260323_105825] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-23 11:00:42 | INFO     | [20260323_105825] TOOL_CALLED — tool=book_consultation | args={'name': 'Potential Client', 'preferred_time': 'today at 7 PM', 'topic': 'Custom
+2026-03-23 11:00:42 | INFO     | [20260323_105825] TOOL_RESULT — tool=book_consultation | status=success
+2026-03-23 11:01:13 | INFO     | [20260323_105825] TOOL_CALLED — tool=update_crm | args={'email': 'divanshgarg999@gmail.com'}
+2026-03-23 11:01:13 | INFO     | [20260323_105825] TOOL_RESULT — tool=update_crm | status=error
+2026-03-23 11:01:14 | INFO     | [20260323_105825] TOOL_CALLED — tool=book_consultation | args={'name': 'Divansh Garg', 'email': 'divanshgarg999@gmail.com', 'preferred_time': 
+2026-03-23 11:01:15 | INFO     | [20260323_105825] TOOL_RESULT — tool=book_consultation | status=success
+2026-03-23 11:05:29 | INFO     | [20260323_105825] CALL_ENDED — duration=07:03 | turns=0 | errors=0

@@ -1,0 +1,48 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260321_111820
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-21
+Time         : 11:18:20
+Duration     : 03:56
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[11:18:25] AI     : Welcome to BluQQ, how can I help?
+
+[11:18:25] CALLER : Hello.
+
+[11:18:34] AI     : We offer trading tools, dashboards,
+
+[11:18:36] CALLER : 
+
+[11:18:40] AI     : Our AI automation services range from
+
+[11:18:40] CALLER : 
+
+[11:18:49] CALLER : OK.
+
+[11:18:49] AI     : What specific service are you interested in
+
+[11:19:00] CALLER : I'm interested in building an AI automation training system.
+
+[11:19:01] CALLER : Bye.
+
+[11:19:02] AI     : Our AI automation for trading can handle
+
+[11:19:10] AI     : What’s your timeline for implementation?
+
+[11:19:10] CALLER : Yes.
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

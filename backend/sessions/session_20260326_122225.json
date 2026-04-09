@@ -1,0 +1,73 @@
+{
+  "session_id": "20260326_122225",
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-26T12:52:31.147003",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-26T12:22:29.539200"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya from BluQQ! How can I help you today?",
+      "timestamp": "2026-03-26T12:22:30.319789"
+    },
+    {
+      "role": "caller",
+      "text": "I want to create a chatbot for my restaurant.",
+      "timestamp": "2026-03-26T12:22:40.065194"
+    },
+    {
+      "role": "ai",
+      "text": "That sounds great! Are you looking for a chatbot for customer service or for taking orders?",
+      "timestamp": "2026-03-26T12:22:41.108242"
+    },
+    {
+      "role": "caller",
+      "text": "Can you tell me what features I can add in my chatbot?",
+      "timestamp": "2026-03-26T12:22:52.439160"
+    },
+    {
+      "role": "ai",
+      "text": "Absolutely! You can add features like menu browsing, order placement, reservation booking, and even answering common customer questions.",
+      "timestamp": "2026-03-26T12:22:53.670849"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-26T12:23:01.390059"
+    },
+    {
+      "role": "ai",
+      "text": "Would you also like it to handle feedback or loyalty programs for your restaurant?",
+      "timestamp": "2026-03-26T12:23:02.093055"
+    },
+    {
+      "role": "caller",
+      "text": "Can we add a voucher?",
+      "timestamp": "2026-03-26T12:23:13.186020"
+    },
+    {
+      "role": "caller",
+      "text": "option in that.",
+      "timestamp": "2026-03-26T12:23:13.609093"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, absolutely! You can include voucher or discount code options in the chatbot to offer special promotions. Would that be something",
+      "timestamp": "2026-03-26T12:23:15.918104"
+    },
+    {
+      "role": "caller",
+      "text": "How can I achieve that?",
+      "timestamp": "2026-03-26T12:23:29.453766"
+    },
+    {
+      "role": "ai",
+      "text": "You can easily integrate a voucher system by connecting the chatbot to your existing promotions database or having it generate custom codes.",
+      "timestamp": "2026-03-26T12:23:30.308770"
+    }
+  ],
+  "tools_used": []
+}

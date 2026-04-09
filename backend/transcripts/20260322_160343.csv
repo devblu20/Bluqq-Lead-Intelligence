@@ -1,0 +1,13 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,1,CALLER,Hello.,16:03:48
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,2,AI,"Hi, this is Priya from BluQQ! How can I help you today?",16:03:49
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,3,CALLER,What are you doing?,16:03:59
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,4,AI,"We offer trading bots, dashboards, AI tools, data",16:04:00
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,5,CALLER,What is Python?,16:04:11
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,6,AI,Python is a popular programming language we often use for building,16:04:11
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,7,AI,"We provide trading bots, dashboards, AI tools,",16:04:25
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,8,CALLER,what services provided look.,16:04:26
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,9,CALLER,Why you not speak proper?,16:04:37
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,10,AI,I’m keeping it short so it’s easy to follow! What would you like to,16:04:37
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,11,CALLER,Okay.,16:04:47
+20260322_160343,Unknown,Unknown,2026-03-22,16:03:43,12,AI,"Thanks! So, are you interested in any specific service we offer?",16:04:48

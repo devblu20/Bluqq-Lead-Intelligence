@@ -1,0 +1,55 @@
+{
+  "session_id": "20260320_121015",
+  "call_start": "2026-03-20T12:10:15.979711",
+  "call_end": "2026-03-20T12:10:18.783999",
+  "caller_phone": "Unknown",
+  "caller_name": "Unknown",
+  "duration": {
+    "total_duration_seconds": 2.8,
+    "total_duration_formatted": "00:02",
+    "listening_seconds": 0.0,
+    "processing_seconds": 0.0,
+    "speaking_seconds": 0.0,
+    "idle_seconds": 2.8,
+    "latency_ms": {
+      "avg": 0,
+      "min": 0,
+      "max": 0,
+      "all": []
+    }
+  },
+  "total_turns": 0,
+  "tools_used": [],
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "",
+      "timestamp": "2026-03-20T12:10:18.254262"
+    }
+  ],
+  "turn_manager": {
+    "total_turns": 0,
+    "barge_in_count": 0,
+    "state_history": [],
+    "final_state": "IDLE"
+  },
+  "errors": {
+    "total_errors": 0,
+    "total_warnings": 0,
+    "errors": []
+  },
+  "latency": {
+    "session_id": "20260320_121015",
+    "total_turns": 0,
+    "stt_avg_ms": 0,
+    "llm_avg_ms": 0,
+    "tts_avg_ms": 0,
+    "e2e_avg_ms": 0,
+    "e2e_min_ms": 0,
+    "e2e_max_ms": 0,
+    "e2e_all": [],
+    "quality": "🟢 Excellent",
+    "turns": []
+  },
+  "status": "completed"
+}

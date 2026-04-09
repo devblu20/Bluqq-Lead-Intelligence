@@ -1,0 +1,13 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,1,CALLER,Hello.,10:34:46
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,2,AI,"Hi, this is Priya from BluQQ! How can I help you today?",10:34:47
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,3,CALLER,What are services provided to you?,10:34:59
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,4,AI,"We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate tech.",10:35:00
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,5,CALLER,Okay.,10:35:12
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,6,AI,Do you have a specific service in mind that you’d like to know more about?,10:35:13
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,7,CALLER,Not so far.,10:35:16
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,8,AI,"Our trading bots are designed to automate your trading strategies. They can help with executing trades, analyzing market data, and managing risk. Would",10:35:17
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,9,CALLER,Okay.,10:35:31
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,10,AI,Is there anything specific you’d like to achieve with a trading bot?,10:35:31
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,11,CALLER,Thank you.,10:35:40
+20260323_103442,Unknown,Unknown,2026-03-23,10:34:42,12,AI,"No worries! If you have any questions later or want to explore other options, just let me know. Would you like a free consultation to discuss things",10:35:41

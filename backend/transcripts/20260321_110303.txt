@@ -1,0 +1,28 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260321_110303
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-21
+Time         : 11:03:03
+Duration     : 01:07
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[11:03:06] AI     : Hey there! What’s up?
+
+[11:03:15] AI     : Hey! How's it going?
+
+[11:03:28] AI     : Luck is kind of like a random chance or something unpredictable that happens to you, either good or bad, without you controlling it. People often say someone is lucky if good things happen by chance, or unlucky if bad things happen out of nowhere. It’s a concept that’s been around forever, and people see it in all kinds of ways, from superstitions to just how life rolls.
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

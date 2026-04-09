@@ -1,0 +1,85 @@
+{
+  "session_id": "20260327_135804",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T14:21:30.172813",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello",
+      "timestamp": "2026-03-27T13:58:08.662155"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya! How can I help you today?",
+      "timestamp": "2026-03-27T13:58:09.256627"
+    },
+    {
+      "role": "caller",
+      "text": "I am looking for a co-working space.",
+      "timestamp": "2026-03-27T13:58:17.414128"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! Are you looking for something short-term or more long-term?",
+      "timestamp": "2026-03-27T13:58:17.502131"
+    },
+    {
+      "role": "caller",
+      "text": "for short term.",
+      "timestamp": "2026-03-27T13:58:24.606132"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, short-term. Do you have a specific location or neighborhood in mind?",
+      "timestamp": "2026-03-27T13:58:25.786410"
+    },
+    {
+      "role": "caller",
+      "text": "No, I want to know what services do you offer?",
+      "timestamp": "2026-03-27T13:58:37.703517"
+    },
+    {
+      "role": "ai",
+      "text": "Sure! We offer flexible desks, private offices, meeting rooms, and amenities like high-speed internet and coffee. Anything",
+      "timestamp": "2026-03-27T13:58:38.673469"
+    },
+    {
+      "role": "caller",
+      "text": "Both facilities are included in it.",
+      "timestamp": "2026-03-27T13:58:51.049333"
+    },
+    {
+      "role": "ai",
+      "text": "We include high-speed Wi-Fi, printing services, conference rooms, and kitchen access with coffee and tea. Are you looking for any specific",
+      "timestamp": "2026-03-27T13:58:52.615519"
+    },
+    {
+      "role": "ai",
+      "text": "needs? For example, 24/7 access or",
+      "timestamp": "2026-03-27T13:59:03.323480"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-27T13:59:03.412777"
+    },
+    {
+      "role": "caller",
+      "text": "We now have some more questions from the audience.",
+      "timestamp": "2026-03-27T13:59:08.076589"
+    },
+    {
+      "role": "caller",
+      "text": "प्रेकॉर्णिंग कर रहे हैं, जीते हैं आपने तो प्रेकॉर्णिंग कर रहे हैं",
+      "timestamp": "2026-03-27T13:59:10.821291"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, many of our locations provide 24/7 access and secure entry. Would that be important for you?",
+      "timestamp": "2026-03-27T13:59:11.721500"
+    }
+  ],
+  "tools_used": []
+}

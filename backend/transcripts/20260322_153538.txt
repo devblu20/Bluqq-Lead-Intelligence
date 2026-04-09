@@ -1,0 +1,38 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260322_153538
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-22
+Time         : 15:35:38
+Duration     : 06:30
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[15:35:43] AI     : Hi! Thanks for calling BluQQ, this is Priya. How can I help you
+
+[15:35:43] CALLER : Hello.
+
+[15:35:52] CALLER : How are you?
+
+[15:35:53] AI     : I’m doing great, thanks for asking! What about you? What can I help you with
+
+[15:36:02] CALLER : What is your name?
+
+[15:36:03] AI     : I’m Priya! And you?
+
+[15:36:11] AI     : Lovely to meet you, Anurag! What would you like to chat about today?
+
+[15:36:12] CALLER : My name is Anurag.
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

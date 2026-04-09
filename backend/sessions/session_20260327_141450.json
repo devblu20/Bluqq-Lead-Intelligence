@@ -1,0 +1,55 @@
+{
+  "session_id": "20260327_141450",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T14:21:30.162792",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-27T14:14:53.316938"
+    },
+    {
+      "role": "ai",
+      "text": "Got it, thanks for letting me know. What can I help you with today?",
+      "timestamp": "2026-03-27T14:14:55.945334"
+    },
+    {
+      "role": "caller",
+      "text": "This call is now being recorded.",
+      "timestamp": "2026-03-27T14:14:56.242068"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you. ",
+      "timestamp": "2026-03-27T14:14:58.139407"
+    },
+    {
+      "role": "ai",
+      "text": "Hi there! How’s it going?",
+      "timestamp": "2026-03-27T14:14:58.221128"
+    },
+    {
+      "role": "caller",
+      "text": "Yes.",
+      "timestamp": "2026-03-27T14:14:59.351448"
+    },
+    {
+      "role": "ai",
+      "text": "I’m doing great, thanks for asking! What’s on your mind today?",
+      "timestamp": "2026-03-27T14:15:00.292993"
+    },
+    {
+      "role": "caller",
+      "text": "Bye.",
+      "timestamp": "2026-03-27T14:15:02.426180"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I’d love to help. What kind of information are you looking for?",
+      "timestamp": "2026-03-27T14:15:03.049074"
+    }
+  ],
+  "tools_used": []
+}

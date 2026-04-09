@@ -1,0 +1,181 @@
+{
+  "session_id": "20260322_154923",
+  "start_time": "2026-03-22T15:49:23.981347",
+  "end_time": "2026-03-22T15:50:40.878137",
+  "total_events": 20,
+  "events": [
+    {
+      "timestamp": "2026-03-22T15:49:24.280045",
+      "session_id": "20260322_154923",
+      "event": "CALL_STARTED",
+      "data": {
+        "phone": "",
+        "redis": "yes",
+        "rag_chunks": 4
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:28.764691",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Hello."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:29.121779",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Hi! Thanks for calling BluQQ, this is Priya. How",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:34.812794",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "How can I help you today?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:35.427652",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Bye."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:37.888110",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Oh."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:38.602199",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Of course! I'd be happy to help.",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:40.854653",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "What is Python?"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:41.674124",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "We offer trading bots, dashboards, data pipelines, AI tools,",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:51.766083",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "No, no, what if I can't?"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:49:52.292765",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Oh, got it! We mostly work on tech solutions like",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:00.416967",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Bye."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:01.027868",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "No worries! Could you tell me a bit more about what you're looking for?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:06.310868",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "I said, I said what is..."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:07.281164",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Absolutely! We create software tools and solutions.",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:13.316299",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "What is my turn?"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:14.340912",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "We help businesses with technology—like building trading",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:24.817003",
+      "session_id": "20260322_154923",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "We focus on creating custom software solutions,",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:25.398974",
+      "session_id": "20260322_154923",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Hope to see you again."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T15:50:40.876141",
+      "session_id": "20260322_154923",
+      "event": "CALL_ENDED",
+      "data": {
+        "duration": "01:16",
+        "turns": 0,
+        "errors": 9
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+2026-03-22 16:25:48 | INFO     | [20260322_162548] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 16:25:53 | INFO     | [20260322_162548] CALLER_SPOKE — text=Thank you. 
+2026-03-22 16:25:53 | INFO     | [20260322_162548] AI_SPOKE — text=Hi, this is Priya from BluQQ! How can I help you today?
+2026-03-22 16:26:10 | INFO     | [20260322_162548] AI_SPOKE — text=Absolutely! Our trading bots range from $500 up to $5,000, depending on
+2026-03-22 16:26:10 | INFO     | [20260322_162548] CALLER_SPOKE — text=to your project in studying Golden Space.
+2026-03-22 16:35:02 | INFO     | [20260322_162548] CALL_ENDED — duration=09:13 | turns=0 | errors=0

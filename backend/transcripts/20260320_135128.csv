@@ -1,0 +1,5 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260320_135128,Unknown,Unknown,2026-03-20,13:51:28,1,CALLER,Hello,13:51:33
+20260320_135128,Unknown,Unknown,2026-03-20,13:51:28,2,AI,Hello! How can I assist you today?,13:51:34
+20260320_135128,Unknown,Unknown,2026-03-20,13:51:28,3,CALLER,You,13:51:38
+20260320_135128,Unknown,Unknown,2026-03-20,13:51:28,4,AI,"Certainly! Could you tell me a bit more about your company’s needs or what services you’re interested in? That way, I can provide the best information.",13:52:25

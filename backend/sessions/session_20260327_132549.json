@@ -1,0 +1,162 @@
+{
+  "session_id": "20260327_132549",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T13:46:47.741227",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "जो सो ले गया है।",
+      "timestamp": "2026-03-27T13:25:53.752663"
+    },
+    {
+      "role": "ai",
+      "text": "Hi there! What can I do for you today?",
+      "timestamp": "2026-03-27T13:25:54.311936"
+    },
+    {
+      "role": "caller",
+      "text": "Bye.",
+      "timestamp": "2026-03-27T13:25:55.187705"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! What kind of amenities or location are you looking for?",
+      "timestamp": "2026-03-27T13:26:01.769268"
+    },
+    {
+      "role": "caller",
+      "text": "I am looking for a co-working space.",
+      "timestamp": "2026-03-27T13:26:02.986555"
+    },
+    {
+      "role": "caller",
+      "text": "Can you tell me, do you have private offices or dedicated desks?",
+      "timestamp": "2026-03-27T13:26:15.438459"
+    },
+    {
+      "role": "ai",
+      "text": "We do offer private offices for teams needing privacy and focus, as well as dedicated desks in a shared environment. Are you more",
+      "timestamp": "2026-03-27T13:26:17.688249"
+    },
+    {
+      "role": "caller",
+      "text": "Do you provide Wi-Fi in meeting rooms also?",
+      "timestamp": "2026-03-27T13:26:30.089967"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, we provide high-speed Wi-Fi and access to meeting rooms as well. Would you like more details on the meeting room options?",
+      "timestamp": "2026-03-27T13:26:31.383724"
+    },
+    {
+      "role": "caller",
+      "text": "Yes.",
+      "timestamp": "2026-03-27T13:26:42.756773"
+    },
+    {
+      "role": "caller",
+      "text": "What are the facilities included?",
+      "timestamp": "2026-03-27T13:26:45.361849"
+    },
+    {
+      "role": "ai",
+      "text": "Typically, meeting rooms come with video conferencing equipment, whiteboards, and presentation screens. How often do you think you'd need to use a meeting",
+      "timestamp": "2026-03-27T13:26:46.662551"
+    },
+    {
+      "role": "caller",
+      "text": "Thanks. ",
+      "timestamp": "2026-03-27T13:26:54.538719"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-27T13:26:55.549261"
+    },
+    {
+      "role": "ai",
+      "text": "No worries! We can adjust plans based on how often you need meeting rooms. Would you like to explore a flexible package or something more fixed?",
+      "timestamp": "2026-03-27T13:26:56.872237"
+    },
+    {
+      "role": "caller",
+      "text": "I love you.",
+      "timestamp": "2026-03-27T13:26:58.619038"
+    },
+    {
+      "role": "ai",
+      "text": "Take your time! Are you leaning toward a more flexible plan, or do you prefer something more fixed for your team?",
+      "timestamp": "2026-03-27T13:26:59.831847"
+    },
+    {
+      "role": "caller",
+      "text": "Can you...",
+      "timestamp": "2026-03-27T13:27:07.922762"
+    },
+    {
+      "role": "ai",
+      "text": "Of course! What specific details would you like me to clarify for you?",
+      "timestamp": "2026-03-27T13:27:09.201125"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-27T13:27:12.938524"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, I’m here to help. Do you want details on pricing or availability?",
+      "timestamp": "2026-03-27T13:27:14.432489"
+    },
+    {
+      "role": "ai",
+      "text": "No problem! Would you like me to connect you with someone from our team for more",
+      "timestamp": "2026-03-27T13:27:21.898253"
+    },
+    {
+      "role": "caller",
+      "text": "Bye. Bye. ",
+      "timestamp": "2026-03-27T13:27:22.048222"
+    },
+    {
+      "role": "caller",
+      "text": "Can you tell me what is the...",
+      "timestamp": "2026-03-27T13:27:25.751868"
+    },
+    {
+      "role": "ai",
+      "text": "Absolutely! Our private offices provide a fully enclosed space just for your team, while dedicated desks are personal workstations in",
+      "timestamp": "2026-03-27T13:27:26.249855"
+    },
+    {
+      "role": "ai",
+      "text": "…in a shared space",
+      "timestamp": "2026-03-27T13:27:34.839892"
+    },
+    {
+      "role": "caller",
+      "text": "Bye. ",
+      "timestamp": "2026-03-27T13:27:34.842047"
+    },
+    {
+      "role": "caller",
+      "text": "Bye.",
+      "timestamp": "2026-03-27T13:27:36.164514"
+    },
+    {
+      "role": "ai",
+      "text": "They both come with access",
+      "timestamp": "2026-03-27T13:27:36.299651"
+    },
+    {
+      "role": "caller",
+      "text": "बलव ओडिजी स्टार्टिंग प्राउस का प्राउस",
+      "timestamp": "2026-03-27T13:27:39.775636"
+    }
+  ],
+  "tools_used": [
+    "search_knowledge_base"
+  ]
+}

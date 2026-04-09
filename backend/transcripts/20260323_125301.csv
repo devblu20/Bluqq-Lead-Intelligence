@@ -1,0 +1,7 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260323_125301,Unknown,Unknown,2026-03-23,12:53:01,1,CALLER,Hello,12:53:05
+20260323_125301,Unknown,Unknown,2026-03-23,12:53:01,2,AI,"Hi, this is Priya from BluQQ! How can I help you today?",12:53:06
+20260323_125301,Unknown,Unknown,2026-03-23,12:53:01,3,CALLER,What are the resources you provide?,12:53:14
+20260323_125301,Unknown,Unknown,2026-03-23,12:53:01,4,AI,"We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate",12:53:16
+20260323_125301,Unknown,Unknown,2026-03-23,12:53:01,5,CALLER,OK.,12:53:28
+20260323_125301,Unknown,Unknown,2026-03-23,12:53:01,6,AI,Absolutely! Is there a specific service you're looking for more details on?,12:53:29

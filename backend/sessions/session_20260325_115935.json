@@ -1,0 +1,88 @@
+{
+  "session_id": "20260325_115935",
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-25T12:03:03.722555",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Helium.",
+      "timestamp": "2026-03-25T11:59:39.940024"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya from BluQQ! How can I help you today?",
+      "timestamp": "2026-03-25T11:59:40.490611"
+    },
+    {
+      "role": "caller",
+      "text": "and this is how it would look.",
+      "timestamp": "2026-03-25T11:59:52.840994"
+    },
+    {
+      "role": "ai",
+      "text": "We offer trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate tech. Is there a specific service",
+      "timestamp": "2026-03-25T11:59:54.027082"
+    },
+    {
+      "role": "caller",
+      "text": "Thank you.",
+      "timestamp": "2026-03-25T12:00:04.135872"
+    },
+    {
+      "role": "ai",
+      "text": "Our trading bots range from $500 to $5,000, depending on complexity. Are you interested in a particular type of bot?",
+      "timestamp": "2026-03-25T12:00:04.938481"
+    },
+    {
+      "role": "caller",
+      "text": "Hello, I am not interested.",
+      "timestamp": "2026-03-25T12:00:27.586239"
+    },
+    {
+      "role": "ai",
+      "text": "Nice to meet you, Mr. Mukesh! Are you looking for a trading bot or something else?",
+      "timestamp": "2026-03-25T12:00:28.329601"
+    },
+    {
+      "role": "caller",
+      "text": "Blessings.",
+      "timestamp": "2026-03-25T12:00:35.202729"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! Could you tell me a bit more about what you’re looking for in a dashboard?",
+      "timestamp": "2026-03-25T12:00:36.168771"
+    },
+    {
+      "role": "ai",
+      "text": "No problem at all! Have a great day!",
+      "timestamp": "2026-03-25T12:00:44.136983"
+    },
+    {
+      "role": "caller",
+      "text": "No, bye.",
+      "timestamp": "2026-03-25T12:00:44.371550"
+    },
+    {
+      "role": "caller",
+      "text": "Okay, you guys can.",
+      "timestamp": "2026-03-25T12:00:52.402301"
+    },
+    {
+      "role": "ai",
+      "text": "Sure, what’s your question?",
+      "timestamp": "2026-03-25T12:00:52.467875"
+    },
+    {
+      "role": "caller",
+      "text": "You've got my courage.",
+      "timestamp": "2026-03-25T12:00:59.806594"
+    },
+    {
+      "role": "ai",
+      "text": "We handle data pipelines that can collect, process, and move your data from multiple sources to your preferred storage or dashboard. What",
+      "timestamp": "2026-03-25T12:01:00.179828"
+    }
+  ],
+  "tools_used": []
+}

@@ -1,0 +1,835 @@
+"""
+ai_chat_service.py  —  BluQQ
+Fixed for actual stack:
+- psycopg2 sync query (no await)
+- get_settings() instead of settings
+- orchestrate() signature: org_id, lead_id, platform, message, service_interest
+- %s placeholders (not $1/$2)
+- generate_reply is async only for OpenAI call
+- Fixed: call trigger false positives (ambiguous words removed)
+- Fixed: "morning" as greeting no longer triggers TIMING_CONFIRMED
+- Added: SOFT_OFFER mode for complex/ready leads
+
+FIX CHANGELOG (v2):
+- FIX #1: already_asked_call check moved AFTER timing confirmation (was blocking it)
+- FIX #2: _detect_conversation_stage counts inbound-only messages for stage accuracy
+- FIX #3: generate_first_message now calls _update_ai_context to seed memory
+- FIX #4: max_auto_replies from org_ai_config is now enforced in generate_reply
+- FIX #5: _fetch_recent_conversations orders DESC then reverses, returning latest 20
+- FIX #6: tone_instruction is now interpolated into the system prompt
+- FIX #7: SOFT_OFFER guard added — won't re-offer call if already soft-offered recently
+"""
+
+import logging
+from typing import Optional
+
+from openai import OpenAI
+
+from src.config.database import query
+from src.config.settings import get_settings
+from src.services.retrieval.orchestrator import orchestrate
+
+logger = logging.getLogger(__name__)
+settings = get_settings()
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
+
+
+# ─────────────────────────────────────────────
+# HELPERS
+# ─────────────────────────────────────────────
+
+def _detect_lead_tone(messages: list[dict]) -> str:
+    inbound = [m["message"] for m in messages if m.get("direction") == "inbound"][-5:]
+    if not inbound:
+        return "professional and friendly"
+
+    combined = " ".join(inbound).lower()
+    avg_len = len(combined) / max(len(inbound), 1)
+
+    has_emoji = any(ord(c) > 127 for c in combined)
+    is_casual = any(w in combined for w in ["hey", "hi", "thanks", "cool", "ok", "okay", "lol", "ya", "yep", "haan", "bhai"])
+    is_formal = any(w in combined for w in ["kindly", "regards", "please", "sir", "ma'am", "would like", "request"])
+    is_brief  = avg_len < 40
+
+    if is_formal:
+        return "formal and respectful — use complete sentences"
+    if is_casual and has_emoji:
+        return "warm and conversational — match their energy"
+    if is_casual:
+        return "friendly and approachable — keep it natural"
+    if is_brief:
+        return "concise and direct — lead prefers short messages"
+    return "professional yet personable — clear and helpful"
+
+
+def _detect_conversation_stage(messages: list[dict], ai_context: Optional[dict]) -> str:
+    if ai_context and ai_context.get("handoff_triggered"):
+        return "handoff_pending"
+
+    # FIX #2: count inbound messages only for accurate stage detection
+    inbound_msgs = [m for m in messages if m.get("direction") == "inbound"]
+    inbound_count = len(inbound_msgs)
+    last_inbound  = inbound_msgs[-1]["message"].lower() if inbound_msgs else ""
+
+    objection_signals = ["expensive", "costly", "not sure", "maybe later", "think about", "budget", "afford", "mehenga"]
+    buying_signals    = ["how do i start", "next step", "sign up", "proceed", "demo", "call", "schedule", "when can", "proceed"]
+
+    if any(s in last_inbound for s in buying_signals):
+        return "ready_to_convert"
+    if any(s in last_inbound for s in objection_signals):
+        return "handling_objection"
+    if inbound_count <= 1:
+        return "cold_opening"
+    if inbound_count <= 3:
+        return "building_rapport"
+    return "engaged_nurturing"
+
+
+STAGE_INSTRUCTIONS = {
+    "cold_opening": (
+        "This is an early interaction. Focus on building rapport before selling. "
+        "Ask one open question to understand their situation. Do NOT pitch yet."
+    ),
+    "building_rapport": (
+        "You're gaining trust. Acknowledge what they've shared, relate it to their pain points, "
+        "and gently introduce how you can help. One clear value statement is enough."
+    ),
+    "engaged_nurturing": (
+        "The lead is engaged. Go deeper — share relevant proof points or answer their "
+        "specific question thoroughly. Aim to qualify them further."
+    ),
+    "handling_objection": (
+        "The lead has shown hesitation. Acknowledge it empathetically first. "
+        "Do NOT dismiss or hard-sell. Use the objection playbook if relevant."
+    ),
+    "ready_to_convert": (
+        "The lead is showing strong buying intent. Make the next step crystal clear and easy. "
+        "Be confident and direct — this is a closing moment."
+    ),
+    "handoff_pending": (
+        "A human team member should be taking over soon. Keep this reply brief and reassuring. "
+        "Let the lead know someone from the team will be in touch. Do NOT make new promises."
+    ),
+}
+
+
+# ─────────────────────────────────────────────
+# CALL SUGGESTION RULES
+# ─────────────────────────────────────────────
+
+CALL_SUGGEST_TRIGGERS = {
+    "lead_asked": [
+        "can we connect on a call", "can we connect over a call",
+        "can we talk on a call", "can we call", "let's connect on a call",
+        "let's talk on a call", "let's get on a call",
+        "call me", "schedule a call", "book a call",
+        "want to speak", "want to have a call",
+        "phone call", "video call", "hop on a call", "get on a call",
+        "zoom call", "google meet", "teams call",
+        "can we have a call", "can we discuss over call",
+        "discuss it over call", "discuss over a call",
+        "connect over call", "connect over a call",
+        "talk over call", "talk over a call",
+        "speak over call", "speak over a call",
+        "baat karte hain call pe", "call pe baat karte",
+        "call karo", "call krte hain", "call krte h",
+        "time de do call ke liye", "call schedule karo",
+        "call pe milte", "call pe connect",
+    ],
+    "budget_discussion": [
+        "how much does it cost", "what is the pricing",
+        "what are your rates", "can we negotiate",
+        "what are the charges", "cost for this project",
+        "how much will it cost", "pricing details", "kitna lagega",
+    ],
+    "high_urgency": [
+        "urgent", "asap", "immediately", "this week", "by tomorrow",
+        "deadline", "going live", "client is waiting", "need it done fast",
+    ],
+    "complex_requirement": [
+        "multiple services", "full solution", "end to end", "enterprise",
+        "custom solution", "large scale", "entire company", "white label", "partnership",
+    ],
+    "ready_to_buy": [
+        "ready to start", "want to proceed", "let's go ahead",
+        "send me the contract", "send proposal", "ready to sign",
+        "move forward", "next steps",
+    ],
+}
+
+CALL_OFFER_TRIGGERS = [
+    "complex_requirement",
+    "ready_to_buy",
+]
+
+CALL_CONTEXT_FOLLOWUP = [
+    "morning", "evening", "afternoon", "night", "anytime",
+    "tomorrow", "today", "now", "later", "weekend",
+    "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+    "subah", "shaam", "raat", "dopahar", "kal", "aaj",
+    "6pm", "7pm", "8pm", "9am", "10am", "11am", "12pm",
+]
+
+TIMING_QUESTION_SIGNALS = [
+    "when works best", "what time", "morning or evening", "evening or morning",
+    "kab free", "subah ya shaam", "shaam ya subah",
+    "what's a good time", "when are you free", "best time for you",
+    "convenient time", "when can we", "good time for you",
+    "when works", "works for you", "free for a call",
+    "morning or evening?", "our team will reach out", "our team will connect",
+]
+
+BARE_TIME_WORDS = {
+    "morning", "evening", "afternoon", "night",
+    "subah", "shaam", "raat", "dopahar",
+}
+
+AI_ASKED_TIME_OF_DAY_SIGNALS = [
+    "morning or evening", "evening or morning",
+    "morning or afternoon", "afternoon or evening",
+    "subah ya shaam", "shaam ya subah",
+    "what time", "kab free",
+    "when works", "good time", "convenient time",
+    "when are you free", "best time for you",
+    "free for a call",
+]
+
+GREETING_ONLY_PHRASES = [
+    "good morning", "good evening", "good afternoon", "good night",
+    "gm", "ge", "goodmorning", "goodevening", "goodafternoon", "goodnight",
+    "subah", "shubh subah", "shubh", "namaste", "namaskar",
+    "hello", "hi", "hey", "hii", "heyy", "hlo", "helo",
+    "sup", "wassup", "what's up", "whats up",
+]
+
+# Phrases that indicate the AI has already soft-offered a call recently
+# FIX #7: used to suppress repeated SOFT_OFFER
+SOFT_OFFER_PHRASES = [
+    "hop on a quick call", "quick call", "connect over a call",
+    "set up a quick call", "walk you through", "would you like to",
+    "want to connect", "happy to set up",
+]
+
+
+# ─────────────────────────────────────────────
+# GREETING GUARD
+# ─────────────────────────────────────────────
+
+def _is_greeting_only(msg: str) -> bool:
+    msg_clean = msg.lower().strip().rstrip("!.,?")
+
+    for phrase in GREETING_ONLY_PHRASES:
+        if msg_clean == phrase:
+            return True
+        if msg_clean.startswith(phrase) and len(msg_clean.replace(phrase, "").strip()) < 4:
+            return True
+
+    words = msg_clean.split()
+    if len(words) == 1 and msg_clean in BARE_TIME_WORDS:
+        return True
+
+    return False
+
+
+# ─────────────────────────────────────────────
+# LAST AI MESSAGE HELPER
+# ─────────────────────────────────────────────
+
+def _last_ai_message(messages: list[dict]) -> str:
+    outbound = [
+        m for m in messages
+        if m.get("direction") == "outbound" or m.get("is_automated") == True
+    ]
+    last_msg = outbound[-1]["message"].lower() if outbound else ""
+    print(f"[TIMING DEBUG] last AI message: {last_msg[:100]}")
+    return last_msg
+
+
+# ─────────────────────────────────────────────
+# CALL SUGGESTION LOGIC
+# ─────────────────────────────────────────────
+
+import re
+
+TIME_REGEX = r"\b(\d{1,2}(:\d{2})?\s?(am|pm)?)\b"
+
+RELATIVE_TIME_WORDS = [
+    "today", "tomorrow", "tonight", "next week",
+    "aaj", "kal", "aaj shaam", "kal subah"
+]
+
+HINGLISH_MAP = {
+    "subah": "morning",
+    "shaam": "evening",
+    "raat": "night",
+    "dopahar": "afternoon",
+    "kal": "tomorrow",
+    "aaj": "today",
+}
+
+
+def _normalize_hinglish(msg: str) -> str:
+    for k, v in HINGLISH_MAP.items():
+        msg = msg.replace(k, v)
+    return msg
+
+
+def _contains_exact_time(msg: str) -> bool:
+    return bool(re.search(TIME_REGEX, msg.lower()))
+
+
+def _should_suggest_call(
+    inbound_message: str,
+    stage: str,
+    lead: dict,
+    messages: list[dict] = None,
+) -> tuple[bool, str]:
+
+    msg_lower = inbound_message.lower().strip()
+    msg_lower = _normalize_hinglish(msg_lower)
+
+    messages  = messages or []
+    last_ai   = _last_ai_message(messages)
+
+    msg_clean = msg_lower.strip().rstrip("!.,?")
+    words     = msg_clean.split()
+
+    print(f"[TIMING DEBUG] inbound: '{msg_clean}'")
+
+    is_bare_time_word = msg_clean in BARE_TIME_WORDS
+    has_time_word     = any(t in msg_lower for t in CALL_CONTEXT_FOLLOWUP)
+    has_exact_time    = _contains_exact_time(msg_lower)
+    has_relative_time = any(w in msg_lower for w in RELATIVE_TIME_WORDS)
+
+    ai_asked_timing = any(sig in last_ai for sig in TIMING_QUESTION_SIGNALS)
+
+    ai_asked_time_of_day = any(
+        phrase in last_ai for phrase in AI_ASKED_TIME_OF_DAY_SIGNALS
+    )
+
+    print(f"""
+[SMART TIMING DETECTION]
+msg: {msg_clean}
+ai_asked_timing: {ai_asked_timing}
+ai_asked_time_of_day: {ai_asked_time_of_day}
+bare_time: {is_bare_time_word}
+exact_time: {has_exact_time}
+relative_time: {has_relative_time}
+""")
+
+    # ─────────────────────────────────────────
+    # GREETING GUARD
+    # ─────────────────────────────────────────
+    if _is_greeting_only(msg_lower):
+        if not (
+            is_bare_time_word and (ai_asked_time_of_day or ai_asked_timing)
+        ):
+            print("[TIMING DEBUG] → skipped, greeting only")
+            return False, ""
+        else:
+            print("[TIMING DEBUG] → bare time accepted as timing reply")
+
+    # ─────────────────────────────────────────
+    # 1. TIMING CONFIRMATION  (FIX #1: moved BEFORE already_asked_call check)
+    # ─────────────────────────────────────────
+    word_count = len(words)
+
+    if ai_asked_timing and (
+        has_time_word or has_exact_time or has_relative_time
+    ):
+        if is_bare_time_word and not ai_asked_time_of_day:
+            print("[TIMING DEBUG] → rejected (bare time without proper question)")
+            return False, ""
+
+        print(f"[TIMING DEBUG] → TIMING_CONFIRMED: {msg_clean}")
+        return True, f"TIMING_CONFIRMED:{msg_clean}"
+
+    # ─────────────────────────────────────────
+    # 2. PREVENT REPEATED CALL ASKING  (FIX #1: now runs after timing check)
+    # ─────────────────────────────────────────
+    recent_ai_msgs = [
+        m["message"].lower()
+        for m in messages[-3:]
+        if m.get("direction") == "outbound"
+    ]
+
+    already_asked_call = any(
+        "call" in m or "meeting" in m
+        for m in recent_ai_msgs
+    )
+
+    # FIX #7: also suppress SOFT_OFFER if it was already made recently
+    already_soft_offered = any(
+        any(phrase in m for phrase in SOFT_OFFER_PHRASES)
+        for m in recent_ai_msgs
+    )
+
+    if already_asked_call:
+        print("[CALL DEBUG] → skipping (already asked recently)")
+        return False, ""
+
+    # ─────────────────────────────────────────
+    # 3. EXPLICIT CALL REQUEST
+    # ─────────────────────────────────────────
+    for phrase in CALL_SUGGEST_TRIGGERS["lead_asked"]:
+        if phrase in msg_lower:
+            print(f"[CALL DEBUG] → EXPLICIT_CALL_REQUEST: {phrase}")
+            return True, "EXPLICIT_CALL_REQUEST"
+
+    # ─────────────────────────────────────────
+    # 4. SOFT OFFER  (FIX #7: skip if already soft-offered recently)
+    # ─────────────────────────────────────────
+    if not already_soft_offered:
+        for trigger_type in CALL_OFFER_TRIGGERS:
+            for phrase in CALL_SUGGEST_TRIGGERS[trigger_type]:
+                if phrase in msg_lower:
+                    print(f"[CALL DEBUG] → SOFT_OFFER: {phrase}")
+                    return True, "SOFT_OFFER"
+
+        if lead.get("urgency") == "high" and stage == "ready_to_convert":
+            print("[CALL DEBUG] → SOFT_OFFER (high urgency)")
+            return True, "SOFT_OFFER"
+
+    print("[CALL DEBUG] → no trigger")
+    return False, ""
+
+
+# ─────────────────────────────────────────────
+# DB FETCHERS  (sync — psycopg2)
+# ─────────────────────────────────────────────
+
+def _fetch_lead_full_context(lead_id: str, org_id: str) -> dict:
+    row = query(
+        """
+        SELECT
+            l.id, l.name, l.email, l.phone, l.company, l.source,
+            l.service_interest, l.score, l.priority, l.status, l.message,
+            a.summary, a.intent, a.urgency, a.qualification_label,
+            a.recommended_action, a.confidence
+        FROM leads l
+        LEFT JOIN lead_ai_analysis a ON a.lead_id = l.id AND a.org_id = l.org_id
+        WHERE l.id = %s AND l.org_id = %s
+        LIMIT 1
+        """,
+        (lead_id, org_id), fetch="one"
+    )
+    return dict(row) if row else {}
+
+
+def _fetch_ai_context(lead_id: str, org_id: str) -> Optional[dict]:
+    row = query(
+        "SELECT context_snapshot, msg_count FROM ai_context WHERE lead_id = %s AND org_id = %s",
+        (lead_id, org_id), fetch="one"
+    )
+    return dict(row) if row else None
+
+
+def _fetch_org_ai_config(org_id: str) -> dict:
+    row = query(
+        "SELECT system_prompt, tone, language, max_auto_replies FROM org_ai_config WHERE org_id = %s",
+        (org_id,), fetch="one"
+    )
+    return dict(row) if row else {}
+
+
+def _fetch_recent_conversations(lead_id: str, org_id: str, limit: int = 20) -> list[dict]:
+    # FIX #5: order DESC to get the latest N messages, then reverse for chronological order
+    rows = query(
+        """
+        SELECT direction, message, is_automated, created_at
+        FROM conversations
+        WHERE lead_id = %s AND org_id = %s
+        ORDER BY id DESC
+        LIMIT %s
+        """,
+        (lead_id, org_id, limit), fetch="all"
+    )
+    rows = [dict(r) for r in rows] if rows else []
+    return list(reversed(rows))
+
+
+# ─────────────────────────────────────────────
+# AUTO-REPLY LIMIT CHECK  (FIX #4)
+# ─────────────────────────────────────────────
+
+def _has_exceeded_auto_reply_limit(messages: list[dict], max_auto_replies: Optional[int]) -> bool:
+    """Returns True if the AI has already sent max_auto_replies or more automated replies."""
+    if not max_auto_replies:
+        return False
+    auto_count = sum(
+        1 for m in messages
+        if (m.get("direction") == "outbound" and m.get("is_automated") == True)
+    )
+    return auto_count >= max_auto_replies
+
+
+# ─────────────────────────────────────────────
+# PROMPT BUILDERS
+# ─────────────────────────────────────────────
+
+def _build_lead_profile_block(lead: dict) -> str:
+    parts = ["LEAD PROFILE:"]
+    if lead.get("name"):              parts.append(f"  Name: {lead['name']}")
+    if lead.get("company"):           parts.append(f"  Company: {lead['company']}")
+    if lead.get("service_interest"):  parts.append(f"  Interested in: {lead['service_interest']}")
+    if lead.get("source"):            parts.append(f"  Source: {lead['source']}")
+    if lead.get("score"):             parts.append(f"  Lead score: {lead['score']}/100 ({lead.get('priority','?')} priority)")
+    if lead.get("status"):            parts.append(f"  Status: {lead['status']}")
+    if lead.get("message"):           parts.append(f"  Initial enquiry: \"{lead['message']}\"")
+    if lead.get("summary"):
+        parts.append("\nAI ANALYSIS:")
+        parts.append(f"  Summary: {lead['summary']}")
+    if lead.get("intent"):            parts.append(f"  Intent: {lead['intent']}")
+    if lead.get("urgency"):           parts.append(f"  Urgency: {lead['urgency']}")
+    if lead.get("qualification_label"): parts.append(f"  Qualification: {lead['qualification_label']}")
+    if lead.get("recommended_action"):  parts.append(f"  Recommended action: {lead['recommended_action']}")
+    return "\n".join(parts)
+
+
+def _build_conversation_block(messages: list[dict]) -> str:
+    if not messages:
+        return "CONVERSATION HISTORY:\n  (No messages yet)"
+    lines = ["CONVERSATION HISTORY (oldest → newest):"]
+    for m in messages:
+        role = "Lead" if m["direction"] == "inbound" else "You (AI)"
+        ts = ""
+        if m.get("created_at"):
+            try:
+                ts = f" [{m['created_at'].strftime('%d %b %H:%M')}]"
+            except Exception:
+                pass
+        lines.append(f"  [{role}]{ts}: {m['message']}")
+    return "\n".join(lines)
+
+
+def _build_knowledge_block(retrieved: dict) -> str:
+    knowledge = retrieved.get("knowledge", {})
+    service   = retrieved.get("service")
+    lines     = []
+
+    if service:
+        lines.append(f"SERVICE: {service.get('name','')}")
+        if service.get("one_line"):    lines.append(f"  {service['one_line']}")
+        if service.get("description"): lines.append(f"  {service['description']}")
+
+    if knowledge.get("overview"):
+        lines.append(f"\nOVERVIEW:\n  {knowledge['overview']}")
+    if knowledge.get("pricing"):
+        lines.append(f"\nPRICING:\n  {knowledge['pricing']}")
+    if knowledge.get("timeline"):
+        lines.append(f"\nTIMELINE:\n  {knowledge['timeline']}")
+    if knowledge.get("features"):
+        lines.append(f"\nFEATURES:\n  {knowledge['features']}")
+
+    if knowledge.get("faqs"):
+        lines.append("\nRELEVANT FAQs:")
+        for faq in knowledge["faqs"]:
+            lines.append(f"  Q: {faq['question']}")
+            lines.append(f"  A: {faq['answer']}")
+
+    if knowledge.get("policies"):
+        lines.append("\nRULES YOU MUST FOLLOW:")
+        for p in knowledge["policies"]:
+            lines.append(f"  - {p}")
+
+    if knowledge.get("objection_reply"):
+        lines.append(f"\nOBJECTION PLAYBOOK:\n  {knowledge['objection_reply']}")
+
+    if knowledge.get("next_question"):
+        lines.append(f"\nNEXT QUALIFICATION QUESTION TO ASK:\n  {knowledge['next_question']}")
+
+    return "\n".join(lines)
+
+
+def _build_system_prompt(
+    org_config: dict,
+    lead: dict,
+    retrieved: dict,
+    messages: list[dict],
+    stage: str,
+    tone_instruction: str,
+    ai_context: Optional[dict],
+    call_suggestion: tuple[bool, str] = (False, ""),
+) -> str:
+    base_prompt       = org_config.get("system_prompt") or "You are a friendly sales person chatting on WhatsApp."
+    language          = org_config.get("language") or "English"
+    stage_instruction = STAGE_INSTRUCTIONS.get(stage, "")
+    lead_profile      = _build_lead_profile_block(lead)
+    knowledge_block   = _build_knowledge_block(retrieved)
+    conv_history      = _build_conversation_block(messages)
+    lead_first_name   = (lead.get("name") or "there").split()[0]
+
+    memory_note = ""
+    if ai_context and ai_context.get("context_snapshot"):
+        memory_note = f"\nPREVIOUS SESSION MEMORY:\n{ai_context['context_snapshot']}\n"
+
+    should_call, call_reason = call_suggestion
+
+    if should_call and call_reason.startswith("TIMING_CONFIRMED:"):
+        confirmed_time = call_reason.split("TIMING_CONFIRMED:")[1].strip()
+        call_rule = f"""
+THE LEAD CONFIRMED THEIR AVAILABLE TIME: "{confirmed_time}"
+YOUR ONLY JOB: Write 2 sentences confirming this.
+  Sentence 1: Acknowledge the time. Example: "Perfect, noted for {confirmed_time}!"
+  Sentence 2: Confirm team will call. Example: "Our team will connect with you this {confirmed_time}."
+DO NOT: ask any question, mention features, say anything else.
+EXAMPLE REPLY: "Perfect, {confirmed_time} it is! Our team will connect with you then."
+"""
+
+    elif should_call and call_reason == "EXPLICIT_CALL_REQUEST":
+        call_rule = """
+THE LEAD HAS EXPLICITLY ASKED FOR A CALL.
+YOUR ONLY JOB: Write 2-3 sentences doing exactly this:
+  Sentence 1: Acknowledge warmly. Example: "Happy to connect!"
+  Sentence 2: Ask their preferred time. Example: "When works best for you — morning or evening?"
+  Sentence 3: Reassure. Example: "Our team will reach out to you soon."
+DO NOT: talk about features, answer any other question, ignore the call request.
+EXAMPLE REPLY: "Happy to connect! When's a good time — morning or evening? Our team will reach out to you soon."
+"""
+
+    elif should_call and call_reason == "SOFT_OFFER":
+        call_rule = """
+THE LEAD HAS A COMPLEX REQUIREMENT OR SEEMS READY TO MOVE FORWARD.
+YOUR JOB:
+  Step 1: Answer their message or question naturally (1-2 sentences max).
+  Step 2: At the very end, add ONE soft offer for a call — casual and non-pushy.
+
+GOOD soft offer examples:
+  "Would you like to hop on a quick call to discuss this in detail?"
+  "Want to connect over a call so we can walk you through everything?"
+  "Happy to set up a quick call if that'd be easier — just let me know!"
+
+DO NOT: jump straight to scheduling, ask for their time, or ignore their message.
+Make the call feel like a helpful offer, not a sales push.
+"""
+
+    else:
+        call_rule = """
+DO NOT suggest a call or meeting in this reply.
+Answer their question directly. Stay in the chat.
+"""
+
+    # FIX #6: tone_instruction is now interpolated into the prompt
+    prompt = f"""{base_prompt}
+
+You are a real human sales team member replying on WhatsApp. Not a bot.
+The lead's name is {lead_first_name}. Always respond in {language}.
+
+TONE: {tone_instruction}
+
+HOW TO WRITE — follow every rule:
+
+RULE 1 — SHORT: Max 2-3 sentences. Period.
+RULE 2 — NO LISTS EVER: Never use bullet points, dashes, or numbered lists.
+  BAD:  "Features:\n• AI scoring\n• WhatsApp automation"
+  GOOD: "It does AI scoring and WhatsApp automation automatically."
+RULE 3 — NO FORMATTING: No bold, no asterisks, no headers. Plain text only.
+RULE 4 — CASUAL: Like a friend texting. Not a company email.
+  BAD:  "I understand your concern and would like to address it."
+  GOOD: "Makes sense — let me explain how that works."
+RULE 5 — NO FILLER OPENERS: Never start with "Great!", "Sure!", "Absolutely!", "Of course!", "I get that", "I understand".
+RULE 6 — DON'T START WITH "I": Start with their name, a fact, or a direct answer.
+RULE 7 — SPECIFIC: Use real facts from knowledge base. Never say "we have great solutions".
+RULE 8 — ONE ENDING: Finish with ONE question OR one next step. Not both. Not three.
+
+CONVERSATION STAGE: {stage.upper().replace('_', ' ')}
+{stage_instruction}
+
+{lead_profile}
+{memory_note}
+{knowledge_block}
+{conv_history}
+
+════════════════════════════════
+FINAL INSTRUCTION — THIS OVERRIDES EVERYTHING ABOVE:
+{call_rule}
+Write your reply NOW. Follow the FINAL INSTRUCTION above. Short. Casual. Human. Zero lists.
+════════════════════════════════
+"""
+    return prompt.strip()
+
+
+# ─────────────────────────────────────────────
+# CONTEXT SNAPSHOT UPDATER  (sync)
+# ─────────────────────────────────────────────
+
+def _update_ai_context(lead_id: str, org_id: str, lead: dict, messages: list[dict], stage: str):
+    if not messages:
+        return
+
+    inbound_msgs = [m["message"] for m in messages if m["direction"] == "inbound"]
+    topics = ", ".join(inbound_msgs[-3:]) if inbound_msgs else "nothing yet"
+
+    snapshot = (
+        f"Lead {lead.get('name','Unknown')} from {lead.get('company','unknown company')} "
+        f"is interested in {lead.get('service_interest','our services')}. "
+        f"Stage: {stage}. Recent topics: {topics}. "
+        f"Score: {lead.get('score','N/A')}, priority: {lead.get('priority','N/A')}."
+    )
+
+    existing = query(
+        "SELECT id FROM ai_context WHERE lead_id = %s AND org_id = %s",
+        (lead_id, org_id), fetch="one"
+    )
+
+    if existing:
+        query(
+            """
+            UPDATE ai_context
+            SET context_snapshot = %s, msg_count = %s, last_msg_at = NOW(), updated_at = NOW()
+            WHERE lead_id = %s AND org_id = %s
+            """,
+            (snapshot, len(messages), lead_id, org_id), fetch="none"
+        )
+    else:
+        query(
+            """
+            INSERT INTO ai_context (org_id, lead_id, context_snapshot, msg_count, last_msg_at, updated_at)
+            VALUES (%s, %s, %s, %s, NOW(), NOW())
+            """,
+            (org_id, lead_id, snapshot, len(messages)), fetch="none"
+        )
+
+
+# ─────────────────────────────────────────────
+# PUBLIC API
+# ─────────────────────────────────────────────
+
+def generate_reply(
+    org_id: str,
+    lead_id: str,
+    inbound_message: str,
+    platform: str = "whatsapp",
+) -> str:
+    """
+    Generate a contextual, personalised reply to a lead's inbound WhatsApp message.
+    Fully synchronous — uses psycopg2 query() and sync OpenAI client.
+    Called via asyncio.run() from the webhook background thread.
+    """
+    try:
+        # 1. Fetch all context (sync)
+        lead       = _fetch_lead_full_context(lead_id, org_id)
+        org_config = _fetch_org_ai_config(org_id)
+        messages   = _fetch_recent_conversations(lead_id, org_id, limit=20)
+        ai_context = _fetch_ai_context(lead_id, org_id)
+
+        if not lead:
+            logger.warning(f"generate_reply: lead {lead_id} not found in org {org_id}")
+            return "Thanks for your message! Our team will get back to you shortly."
+
+        # FIX #4: enforce max_auto_replies limit before doing anything else
+        max_auto_replies = org_config.get("max_auto_replies")
+        if _has_exceeded_auto_reply_limit(messages, max_auto_replies):
+            logger.info(f"generate_reply: max_auto_replies ({max_auto_replies}) reached for lead={lead_id}")
+            return ""
+
+        # 2. Stage + tone detection
+        stage            = _detect_conversation_stage(messages, ai_context)
+        tone_instruction = _detect_lead_tone(messages)
+        call_suggestion  = _should_suggest_call(inbound_message, stage, lead, messages)
+
+        # 3. Retrieval (sync orchestrate)
+        retrieved = orchestrate(
+            org_id=org_id,
+            lead_id=lead_id,
+            platform=platform,
+            message=inbound_message,
+            service_interest=lead.get("service_interest"),
+        )
+
+        # 4. Build prompt
+        system_prompt = _build_system_prompt(
+            org_config=org_config,
+            lead=lead,
+            retrieved=retrieved,
+            messages=messages,
+            stage=stage,
+            tone_instruction=tone_instruction,
+            ai_context=ai_context,
+            call_suggestion=call_suggestion,
+        )
+
+        # 5. Call OpenAI (sync client)
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": inbound_message},
+            ],
+            max_tokens=300,
+            temperature=0.65,
+        )
+
+        reply = response.choices[0].message.content.strip()
+
+        # 6. Save memory snapshot
+        _update_ai_context(lead_id, org_id, lead, messages, stage)
+
+        logger.info(f"generate_reply: lead={lead_id} stage={stage}")
+        return reply
+
+    except Exception as e:
+        logger.error(f"generate_reply error: lead={lead_id} — {e}", exc_info=True)
+        return "Thanks for reaching out! Our team will follow up with you shortly."
+
+
+def generate_first_message(lead_id: str, org_id: str) -> str:
+    """
+    Generate the opening WhatsApp message for a high-scoring lead.
+    Sync version to match the rest of the stack.
+    """
+    lead       = _fetch_lead_full_context(lead_id, org_id)
+    org_config = _fetch_org_ai_config(org_id)
+
+    if not lead:
+        return "Hi! Thanks for reaching out. How can we help you today?"
+
+    retrieved = orchestrate(
+        org_id=org_id,
+        lead_id=lead_id,
+        platform="whatsapp",
+        message=lead.get("service_interest") or lead.get("message") or "",
+        service_interest=lead.get("service_interest"),
+    )
+
+    service_name    = lead.get("service_interest") or "our services"
+    lead_name       = lead.get("name", "").split()[0] if lead.get("name") else ""
+    company         = f" at {lead['company']}" if lead.get("company") else ""
+    initial_msg     = lead.get("message", "")
+    reference_line  = f'They mentioned: "{initial_msg[:100]}". ' if initial_msg else ""
+    knowledge_block = _build_knowledge_block(retrieved)
+
+    system = f"""{org_config.get('system_prompt', 'You are a helpful sales assistant.')}
+
+Write the very first WhatsApp message to this lead. Rules:
+- Feel personal and human — NOT a template blast
+- Reference their specific interest in {service_name}
+- Warm but not pushy
+- End with ONE open question
+- Under 100 words
+
+{knowledge_block}
+"""
+    user_msg = (
+        f"Write opening message for {lead_name or 'this lead'}{company}, "
+        f"interested in {service_name}. {reference_line}"
+        f"Score: {lead.get('score','N/A')}/100, priority: {lead.get('priority','Unknown')}."
+    )
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user",   "content": user_msg},
+        ],
+        max_tokens=200,
+        temperature=0.75,
+    )
+
+    reply = response.choices[0].message.content.strip()
+
+    # FIX #3: seed memory snapshot after the first message is generated
+    # Use an empty messages list since no conversation exists yet
+    _update_ai_context(lead_id, org_id, lead, [], "cold_opening")
+
+    return reply

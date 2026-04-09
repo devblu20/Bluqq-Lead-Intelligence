@@ -1,0 +1,17 @@
+﻿fastapi
+uvicorn
+openai
+python-dotenv
+pydantic
+pydantic-settings
+email-validator
+python-jose
+passlib
+bcrypt==4.0.1
+python-multipart
+requests
+httpx
+psycopg2-binary
+twilio
+python-dateutil
+resend

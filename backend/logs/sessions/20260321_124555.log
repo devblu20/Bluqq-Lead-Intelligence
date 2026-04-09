@@ -1,0 +1,6 @@
+2026-03-21 12:45:55 | INFO     | [20260321_124555] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-21 12:46:00 | INFO     | [20260321_124555] AI_SPOKE — text=Hi! Thanks for calling BluQ
+2026-03-21 12:46:10 | INFO     | [20260321_124555] CALLER_SPOKE — text=Hello.
+2026-03-21 12:46:11 | INFO     | [20260321_124555] CALLER_SPOKE — text=Okay.
+2026-03-21 12:46:12 | INFO     | [20260321_124555] AI_SPOKE — text=Hi there! How can I help you today?
+2026-03-21 12:46:13 | INFO     | [20260321_124555] CALLER_SPOKE — text=Bye.

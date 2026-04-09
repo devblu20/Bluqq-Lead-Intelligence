@@ -1,0 +1,142 @@
+{
+  "session_id": "20260322_155113",
+  "call_start": "2026-03-22T15:51:13.028388",
+  "call_end": "2026-03-22T15:51:53.247551",
+  "caller_phone": "Unknown",
+  "caller_name": "Unknown",
+  "duration": {
+    "total_duration_seconds": 40.22,
+    "total_duration_formatted": "00:40",
+    "listening_seconds": 0.0,
+    "processing_seconds": 0.0,
+    "speaking_seconds": 4.83,
+    "idle_seconds": 35.39,
+    "latency_ms": {
+      "avg": 0,
+      "min": 0,
+      "max": 0,
+      "all": []
+    }
+  },
+  "total_turns": 0,
+  "tools_used": [],
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-22T15:51:17.633121"
+    },
+    {
+      "role": "ai",
+      "text": "Hi! Thanks for calling BluQQ, this is Priya speaking. How can I help",
+      "timestamp": "2026-03-22T15:51:18.255345"
+    },
+    {
+      "role": "caller",
+      "text": "What is Python?",
+      "timestamp": "2026-03-22T15:51:25.744644"
+    },
+    {
+      "role": "ai",
+      "text": "We offer trading bots, dashboards, data pipelines, AI tools,",
+      "timestamp": "2026-03-22T15:51:26.239850"
+    },
+    {
+      "role": "caller",
+      "text": "What is Python?",
+      "timestamp": "2026-03-22T15:51:40.061284"
+    },
+    {
+      "role": "ai",
+      "text": "Sure! Our trading bots range from 500 to 5000 dollars,",
+      "timestamp": "2026-03-22T15:51:40.726776"
+    }
+  ],
+  "turn_manager": {
+    "total_turns": 0,
+    "barge_in_count": 0,
+    "state_history": [
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:51:17.221688"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:51:19.055604"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:51:25.435104"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:51:26.996311"
+      },
+      {
+        "from": "IDLE",
+        "to": "SPEAKING",
+        "reason": "AI response started",
+        "timestamp": "2026-03-22T15:51:39.848681"
+      },
+      {
+        "from": "SPEAKING",
+        "to": "IDLE",
+        "reason": "AI response complete",
+        "timestamp": "2026-03-22T15:51:41.281934"
+      }
+    ],
+    "final_state": "IDLE"
+  },
+  "errors": {
+    "total_errors": 0,
+    "total_warnings": 0,
+    "errors": []
+  },
+  "latency": {
+    "session_id": "20260322_155113",
+    "total_turns": 3,
+    "stt_avg_ms": 0,
+    "llm_avg_ms": 10400,
+    "tts_avg_ms": 2,
+    "e2e_avg_ms": 0,
+    "e2e_min_ms": 0,
+    "e2e_max_ms": 0,
+    "e2e_all": [],
+    "quality": "🟢 Excellent",
+    "turns": [
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 0,
+        "tts_ms": 0,
+        "e2e_ms": 0,
+        "text": "Hello."
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 7184,
+        "tts_ms": 5,
+        "e2e_ms": 0,
+        "text": "What is Python?"
+      },
+      {
+        "turn": 0,
+        "stt_ms": 0,
+        "llm_ms": 13617,
+        "tts_ms": 1,
+        "e2e_ms": 0,
+        "text": "What is Python?"
+      }
+    ]
+  },
+  "status": "completed"
+}

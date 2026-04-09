@@ -1,0 +1,62 @@
+{
+  "session_id": "20260320_135128",
+  "start_time": "2026-03-20T13:51:28.318549",
+  "end_time": "2026-03-20T13:56:47.553733",
+  "total_events": 6,
+  "events": [
+    {
+      "timestamp": "2026-03-20T13:51:28.443249",
+      "session_id": "20260320_135128",
+      "event": "CALL_STARTED",
+      "data": {
+        "phone": "",
+        "redis": "yes",
+        "rag_chunks": 4
+      }
+    },
+    {
+      "timestamp": "2026-03-20T13:51:34.056376",
+      "session_id": "20260320_135128",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Hello"
+      }
+    },
+    {
+      "timestamp": "2026-03-20T13:51:34.561084",
+      "session_id": "20260320_135128",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Hello! How can I assist you today?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-20T13:51:38.578470",
+      "session_id": "20260320_135128",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "You"
+      }
+    },
+    {
+      "timestamp": "2026-03-20T13:52:27.845365",
+      "session_id": "20260320_135128",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Certainly! Could you tell me a bit more about your company’s needs or what services you’re intereste",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-20T13:56:47.552074",
+      "session_id": "20260320_135128",
+      "event": "CALL_ENDED",
+      "data": {
+        "duration": "05:18",
+        "turns": 0,
+        "errors": 39
+      }
+    }
+  ]
+}

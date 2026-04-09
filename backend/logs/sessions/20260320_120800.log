@@ -1,0 +1,2 @@
+2026-03-20 12:08:00 | INFO     | [20260320_120800] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-20 12:08:12 | INFO     | [20260320_120800] CALLER_SPOKE — text=Thank you.

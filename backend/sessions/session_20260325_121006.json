@@ -1,0 +1,28 @@
+{
+  "session_id": "20260325_121006",
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-25T12:16:49.839114",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello",
+      "timestamp": "2026-03-25T12:10:10.072433"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya from BluQQ! How can I help you today?",
+      "timestamp": "2026-03-25T12:10:10.739034"
+    },
+    {
+      "role": "caller",
+      "text": "What are services provided",
+      "timestamp": "2026-03-25T12:10:18.059722"
+    },
+    {
+      "role": "ai",
+      "text": "We specialize in trading bots, dashboards, AI tools, data pipelines, web scraping, and real estate tech. Are you",
+      "timestamp": "2026-03-25T12:10:19.529194"
+    }
+  ],
+  "tools_used": []
+}

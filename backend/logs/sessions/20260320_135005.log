@@ -1,0 +1,8 @@
+2026-03-20 13:50:05 | INFO     | [20260320_135005] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-20 13:50:08 | INFO     | [20260320_135005] CALLER_SPOKE — text=Bye.
+2026-03-20 13:50:09 | INFO     | [20260320_135005] AI_SPOKE — text=Hello! How can I assist you today?
+2026-03-20 13:50:12 | INFO     | [20260320_135005] CALLER_SPOKE — text=Thank you.
+2026-03-20 13:50:14 | INFO     | [20260320_135005] AI_SPOKE — text=Sure, what type of information are you looking for about automation systems? Are you interested in o
+2026-03-20 13:50:22 | INFO     | [20260320_135005] CALLER_SPOKE — text=She means the world to me.
+2026-03-20 13:50:23 | INFO     | [20260320_135005] CALLER_SPOKE — text=John
+2026-03-20 13:56:47 | INFO     | [20260320_135005] CALL_ENDED — duration=06:41 | turns=0 | errors=0

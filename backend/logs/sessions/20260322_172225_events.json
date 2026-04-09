@@ -1,0 +1,198 @@
+{
+  "session_id": "20260322_172225",
+  "start_time": "2026-03-22T17:22:25.081733",
+  "end_time": "2026-03-22T17:24:33.099057",
+  "total_events": 22,
+  "events": [
+    {
+      "timestamp": "2026-03-22T17:22:25.251054",
+      "session_id": "20260322_172225",
+      "event": "CALL_STARTED",
+      "data": {
+        "phone": "",
+        "redis": "yes",
+        "rag_chunks": 4
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:22:29.806785",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Hello."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:22:30.058877",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Hi, this is Priya from BluQQ! How can I help you today?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:22:42.709002",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "इस पार्सारी से परवाई बलक्स। परवाई बलक्स।"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:22:43.853899",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Absolutely! Our trading bots are automated software tools that help you execute trades based on pre-",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:22:59.153221",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Okay."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:22:59.415080",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "They can analyze market data",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:02.595455",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "All the best, and this is great."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:03.781242",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Sure! Besides trading bots, we also offer custom dashboards, AI tools, data pipelines, web scraping ",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:19.633884",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Okay"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:21.289656",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "and real estate tech services as well. Is there any specific service you’re more interested in?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:28.804287",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Thank you. Thank you. Thank you. "
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:30.188513",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "For trading bots, the price range is typically between $500 to $5,000, depending on the complexity a",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:41.179314",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Would you like more details on what's included in that range?",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:41.428334",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "OK."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:47.510414",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Next up"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:23:49.209111",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Sure! For a basic trading bot around $500, you get simple rule-based automation. As you go higher in",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:24:01.834623",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Okay, okay"
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:24:02.754123",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "No worries! Just let me know if you’d like more info later. Are you exploring options or just gettin",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:24:17.091015",
+      "session_id": "20260322_172225",
+      "event": "CALLER_SPOKE",
+      "data": {
+        "text": "Yes, I am exploring it."
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:24:19.452346",
+      "session_id": "20260322_172225",
+      "event": "AI_SPOKE",
+      "data": {
+        "text": "Got it! That’s a great place to start. Are you more focused on automating trades or are you also loo",
+        "latency_ms": null
+      }
+    },
+    {
+      "timestamp": "2026-03-22T17:24:33.098056",
+      "session_id": "20260322_172225",
+      "event": "CALL_ENDED",
+      "data": {
+        "duration": "02:07",
+        "turns": 0,
+        "errors": 0
+      }
+    }
+  ]
+}

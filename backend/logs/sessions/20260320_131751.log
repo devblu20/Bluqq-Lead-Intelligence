@@ -1,0 +1,10 @@
+2026-03-20 13:17:52 | INFO     | [20260320_131751] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-20 13:18:00 | INFO     | [20260320_131751] CALLER_SPOKE — text=Hello
+2026-03-20 13:18:00 | INFO     | [20260320_131751] AI_SPOKE — text=Hello! How can I assist you today?
+2026-03-20 13:18:08 | INFO     | [20260320_131751] CALLER_SPOKE — text=You both have a great day.
+2026-03-20 13:18:10 | INFO     | [20260320_131751] AI_SPOKE — text=Of course! Could you please tell me which service you're interested in, so I can provide more inform
+2026-03-20 13:18:22 | INFO     | [20260320_131751] AI_SPOKE — text=We offer Python
+2026-03-20 13:18:22 | INFO     | [20260320_131751] CALLER_SPOKE — text=I G A I N G W I L D O
+2026-03-20 13:18:23 | INFO     | [20260320_131751] CALLER_SPOKE — text=Yeah, I know guys.
+2026-03-20 13:18:25 | INFO     | [20260320_131751] AI_SPOKE — text=Got it. Are you looking for more details on our Python-based trading tools, or would you like to kno
+2026-03-20 13:27:30 | INFO     | [20260320_131751] CALL_ENDED — duration=09:25 | turns=0 | errors=0

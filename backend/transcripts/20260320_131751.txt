@@ -1,0 +1,38 @@
+============================================================
+  BLUQQ AI PHONE CALL TRANSCRIPT
+============================================================
+
+Session ID   : 20260320_131751
+Caller Name  : Unknown
+Caller Phone : Unknown
+Date         : 2026-03-20
+Time         : 13:17:51
+Duration     : 09:25
+Total Turns  : 0
+Barge-ins    : 0
+Avg Latency  : 0ms
+Errors       : 0
+
+------------------------------------------------------------
+  CONVERSATION
+------------------------------------------------------------
+
+[13:18:00] CALLER : Hello
+
+[13:18:00] AI     : Hello! How can I assist you today?
+
+[13:18:08] CALLER : You both have a great day.
+
+[13:18:10] AI     : Of course! Could you please tell me which service you're interested in, so I can provide more information or help you further?
+
+[13:18:22] AI     : We offer Python
+
+[13:18:22] CALLER : I G A I N G W I L D O
+
+[13:18:23] CALLER : Yeah, I know guys.
+
+[13:18:25] AI     : Got it. Are you looking for more details on our Python-based trading tools, or would you like to know about pricing or how to get started?
+
+------------------------------------------------------------
+  END OF TRANSCRIPT
+============================================================

@@ -1,0 +1,9 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,1,CALLER,Hello,13:18:00
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,2,AI,Hello! How can I assist you today?,13:18:00
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,3,CALLER,You both have a great day.,13:18:08
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,4,AI,"Of course! Could you please tell me which service you're interested in, so I can provide more information or help you further?",13:18:10
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,5,AI,We offer Python,13:18:22
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,6,CALLER,I G A I N G W I L D O,13:18:22
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,7,CALLER,"Yeah, I know guys.",13:18:23
+20260320_131751,Unknown,Unknown,2026-03-20,13:17:51,8,AI,"Got it. Are you looking for more details on our Python-based trading tools, or would you like to know about pricing or how to get started?",13:18:25

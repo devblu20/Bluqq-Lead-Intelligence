@@ -1,0 +1,80 @@
+{
+  "session_id": "20260327_135317",
+  "org_id": null,
+  "org_name": null,
+  "caller_phone": "Unknown",
+  "call_end": "2026-03-27T13:57:23.631773",
+  "transcript": [
+    {
+      "role": "caller",
+      "text": "Hello.",
+      "timestamp": "2026-03-27T13:53:21.610310"
+    },
+    {
+      "role": "ai",
+      "text": "Hi, this is Priya! How can I help you today?",
+      "timestamp": "2026-03-27T13:53:21.912655"
+    },
+    {
+      "role": "caller",
+      "text": "I am looking for a co-working space.",
+      "timestamp": "2026-03-27T13:53:30.282232"
+    },
+    {
+      "role": "ai",
+      "text": "Got it! Are you looking for a specific location or any particular features in the space?",
+      "timestamp": "2026-03-27T13:53:31.221583"
+    },
+    {
+      "role": "caller",
+      "text": "Do you have private offices?",
+      "timestamp": "2026-03-27T13:53:40.945858"
+    },
+    {
+      "role": "ai",
+      "text": "Yes, we do offer private offices in many of our locations. How many people do you need the space for?",
+      "timestamp": "2026-03-27T13:53:42.216247"
+    },
+    {
+      "role": "caller",
+      "text": "two to three people.",
+      "timestamp": "2026-03-27T13:53:53.217579"
+    },
+    {
+      "role": "ai",
+      "text": "Perfect, we have private offices that can fit two to three people comfortably. Do you have a preferred move-in date?",
+      "timestamp": "2026-03-27T13:53:53.499907"
+    },
+    {
+      "role": "ai",
+      "text": "No worries at all. Would you like me to share some pricing options or book a tour for you to check out the space?",
+      "timestamp": "2026-03-27T13:54:06.825881"
+    },
+    {
+      "role": "caller",
+      "text": "No, not yet decided.",
+      "timestamp": "2026-03-27T13:54:07.073054"
+    },
+    {
+      "role": "caller",
+      "text": "Can you tell me what other services do you offer?",
+      "timestamp": "2026-03-27T13:54:18.237788"
+    },
+    {
+      "role": "ai",
+      "text": "Sure! We offer high-speed internet, meeting rooms, printing facilities, and a fully stocked kitchen. Are you also interested in any",
+      "timestamp": "2026-03-27T13:54:18.703832"
+    },
+    {
+      "role": "caller",
+      "text": "Bye-bye. ",
+      "timestamp": "2026-03-27T13:54:34.580964"
+    },
+    {
+      "role": "ai",
+      "text": "Sure! We also offer mail handling, 24/7 access, and flexible lease terms. Does that",
+      "timestamp": "2026-03-27T13:54:35.843867"
+    }
+  ],
+  "tools_used": []
+}

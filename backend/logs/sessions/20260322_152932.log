@@ -1,0 +1,5 @@
+2026-03-22 15:29:32 | INFO     | [20260322_152932] CALL_STARTED — redis=yes | rag_chunks=4
+2026-03-22 15:29:38 | INFO     | [20260322_152932] CALLER_SPOKE — text=Hello.
+2026-03-22 15:29:38 | INFO     | [20260322_152932] AI_SPOKE — text=Hi! Thanks for calling BluQQ, this is Priya.
+2026-03-22 15:29:50 | INFO     | [20260322_152932] CALLER_SPOKE — text=Note our service-provided book.
+2026-03-22 15:29:50 | INFO     | [20260322_152932] AI_SPOKE — text=We offer trading bots, dashboards, data pipelines, AI tools,

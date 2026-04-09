@@ -1,0 +1,14 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,1,AI,"Welcome to BluQQ, how can I help?",11:18:25
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,2,CALLER,Hello.,11:18:25
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,3,AI,"We offer trading tools, dashboards,",11:18:34
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,4,CALLER,,11:18:36
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,5,AI,Our AI automation services range from,11:18:40
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,6,CALLER,,11:18:40
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,7,CALLER,OK.,11:18:49
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,8,AI,What specific service are you interested in,11:18:49
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,9,CALLER,I'm interested in building an AI automation training system.,11:19:00
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,10,CALLER,Bye.,11:19:01
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,11,AI,Our AI automation for trading can handle,11:19:02
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,12,AI,What’s your timeline for implementation?,11:19:10
+20260321_111820,Unknown,Unknown,2026-03-21,11:18:20,13,CALLER,Yes.,11:19:10

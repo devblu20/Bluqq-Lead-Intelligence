@@ -1,0 +1,14 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,1,CALLER,Hello.,10:30:36
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,2,AI,"Hi, this is Priya from BluQQ! How can I help you today?",10:30:36
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,3,CALLER,What are services provided look?,10:30:44
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,4,AI,"We offer a range of tech services like trading bots, dashboards, AI tools, data pipelines, web scraping, and",10:30:46
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,5,CALLER,The static range of bot.,10:30:58
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,6,AI,Absolutely! Our trading bots can help automate your trading strategies. They range from around $500 to $5000,10:31:00
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,7,CALLER,OK.,10:31:12
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,8,AI,Would you like more details on how the trading bots work or maybe set up a consultation to discuss your needs?,10:31:14
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,9,CALLER,I don't know.,10:31:24
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,10,AI,Thank you for calling,10:31:24
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,11,CALLER,Thanks.,10:31:25
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,12,CALLER,Bye.,10:31:26
+20260323_103031,Unknown,Unknown,2026-03-23,10:30:31,13,AI,Thank you for calling BluQQ! Have a great day!,10:31:26

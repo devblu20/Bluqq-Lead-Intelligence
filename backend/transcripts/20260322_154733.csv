@@ -1,0 +1,15 @@
+﻿Session ID,Caller Name,Caller Phone,Date,Time,Turn #,Role,Message,Timestamp
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,1,AI,Hi!,15:47:40
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,2,CALLER,See you later. Bye. ,15:47:40
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,3,CALLER,Mm-hmm.,15:47:42
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,4,AI,"Thanks for calling BluQQ, this is Priya. How can I help you today?",15:47:43
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,5,CALLER,Bye.,15:47:48
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,6,AI,Sure! What kind of project are you looking to build?,15:47:49
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,7,CALLER,Okay.,15:48:01
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,8,AI,"Of course! We’ve got trading bots, dashboards, data pipelines,",15:48:02
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,9,CALLER,Hello.,15:48:11
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,10,AI,Absolutely! Dashboards are one of our specialties. Do,15:48:12
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,11,AI,They usually start around 800 dollars and can go up to 3000,15:48:22
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,12,CALLER,for this item.,15:48:22
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,13,AI,It depends on the complexity and features you need. What kind,15:48:33
+20260322_154733,Unknown,Unknown,2026-03-22,15:47:33,14,CALLER,What is Python?,15:48:34
