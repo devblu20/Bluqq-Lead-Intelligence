@@ -548,35 +548,7 @@ export default function Signup() {
                       </div>
                     </div>
 
-                    {/* ── Business Type ── */}
-                    <div>
-                      <label className="sg-label">Business Type</label>
-                      <div className="sg-field">
-                        <span className="sg-field-icon">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="2" y="7" width="20" height="14" rx="2" />
-                            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
-                            <line x1="12" y1="12" x2="12" y2="16" />
-                            <line x1="10" y1="14" x2="14" y2="14" />
-                          </svg>
-                        </span>
-                        <select
-                          name="businessType"
-                          value={form.businessType}
-                          onChange={handleChange}
-                          className={`sg-select${!form.businessType ? ' empty' : ''}`}
-                          required
-                        >
-                          <option value="" disabled>Select your business type</option>
-                          <option value="lead_intelligence">Lead Intelligence</option>
-                        </select>
-                        <span className="sg-chevron">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <polyline points="6 9 12 15 18 9" />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
+                    
 
                     {/* Submit */}
                     <button type="submit" className="sg-submit" disabled={loading} style={{ marginTop: '4px' }}>

@@ -1,26 +1,21 @@
 """
 ai_chat_service.py  —  BluQQ
-Fixed for actual stack:
-- psycopg2 sync query (no await)
-- get_settings() instead of settings
-- orchestrate() signature: org_id, lead_id, platform, message, service_interest
-- %s placeholders (not $1/$2)
-- generate_reply is async only for OpenAI call
-- Fixed: call trigger false positives (ambiguous words removed)
-- Fixed: "morning" as greeting no longer triggers TIMING_CONFIRMED
-- Added: SOFT_OFFER mode for complex/ready leads
 
-FIX CHANGELOG (v2):
-- FIX #1: already_asked_call check moved AFTER timing confirmation (was blocking it)
-- FIX #2: _detect_conversation_stage counts inbound-only messages for stage accuracy
-- FIX #3: generate_first_message now calls _update_ai_context to seed memory
-- FIX #4: max_auto_replies from org_ai_config is now enforced in generate_reply
-- FIX #5: _fetch_recent_conversations orders DESC then reverses, returning latest 20
-- FIX #6: tone_instruction is now interpolated into the system prompt
-- FIX #7: SOFT_OFFER guard added — won't re-offer call if already soft-offered recently
+FIX CHANGELOG (v3):
+- FIX #8: _last_ai_message replaced with _recent_ai_context() which scans the last
+  3 outbound messages for timing/time-of-day signals, not just the very last one.
+  Root cause: when AI sends "morning or evening?" and then "Our team will reach out
+  soon" in the same turn (or back-to-back), _last_ai_message() only sees the closing
+  reassurance, loses the time-of-day question, so ai_asked_time_of_day becomes False,
+  causing the bare-time-word guard to reject "Morning" as a greeting instead of
+  confirming it as a scheduling reply.
+- Also removed "our team will reach out" / "our team will connect" from
+  TIMING_QUESTION_SIGNALS — they are closing reassurances, not timing questions,
+  and were causing ai_asked_timing false positives.
 """
 
 import logging
+import re
 from typing import Optional
 
 from openai import OpenAI
@@ -66,8 +61,7 @@ def _detect_conversation_stage(messages: list[dict], ai_context: Optional[dict])
     if ai_context and ai_context.get("handoff_triggered"):
         return "handoff_pending"
 
-    # FIX #2: count inbound messages only for accurate stage detection
-    inbound_msgs = [m for m in messages if m.get("direction") == "inbound"]
+    inbound_msgs  = [m for m in messages if m.get("direction") == "inbound"]
     inbound_count = len(inbound_msgs)
     last_inbound  = inbound_msgs[-1]["message"].lower() if inbound_msgs else ""
 
@@ -131,6 +125,7 @@ CALL_SUGGEST_TRIGGERS = {
         "connect over call", "connect over a call",
         "talk over call", "talk over a call",
         "speak over call", "speak over a call",
+        "i want to connect over call", "i want to connect over a call",
         "baat karte hain call pe", "call pe baat karte",
         "call karo", "call krte hain", "call krte h",
         "time de do call ke liye", "call schedule karo",
@@ -170,13 +165,14 @@ CALL_CONTEXT_FOLLOWUP = [
     "6pm", "7pm", "8pm", "9am", "10am", "11am", "12pm",
 ]
 
+# NOTE: "our team will reach out" and "our team will connect" intentionally removed.
+# They are closing reassurances, not timing questions, and caused false positives.
 TIMING_QUESTION_SIGNALS = [
     "when works best", "what time", "morning or evening", "evening or morning",
     "kab free", "subah ya shaam", "shaam ya subah",
     "what's a good time", "when are you free", "best time for you",
     "convenient time", "when can we", "good time for you",
     "when works", "works for you", "free for a call",
-    "morning or evening?", "our team will reach out", "our team will connect",
 ]
 
 BARE_TIME_WORDS = {
@@ -202,8 +198,6 @@ GREETING_ONLY_PHRASES = [
     "sup", "wassup", "what's up", "whats up",
 ]
 
-# Phrases that indicate the AI has already soft-offered a call recently
-# FIX #7: used to suppress repeated SOFT_OFFER
 SOFT_OFFER_PHRASES = [
     "hop on a quick call", "quick call", "connect over a call",
     "set up a quick call", "walk you through", "would you like to",
@@ -232,24 +226,40 @@ def _is_greeting_only(msg: str) -> bool:
 
 
 # ─────────────────────────────────────────────
-# LAST AI MESSAGE HELPER
+# FIX #8: SCAN RECENT AI MESSAGES (not just the last one)
 # ─────────────────────────────────────────────
 
-def _last_ai_message(messages: list[dict]) -> str:
-    outbound = [
-        m for m in messages
+def _recent_ai_context(messages: list[dict], lookback: int = 3) -> tuple[bool, bool]:
+    """
+    Scans the last `lookback` outbound (AI) messages and returns:
+      (ai_asked_timing, ai_asked_time_of_day)
+
+    Previously only the single last AI message was checked. This caused a bug where
+    the AI sends "morning or evening?" and then immediately follows with "Our team
+    will reach out soon." The time-of-day question then becomes invisible to the
+    single-message check, so ai_asked_time_of_day=False, and the bare-time guard
+    rejects "Morning" as a greeting rather than a scheduling confirmation.
+    """
+    outbound_msgs = [
+        m["message"].lower()
+        for m in messages
         if m.get("direction") == "outbound" or m.get("is_automated") == True
     ]
-    last_msg = outbound[-1]["message"].lower() if outbound else ""
-    print(f"[TIMING DEBUG] last AI message: {last_msg[:100]}")
-    return last_msg
+    recent   = outbound_msgs[-lookback:] if outbound_msgs else []
+    combined = " ".join(recent)
+
+    ai_asked_timing      = any(sig in combined for sig in TIMING_QUESTION_SIGNALS)
+    ai_asked_time_of_day = any(sig in combined for sig in AI_ASKED_TIME_OF_DAY_SIGNALS)
+
+    print(f"[TIMING DEBUG] recent AI msgs scanned ({len(recent)}): {recent}")
+    print(f"[TIMING DEBUG] ai_asked_timing={ai_asked_timing}, ai_asked_time_of_day={ai_asked_time_of_day}")
+
+    return ai_asked_timing, ai_asked_time_of_day
 
 
 # ─────────────────────────────────────────────
-# CALL SUGGESTION LOGIC
+# TIME DETECTION HELPERS
 # ─────────────────────────────────────────────
-
-import re
 
 TIME_REGEX = r"\b(\d{1,2}(:\d{2})?\s?(am|pm)?)\b"
 
@@ -278,6 +288,10 @@ def _contains_exact_time(msg: str) -> bool:
     return bool(re.search(TIME_REGEX, msg.lower()))
 
 
+# ─────────────────────────────────────────────
+# CALL SUGGESTION LOGIC
+# ─────────────────────────────────────────────
+
 def _should_suggest_call(
     inbound_message: str,
     stage: str,
@@ -289,23 +303,18 @@ def _should_suggest_call(
     msg_lower = _normalize_hinglish(msg_lower)
 
     messages  = messages or []
-    last_ai   = _last_ai_message(messages)
-
     msg_clean = msg_lower.strip().rstrip("!.,?")
     words     = msg_clean.split()
 
     print(f"[TIMING DEBUG] inbound: '{msg_clean}'")
 
+    # FIX #8: scan last 3 AI messages instead of only the final one
+    ai_asked_timing, ai_asked_time_of_day = _recent_ai_context(messages, lookback=3)
+
     is_bare_time_word = msg_clean in BARE_TIME_WORDS
     has_time_word     = any(t in msg_lower for t in CALL_CONTEXT_FOLLOWUP)
     has_exact_time    = _contains_exact_time(msg_lower)
     has_relative_time = any(w in msg_lower for w in RELATIVE_TIME_WORDS)
-
-    ai_asked_timing = any(sig in last_ai for sig in TIMING_QUESTION_SIGNALS)
-
-    ai_asked_time_of_day = any(
-        phrase in last_ai for phrase in AI_ASKED_TIME_OF_DAY_SIGNALS
-    )
 
     print(f"""
 [SMART TIMING DETECTION]
@@ -321,31 +330,25 @@ relative_time: {has_relative_time}
     # GREETING GUARD
     # ─────────────────────────────────────────
     if _is_greeting_only(msg_lower):
-        if not (
-            is_bare_time_word and (ai_asked_time_of_day or ai_asked_timing)
-        ):
+        if not (is_bare_time_word and (ai_asked_time_of_day or ai_asked_timing)):
             print("[TIMING DEBUG] → skipped, greeting only")
             return False, ""
         else:
-            print("[TIMING DEBUG] → bare time accepted as timing reply")
+            print("[TIMING DEBUG] → bare time accepted as timing reply (recent AI context matched)")
 
     # ─────────────────────────────────────────
-    # 1. TIMING CONFIRMATION  (FIX #1: moved BEFORE already_asked_call check)
+    # 1. TIMING CONFIRMATION  (before already_asked_call — Fix #1)
     # ─────────────────────────────────────────
-    word_count = len(words)
-
-    if ai_asked_timing and (
-        has_time_word or has_exact_time or has_relative_time
-    ):
+    if ai_asked_timing and (has_time_word or has_exact_time or has_relative_time):
         if is_bare_time_word and not ai_asked_time_of_day:
-            print("[TIMING DEBUG] → rejected (bare time without proper question)")
+            print("[TIMING DEBUG] → rejected (bare time, no time-of-day question in recent msgs)")
             return False, ""
 
         print(f"[TIMING DEBUG] → TIMING_CONFIRMED: {msg_clean}")
         return True, f"TIMING_CONFIRMED:{msg_clean}"
 
     # ─────────────────────────────────────────
-    # 2. PREVENT REPEATED CALL ASKING  (FIX #1: now runs after timing check)
+    # 2. PREVENT REPEATED CALL ASKING
     # ─────────────────────────────────────────
     recent_ai_msgs = [
         m["message"].lower()
@@ -358,7 +361,6 @@ relative_time: {has_relative_time}
         for m in recent_ai_msgs
     )
 
-    # FIX #7: also suppress SOFT_OFFER if it was already made recently
     already_soft_offered = any(
         any(phrase in m for phrase in SOFT_OFFER_PHRASES)
         for m in recent_ai_msgs
@@ -377,7 +379,7 @@ relative_time: {has_relative_time}
             return True, "EXPLICIT_CALL_REQUEST"
 
     # ─────────────────────────────────────────
-    # 4. SOFT OFFER  (FIX #7: skip if already soft-offered recently)
+    # 4. SOFT OFFER
     # ─────────────────────────────────────────
     if not already_soft_offered:
         for trigger_type in CALL_OFFER_TRIGGERS:
@@ -433,7 +435,6 @@ def _fetch_org_ai_config(org_id: str) -> dict:
 
 
 def _fetch_recent_conversations(lead_id: str, org_id: str, limit: int = 20) -> list[dict]:
-    # FIX #5: order DESC to get the latest N messages, then reverse for chronological order
     rows = query(
         """
         SELECT direction, message, is_automated, created_at
@@ -449,11 +450,10 @@ def _fetch_recent_conversations(lead_id: str, org_id: str, limit: int = 20) -> l
 
 
 # ─────────────────────────────────────────────
-# AUTO-REPLY LIMIT CHECK  (FIX #4)
+# AUTO-REPLY LIMIT CHECK
 # ─────────────────────────────────────────────
 
 def _has_exceeded_auto_reply_limit(messages: list[dict], max_auto_replies: Optional[int]) -> bool:
-    """Returns True if the AI has already sent max_auto_replies or more automated replies."""
     if not max_auto_replies:
         return False
     auto_count = sum(
@@ -609,7 +609,6 @@ DO NOT suggest a call or meeting in this reply.
 Answer their question directly. Stay in the chat.
 """
 
-    # FIX #6: tone_instruction is now interpolated into the prompt
     prompt = f"""{base_prompt}
 
 You are a real human sales team member replying on WhatsApp. Not a bot.
@@ -654,12 +653,8 @@ Write your reply NOW. Follow the FINAL INSTRUCTION above. Short. Casual. Human. 
 # ─────────────────────────────────────────────
 
 def _update_ai_context(lead_id: str, org_id: str, lead: dict, messages: list[dict], stage: str):
-    if not messages:
-        return
-
-    inbound_msgs = [m["message"] for m in messages if m["direction"] == "inbound"]
-    topics = ", ".join(inbound_msgs[-3:]) if inbound_msgs else "nothing yet"
-
+    inbound_msgs = [m["message"] for m in messages if m.get("direction") == "inbound"]
+    topics   = ", ".join(inbound_msgs[-3:]) if inbound_msgs else "nothing yet"
     snapshot = (
         f"Lead {lead.get('name','Unknown')} from {lead.get('company','unknown company')} "
         f"is interested in {lead.get('service_interest','our services')}. "
@@ -701,13 +696,7 @@ def generate_reply(
     inbound_message: str,
     platform: str = "whatsapp",
 ) -> str:
-    """
-    Generate a contextual, personalised reply to a lead's inbound WhatsApp message.
-    Fully synchronous — uses psycopg2 query() and sync OpenAI client.
-    Called via asyncio.run() from the webhook background thread.
-    """
     try:
-        # 1. Fetch all context (sync)
         lead       = _fetch_lead_full_context(lead_id, org_id)
         org_config = _fetch_org_ai_config(org_id)
         messages   = _fetch_recent_conversations(lead_id, org_id, limit=20)
@@ -717,18 +706,15 @@ def generate_reply(
             logger.warning(f"generate_reply: lead {lead_id} not found in org {org_id}")
             return "Thanks for your message! Our team will get back to you shortly."
 
-        # FIX #4: enforce max_auto_replies limit before doing anything else
         max_auto_replies = org_config.get("max_auto_replies")
         if _has_exceeded_auto_reply_limit(messages, max_auto_replies):
             logger.info(f"generate_reply: max_auto_replies ({max_auto_replies}) reached for lead={lead_id}")
             return ""
 
-        # 2. Stage + tone detection
         stage            = _detect_conversation_stage(messages, ai_context)
         tone_instruction = _detect_lead_tone(messages)
         call_suggestion  = _should_suggest_call(inbound_message, stage, lead, messages)
 
-        # 3. Retrieval (sync orchestrate)
         retrieved = orchestrate(
             org_id=org_id,
             lead_id=lead_id,
@@ -737,7 +723,6 @@ def generate_reply(
             service_interest=lead.get("service_interest"),
         )
 
-        # 4. Build prompt
         system_prompt = _build_system_prompt(
             org_config=org_config,
             lead=lead,
@@ -749,7 +734,6 @@ def generate_reply(
             call_suggestion=call_suggestion,
         )
 
-        # 5. Call OpenAI (sync client)
         response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[
@@ -762,7 +746,6 @@ def generate_reply(
 
         reply = response.choices[0].message.content.strip()
 
-        # 6. Save memory snapshot
         _update_ai_context(lead_id, org_id, lead, messages, stage)
 
         logger.info(f"generate_reply: lead={lead_id} stage={stage}")
@@ -774,10 +757,6 @@ def generate_reply(
 
 
 def generate_first_message(lead_id: str, org_id: str) -> str:
-    """
-    Generate the opening WhatsApp message for a high-scoring lead.
-    Sync version to match the rest of the stack.
-    """
     lead       = _fetch_lead_full_context(lead_id, org_id)
     org_config = _fetch_org_ai_config(org_id)
 
@@ -828,8 +807,6 @@ Write the very first WhatsApp message to this lead. Rules:
 
     reply = response.choices[0].message.content.strip()
 
-    # FIX #3: seed memory snapshot after the first message is generated
-    # Use an empty messages list since no conversation exists yet
     _update_ai_context(lead_id, org_id, lead, [], "cold_opening")
 
     return reply
