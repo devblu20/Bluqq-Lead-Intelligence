@@ -1,17 +1,17 @@
 """
 ai_chat_service.py  —  BluQQ
 
-FIX CHANGELOG (v3):
-- FIX #8: _last_ai_message replaced with _recent_ai_context() which scans the last
-  3 outbound messages for timing/time-of-day signals, not just the very last one.
-  Root cause: when AI sends "morning or evening?" and then "Our team will reach out
-  soon" in the same turn (or back-to-back), _last_ai_message() only sees the closing
-  reassurance, loses the time-of-day question, so ai_asked_time_of_day becomes False,
-  causing the bare-time-word guard to reject "Morning" as a greeting instead of
-  confirming it as a scheduling reply.
-- Also removed "our team will reach out" / "our team will connect" from
-  TIMING_QUESTION_SIGNALS — they are closing reassurances, not timing questions,
-  and were causing ai_asked_timing false positives.
+FIX CHANGELOG (v4):
+- FIX #9:  Added missing call trigger phrases: "schedule a meet", "meet or a call",
+           "schedule a meeting", "want to meet", "can we meet", "connect with your team",
+           "connect with the team", "speak to your team", "talk to your team", etc.
+- FIX #10: Added SCHEDULING_IN_PROGRESS state. Once the AI has asked for a preferred
+           time (EXPLICIT_CALL_REQUEST stage), any follow-up message from the lead
+           (e.g. "About pricing", "Tomorrow") must be treated as part of the scheduling
+           flow — NOT as a new topic. The AI should not pivot to answering questions
+           mid-scheduling.
+- FIX #11: Added "Absolutely" and "I totally get that" to the filler opener list in
+           the system prompt. These were appearing in replies despite RULE 5.
 """
 
 import logging
@@ -113,6 +113,7 @@ STAGE_INSTRUCTIONS = {
 
 CALL_SUGGEST_TRIGGERS = {
     "lead_asked": [
+        # Direct call requests
         "can we connect on a call", "can we connect over a call",
         "can we talk on a call", "can we call", "let's connect on a call",
         "let's talk on a call", "let's get on a call",
@@ -126,10 +127,26 @@ CALL_SUGGEST_TRIGGERS = {
         "talk over call", "talk over a call",
         "speak over call", "speak over a call",
         "i want to connect over call", "i want to connect over a call",
+        # FIX #9: meeting/meet variants that were missing
+        "schedule a meet", "schedule a meeting", "book a meeting",
+        "want to meet", "can we meet", "let's meet",
+        "meet or a call", "call or a meet", "meeting or a call", "call or a meeting",
+        "i want to schedule", "want to schedule",
+        "set up a meeting", "set up a call",
+        # Team connect requests — "Can I connect with your team?"
+        "connect with your team", "connect with the team",
+        "speak to your team", "speak to the team",
+        "talk to your team", "talk to the team",
+        "speak with your team", "speak with the team",
+        "talk with your team", "talk with the team",
+        "connect with you team",  # common typo seen in screenshot
+        "get in touch with your team", "reach your team",
+        # Hindi/Hinglish
         "baat karte hain call pe", "call pe baat karte",
         "call karo", "call krte hain", "call krte h",
         "time de do call ke liye", "call schedule karo",
         "call pe milte", "call pe connect",
+        "meeting fix karo", "meeting schedule karo",
     ],
     "budget_discussion": [
         "how much does it cost", "what is the pricing",
@@ -165,8 +182,6 @@ CALL_CONTEXT_FOLLOWUP = [
     "6pm", "7pm", "8pm", "9am", "10am", "11am", "12pm",
 ]
 
-# NOTE: "our team will reach out" and "our team will connect" intentionally removed.
-# They are closing reassurances, not timing questions, and caused false positives.
 TIMING_QUESTION_SIGNALS = [
     "when works best", "what time", "morning or evening", "evening or morning",
     "kab free", "subah ya shaam", "shaam ya subah",
@@ -204,6 +219,17 @@ SOFT_OFFER_PHRASES = [
     "want to connect", "happy to set up",
 ]
 
+# FIX #10: phrases that indicate the AI has already entered scheduling mode
+# If any of these appear in recent AI messages, we're mid-scheduling and
+# the lead's next reply (whatever it says) should be treated as scheduling context.
+AI_SCHEDULING_IN_PROGRESS_SIGNALS = [
+    "when works best", "when's a good time", "morning or evening",
+    "when are you free", "best time for you", "what time works",
+    "when can we", "kab free", "good time for you",
+    "our team will reach out", "our team will connect",
+    "team will be in touch", "someone will call",
+]
+
 
 # ─────────────────────────────────────────────
 # GREETING GUARD
@@ -211,34 +237,25 @@ SOFT_OFFER_PHRASES = [
 
 def _is_greeting_only(msg: str) -> bool:
     msg_clean = msg.lower().strip().rstrip("!.,?")
-
     for phrase in GREETING_ONLY_PHRASES:
         if msg_clean == phrase:
             return True
         if msg_clean.startswith(phrase) and len(msg_clean.replace(phrase, "").strip()) < 4:
             return True
-
     words = msg_clean.split()
     if len(words) == 1 and msg_clean in BARE_TIME_WORDS:
         return True
-
     return False
 
 
 # ─────────────────────────────────────────────
-# FIX #8: SCAN RECENT AI MESSAGES (not just the last one)
+# RECENT AI CONTEXT (lookback across messages)
 # ─────────────────────────────────────────────
 
-def _recent_ai_context(messages: list[dict], lookback: int = 3) -> tuple[bool, bool]:
+def _recent_ai_context(messages: list[dict], lookback: int = 3) -> tuple[bool, bool, bool]:
     """
     Scans the last `lookback` outbound (AI) messages and returns:
-      (ai_asked_timing, ai_asked_time_of_day)
-
-    Previously only the single last AI message was checked. This caused a bug where
-    the AI sends "morning or evening?" and then immediately follows with "Our team
-    will reach out soon." The time-of-day question then becomes invisible to the
-    single-message check, so ai_asked_time_of_day=False, and the bare-time guard
-    rejects "Morning" as a greeting rather than a scheduling confirmation.
+      (ai_asked_timing, ai_asked_time_of_day, scheduling_in_progress)
     """
     outbound_msgs = [
         m["message"].lower()
@@ -248,13 +265,15 @@ def _recent_ai_context(messages: list[dict], lookback: int = 3) -> tuple[bool, b
     recent   = outbound_msgs[-lookback:] if outbound_msgs else []
     combined = " ".join(recent)
 
-    ai_asked_timing      = any(sig in combined for sig in TIMING_QUESTION_SIGNALS)
-    ai_asked_time_of_day = any(sig in combined for sig in AI_ASKED_TIME_OF_DAY_SIGNALS)
+    ai_asked_timing        = any(sig in combined for sig in TIMING_QUESTION_SIGNALS)
+    ai_asked_time_of_day   = any(sig in combined for sig in AI_ASKED_TIME_OF_DAY_SIGNALS)
+    # FIX #10: detect if we're mid-scheduling flow
+    scheduling_in_progress = any(sig in combined for sig in AI_SCHEDULING_IN_PROGRESS_SIGNALS)
 
-    print(f"[TIMING DEBUG] recent AI msgs scanned ({len(recent)}): {recent}")
-    print(f"[TIMING DEBUG] ai_asked_timing={ai_asked_timing}, ai_asked_time_of_day={ai_asked_time_of_day}")
+    print(f"[TIMING DEBUG] recent AI msgs ({len(recent)}): {recent}")
+    print(f"[TIMING DEBUG] timing={ai_asked_timing}, tod={ai_asked_time_of_day}, scheduling={scheduling_in_progress}")
 
-    return ai_asked_timing, ai_asked_time_of_day
+    return ai_asked_timing, ai_asked_time_of_day, scheduling_in_progress
 
 
 # ─────────────────────────────────────────────
@@ -308,8 +327,7 @@ def _should_suggest_call(
 
     print(f"[TIMING DEBUG] inbound: '{msg_clean}'")
 
-    # FIX #8: scan last 3 AI messages instead of only the final one
-    ai_asked_timing, ai_asked_time_of_day = _recent_ai_context(messages, lookback=3)
+    ai_asked_timing, ai_asked_time_of_day, scheduling_in_progress = _recent_ai_context(messages, lookback=3)
 
     is_bare_time_word = msg_clean in BARE_TIME_WORDS
     has_time_word     = any(t in msg_lower for t in CALL_CONTEXT_FOLLOWUP)
@@ -321,6 +339,7 @@ def _should_suggest_call(
 msg: {msg_clean}
 ai_asked_timing: {ai_asked_timing}
 ai_asked_time_of_day: {ai_asked_time_of_day}
+scheduling_in_progress: {scheduling_in_progress}
 bare_time: {is_bare_time_word}
 exact_time: {has_exact_time}
 relative_time: {has_relative_time}
@@ -334,17 +353,22 @@ relative_time: {has_relative_time}
             print("[TIMING DEBUG] → skipped, greeting only")
             return False, ""
         else:
-            print("[TIMING DEBUG] → bare time accepted as timing reply (recent AI context matched)")
+            print("[TIMING DEBUG] → bare time accepted as timing reply")
 
     # ─────────────────────────────────────────
-    # 1. TIMING CONFIRMATION  (before already_asked_call — Fix #1)
+    # 1. TIMING CONFIRMATION  (before already_asked_call)
     # ─────────────────────────────────────────
     if ai_asked_timing and (has_time_word or has_exact_time or has_relative_time):
         if is_bare_time_word and not ai_asked_time_of_day:
             print("[TIMING DEBUG] → rejected (bare time, no time-of-day question in recent msgs)")
             return False, ""
-
         print(f"[TIMING DEBUG] → TIMING_CONFIRMED: {msg_clean}")
+        return True, f"TIMING_CONFIRMED:{msg_clean}"
+
+    # FIX #10: if we're mid-scheduling flow and lead says anything (even a topic
+    # like "pricing"), treat it as scheduling context — confirm and wrap up.
+    if scheduling_in_progress:
+        print(f"[TIMING DEBUG] → SCHEDULING_IN_PROGRESS, treating as timing context: {msg_clean}")
         return True, f"TIMING_CONFIRMED:{msg_clean}"
 
     # ─────────────────────────────────────────
@@ -357,7 +381,7 @@ relative_time: {has_relative_time}
     ]
 
     already_asked_call = any(
-        "call" in m or "meeting" in m
+        "call" in m or "meeting" in m or "meet" in m
         for m in recent_ai_msgs
     )
 
@@ -568,23 +592,24 @@ def _build_system_prompt(
     if should_call and call_reason.startswith("TIMING_CONFIRMED:"):
         confirmed_time = call_reason.split("TIMING_CONFIRMED:")[1].strip()
         call_rule = f"""
-THE LEAD CONFIRMED THEIR AVAILABLE TIME: "{confirmed_time}"
-YOUR ONLY JOB: Write 2 sentences confirming this.
-  Sentence 1: Acknowledge the time. Example: "Perfect, noted for {confirmed_time}!"
-  Sentence 2: Confirm team will call. Example: "Our team will connect with you this {confirmed_time}."
-DO NOT: ask any question, mention features, say anything else.
-EXAMPLE REPLY: "Perfect, {confirmed_time} it is! Our team will connect with you then."
+THE LEAD CONFIRMED THEIR AVAILABLE TIME OR TOPIC: "{confirmed_time}"
+YOUR ONLY JOB: Write 2 sentences wrapping up the scheduling.
+  Sentence 1: Acknowledge naturally. Example: "Got it — our team will reach out to discuss {confirmed_time}."
+  Sentence 2: Confirm and close. Example: "They'll be in touch with you shortly!"
+DO NOT: answer any question, pivot to product info, ask anything new.
+EXAMPLE REPLY: "Noted, our team will cover pricing on the call. They'll be in touch shortly!"
 """
 
     elif should_call and call_reason == "EXPLICIT_CALL_REQUEST":
         call_rule = """
-THE LEAD HAS EXPLICITLY ASKED FOR A CALL.
+THE LEAD HAS EXPLICITLY ASKED FOR A CALL OR MEETING.
 YOUR ONLY JOB: Write 2-3 sentences doing exactly this:
   Sentence 1: Acknowledge warmly. Example: "Happy to connect!"
   Sentence 2: Ask their preferred time. Example: "When works best for you — morning or evening?"
   Sentence 3: Reassure. Example: "Our team will reach out to you soon."
 DO NOT: talk about features, answer any other question, ignore the call request.
-EXAMPLE REPLY: "Happy to connect! When's a good time — morning or evening? Our team will reach out to you soon."
+DO NOT ask what topics they want to discuss — just get the time and confirm.
+EXAMPLE REPLY: "Happy to set that up! When works best — morning or evening? Our team will reach out shortly."
 """
 
     elif should_call and call_reason == "SOFT_OFFER":
@@ -609,6 +634,7 @@ DO NOT suggest a call or meeting in this reply.
 Answer their question directly. Stay in the chat.
 """
 
+    # FIX #11: expanded filler opener list in RULE 5
     prompt = f"""{base_prompt}
 
 You are a real human sales team member replying on WhatsApp. Not a bot.
@@ -626,10 +652,18 @@ RULE 3 — NO FORMATTING: No bold, no asterisks, no headers. Plain text only.
 RULE 4 — CASUAL: Like a friend texting. Not a company email.
   BAD:  "I understand your concern and would like to address it."
   GOOD: "Makes sense — let me explain how that works."
-RULE 5 — NO FILLER OPENERS: Never start with "Great!", "Sure!", "Absolutely!", "Of course!", "I get that", "I understand".
+RULE 5 — NO FILLER OPENERS — NEVER start a reply with any of these words or phrases:
+  "Great", "Sure", "Absolutely", "Of course", "I get that", "I understand",
+  "I totally get that", "I totally understand", "Definitely", "Certainly",
+  "No problem", "Happy to help", "Of course!", "That's great", "Wonderful",
+  "Fantastic", "Awesome", "Perfect", "Noted".
+  Starting with filler is unprofessional. Go straight to the point.
 RULE 6 — DON'T START WITH "I": Start with their name, a fact, or a direct answer.
 RULE 7 — SPECIFIC: Use real facts from knowledge base. Never say "we have great solutions".
 RULE 8 — ONE ENDING: Finish with ONE question OR one next step. Not both. Not three.
+RULE 9 — NEVER ASK FOR TOPICS ON A CALL REQUEST: If the lead asks for a call or meeting,
+  just ask for their preferred time. Do NOT ask "What would you like to discuss?" —
+  that wastes a message and feels like you're not listening.
 
 CONVERSATION STAGE: {stage.upper().replace('_', ' ')}
 {stage_instruction}
