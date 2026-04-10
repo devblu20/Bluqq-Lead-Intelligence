@@ -85,6 +85,13 @@ export interface DashboardStats {
   new_today: number;
   average_score: number;
   recent_leads: Lead[];
+
+  // ✅ ADD THIS
+  source_breakdown?: {
+    name: string;
+    count: number;
+    color: string;
+  }[];
 }
 
 export interface PaginatedLeads {
