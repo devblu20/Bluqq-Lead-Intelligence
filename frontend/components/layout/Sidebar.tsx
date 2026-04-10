@@ -71,7 +71,7 @@ export default function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   const sidebarContent = (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <Image src="/bluqq-logo.png" alt="BluQQ" width={110} height={42} style={{display:'block'}} />
+        <Image src="/lead-intelligence/bluqq-logo.png" alt="BluQQ" width={110} height={42} style={{display:'block'}} />
         {/* Close button — mobile only */}
         <button className="sidebar-close" onClick={onClose} aria-label="Close menu">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
