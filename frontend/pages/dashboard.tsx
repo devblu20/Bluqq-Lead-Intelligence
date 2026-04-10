@@ -49,28 +49,7 @@ export default function Dashboard() {
         </svg>
       ),
     },
-    {
-      title: 'AI Settings',
-      desc: 'Configure your AI assistant',
-      href: '/settings/ai-settings',
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
-        </svg>
-      ),
-    },
-    {
-      title: 'Knowledge Base',
-      desc: 'Manage your AI knowledge',
-      href: '/settings/knowledge',
-      icon: (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
-      ),
-    },
+    
   ];
 
   return (
