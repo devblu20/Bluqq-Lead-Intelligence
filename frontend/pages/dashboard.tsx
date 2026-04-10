@@ -22,26 +22,26 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  const iconBtnBase: React.CSSProperties = {
+  const iconBtnStyle: React.CSSProperties = {
     width: '32px', height: '32px', borderRadius: '8px',
     background: 'rgba(255,255,255,0.05)',
     border: '1px solid rgba(255,255,255,0.1)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
     color: 'rgba(255,255,255,0.4)',
     transition: 'all 0.15s',
-    flexShrink: 0,
     textDecoration: 'none',
+    flexShrink: 0,
   };
 
-  const handleIconHoverIn  = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.background   = 'rgba(0,194,168,0.1)';
-    e.currentTarget.style.borderColor  = 'rgba(0,194,168,0.3)';
-    e.currentTarget.style.color        = '#00c2a8';
+  const handleIconHoverIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.background    = 'rgba(0,194,168,0.1)';
+    e.currentTarget.style.borderColor   = 'rgba(0,194,168,0.3)';
+    e.currentTarget.style.color         = '#00c2a8';
   };
   const handleIconHoverOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.background   = 'rgba(255,255,255,0.05)';
-    e.currentTarget.style.borderColor  = 'rgba(255,255,255,0.1)';
-    e.currentTarget.style.color        = 'rgba(255,255,255,0.4)';
+    e.currentTarget.style.background    = 'rgba(255,255,255,0.05)';
+    e.currentTarget.style.borderColor   = 'rgba(255,255,255,0.1)';
+    e.currentTarget.style.color         = 'rgba(255,255,255,0.4)';
   };
 
   return (
@@ -110,7 +110,7 @@ export default function Dashboard() {
         }
         .db-view-all:hover { background: rgba(0,194,168,0.14); border-color: rgba(0,194,168,0.38); }
 
-        /* ── Lead rows ── */
+        /* ── Lead rows — FIXED ALIGNMENT ── */
         .db-lead-row {
           display: grid;
           grid-template-columns: 36px 1fr 52px 90px 90px 60px;
@@ -306,7 +306,7 @@ export default function Dashboard() {
                   <Link
                     href="/leads"
                     title="View All Leads"
-                    style={iconBtnBase}
+                    style={iconBtnStyle}
                     onMouseOver={handleIconHoverIn}
                     onMouseOut={handleIconHoverOut}
                   >
@@ -321,7 +321,7 @@ export default function Dashboard() {
                   <Link
                     href="/leads/new"
                     title="Add Lead Manually"
-                    style={iconBtnBase}
+                    style={iconBtnStyle}
                     onMouseOver={handleIconHoverIn}
                     onMouseOut={handleIconHoverOut}
                   >
