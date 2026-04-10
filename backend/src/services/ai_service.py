@@ -13,7 +13,7 @@ def run_analysis_and_score(lead: dict) -> dict:
     3. Save to DB
     4. Update lead score + priority
     5. Log event
-    6. Auto send first WhatsApp message if High priority
+    NOTE: Auto WhatsApp message DISABLED — first message must be sent manually from dashboard.
     """
     lead_id = str(lead["id"])
 
@@ -78,47 +78,9 @@ def run_analysis_and_score(lead: dict) -> dict:
         }
     )
 
-    # ── Step 6 — Auto send first WhatsApp message if High priority ──
-    priority = scoring["priority"]
-    org_id   = lead.get("org_id")
-    phone    = lead.get("phone")
-
-    if priority == "High" and org_id and phone:
-        try:
-            # Check if this org has auto_send_first enabled
-            config = query(
-                "SELECT auto_send_first FROM org_ai_config WHERE org_id = %s",
-                (org_id,), fetch="one"
-            )
-
-            if config and config.get("auto_send_first"):
-                print(f"[AI CHAT] Auto send enabled — drafting first message for {lead.get('name')}")
-
-                from src.services.ai_chat_service import generate_first_message
-                from src.services.message_service import send_message_to_lead
-                import asyncio
-
-                # Generate personalised first message
-                first_msg = generate_first_message(org_id, lead_id)
-
-                if first_msg:
-                    print(f"[AI CHAT] Sending: {first_msg[:60]}...")
-                    asyncio.run(
-                        send_message_to_lead(
-                            org_id=org_id,
-                            lead_id=lead_id,
-                            platform="whatsapp",
-                            message=first_msg
-                        )
-                    )
-                    print(f"[AI CHAT] First message sent to {lead.get('name')}")
-            else:
-                print(f"[AI CHAT] Auto send disabled for org {org_id} — skipping")
-
-        except Exception as e:
-            # Never crash the scoring pipeline because of messaging
-            print(f"[AI CHAT] Auto first message failed: {e}")
-            import traceback
-            traceback.print_exc()
+    # Step 6 REMOVED — Auto WhatsApp message disabled.
+    # First message must be sent MANUALLY from the dashboard.
+    # When agent clicks "Send" on dashboard → conversation starts.
+    # After that, AI auto-replies to all inbound messages automatically.
 
     return dict(saved_analysis)
