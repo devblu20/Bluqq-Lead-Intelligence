@@ -21,7 +21,7 @@ export default function Signup() {
 
   const [step, setStep] = useState<Step>('form');
   const [form, setForm] = useState({
-    name: '', email: '', password: '', confirm: '', businessType: '',
+    name: '', email: '', password: '', confirm: '', 
   });
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
