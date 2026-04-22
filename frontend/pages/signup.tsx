@@ -21,7 +21,7 @@ export default function Signup() {
 
   const [step, setStep] = useState<Step>('form');
   const [form, setForm] = useState({
-    name: '', email: '', password: '', confirm: '', businessType: '',
+    name: '', email: '', password: '', confirm: '', 
   });
   const [code, setCode] = useState('');
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ export default function Signup() {
     if (form.password.length < 6) { setError('Password must be at least 6 characters'); return; }
     if (form.password.length > 70) { setError('Password must be under 70 characters'); return; }
     if (form.password !== form.confirm) { setError('Passwords do not match'); return; }
-    if (!form.businessType) { setError('Please select a business type'); return; }
+    
 
     setLoading(true);
     try {
@@ -73,7 +73,7 @@ export default function Signup() {
         name: form.name,
         email: form.email,
         password: form.password,
-        businessType: form.businessType,
+        
       });
       login(res.data.access_token, res.data.user);
       toast.success('Welcome to BluQQ! 🎉');
