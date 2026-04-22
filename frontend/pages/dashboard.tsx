@@ -22,28 +22,6 @@ export default function Dashboard() {
       .finally(() => setLoading(false));
   }, []);
 
-  const iconBtnStyle: React.CSSProperties = {
-    width: '32px', height: '32px', borderRadius: '8px',
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    color: 'rgba(255,255,255,0.4)',
-    transition: 'all 0.15s',
-    textDecoration: 'none',
-    flexShrink: 0,
-  };
-
-  const handleIconHoverIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.background    = 'rgba(0,194,168,0.1)';
-    e.currentTarget.style.borderColor   = 'rgba(0,194,168,0.3)';
-    e.currentTarget.style.color         = '#00c2a8';
-  };
-  const handleIconHoverOut = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.currentTarget.style.background    = 'rgba(255,255,255,0.05)';
-    e.currentTarget.style.borderColor   = 'rgba(255,255,255,0.1)';
-    e.currentTarget.style.color         = 'rgba(255,255,255,0.4)';
-  };
-
   return (
     <AppLayout title="Overview" greeting={`${greeting}, Tanisha`}>
       <style>{`
@@ -72,8 +50,8 @@ export default function Dashboard() {
 
         /* ── Section card ── */
         .db-section {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: var(--bg-card);
+          border: 1px solid var(--border);
           border-radius: 16px;
           overflow: hidden;
         }
@@ -81,19 +59,21 @@ export default function Dashboard() {
         .db-section-header {
           display: flex; align-items: center; justify-content: space-between;
           padding: 17px 22px;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid var(--border);
           gap: 12px;
         }
 
         .db-section-title {
           font-family: 'Sora', sans-serif;
-          font-size: 15px; font-weight: 800; color: #fff;
+          font-size: 15px; font-weight: 800;
+          color: var(--text-primary);
           margin: 0 0 3px;
         }
 
         .db-section-sub {
           font-family: 'Inter', sans-serif;
-          font-size: 12px; color: rgba(255,255,255,0.28);
+          font-size: 12px;
+          color: var(--text-muted);
           margin: 0;
         }
 
@@ -110,18 +90,35 @@ export default function Dashboard() {
         }
         .db-view-all:hover { background: rgba(0,194,168,0.14); border-color: rgba(0,194,168,0.38); }
 
-        /* ── Lead rows — FIXED ALIGNMENT ── */
+        /* ── Icon buttons ── */
+        .db-icon-btn {
+          width: 32px; height: 32px; border-radius: 8px;
+          background: var(--bg-secondary);
+          border: 1px solid var(--border);
+          display: flex; align-items: center; justify-content: center;
+          color: var(--text-muted);
+          transition: all 0.15s;
+          text-decoration: none;
+          flex-shrink: 0;
+        }
+        .db-icon-btn:hover {
+          background: rgba(0,194,168,0.1);
+          border-color: rgba(0,194,168,0.3);
+          color: #00c2a8;
+        }
+
+        /* ── Lead rows ── */
         .db-lead-row {
           display: grid;
           grid-template-columns: 36px 1fr 52px 90px 90px 60px;
           align-items: center;
           gap: 12px;
           padding: 13px 22px;
-          border-bottom: 1px solid rgba(255,255,255,0.04);
+          border-bottom: 1px solid var(--border-subtle);
           transition: background 0.15s;
         }
         .db-lead-row:last-child { border-bottom: none; }
-        .db-lead-row:hover { background: rgba(255,255,255,0.025); }
+        .db-lead-row:hover { background: var(--table-row-hover); }
 
         @media (max-width: 700px) {
           .db-lead-row { grid-template-columns: 36px 1fr 52px 80px; gap: 8px; padding: 12px 16px; }
@@ -146,7 +143,8 @@ export default function Dashboard() {
 
         .db-lead-name {
           font-family: 'Inter', sans-serif;
-          font-size: 13px; font-weight: 700; color: #fff;
+          font-size: 13px; font-weight: 700;
+          color: var(--text-primary);
           text-decoration: none; display: block;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
           transition: color 0.15s;
@@ -155,7 +153,8 @@ export default function Dashboard() {
 
         .db-lead-sub {
           font-family: 'Inter', sans-serif;
-          font-size: 11px; color: rgba(255,255,255,0.28);
+          font-size: 11px;
+          color: var(--text-muted);
           margin-top: 2px;
           white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
@@ -167,10 +166,10 @@ export default function Dashboard() {
           letter-spacing: -0.5px;
           white-space: nowrap;
         }
-        .db-score-hot  { color: #f87171; }
-        .db-score-warm { color: #fbbf24; }
-        .db-score-good { color: #60a5fa; }
-        .db-score-none { color: rgba(255,255,255,0.18); }
+        .db-score-hot  { color: #ef4444; }
+        .db-score-warm { color: #f59e0b; }
+        .db-score-good { color: #3b82f6; }
+        .db-score-none { color: var(--text-hint); }
 
         .db-lead-priority { display: flex; justify-content: center; }
         .db-lead-status   { display: flex; justify-content: center; }
@@ -184,17 +183,34 @@ export default function Dashboard() {
           white-space: nowrap;
           min-width: 64px;
         }
-        .db-badge-new    { background: rgba(0,194,168,0.12);   color: #5eead4; border: 1px solid rgba(0,194,168,0.25); }
-        .db-badge-hot    { background: rgba(239,68,68,0.12);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
-        .db-badge-warm   { background: rgba(251,191,36,0.12);  color: #fde68a; border: 1px solid rgba(251,191,36,0.25); }
-        .db-badge-cold   { background: rgba(99,102,241,0.12);  color: #c4b5fd; border: 1px solid rgba(99,102,241,0.25); }
-        .db-badge-medium { background: rgba(245,158,11,0.12);  color: #fde68a; border: 1px solid rgba(245,158,11,0.25); }
-        .db-badge-low    { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.09); }
-        .db-badge-def    { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.09); }
+
+        /* Dark mode badges */
+        .db-badge-new    { background: rgba(0,194,168,0.12);   color: #0d9488; border: 1px solid rgba(0,194,168,0.25); }
+        .db-badge-hot    { background: rgba(239,68,68,0.12);   color: #dc2626; border: 1px solid rgba(239,68,68,0.25); }
+        .db-badge-warm   { background: rgba(251,191,36,0.12);  color: #d97706; border: 1px solid rgba(251,191,36,0.25); }
+        .db-badge-cold   { background: rgba(99,102,241,0.12);  color: #6d28d9; border: 1px solid rgba(99,102,241,0.25); }
+        .db-badge-medium { background: rgba(245,158,11,0.12);  color: #d97706; border: 1px solid rgba(245,158,11,0.25); }
+        .db-badge-low    { background: var(--badge-gray-bg);   color: var(--badge-gray-color); border: 1px solid var(--badge-gray-border); }
+        .db-badge-def    { background: var(--badge-gray-bg);   color: var(--badge-gray-color); border: 1px solid var(--badge-gray-border); }
+
+        /* Dark mode: lighter badge text for contrast on dark bg */
+        :root .db-badge-new  { color: #5eead4; }
+        :root .db-badge-hot  { color: #fca5a5; }
+        :root .db-badge-warm { color: #fde68a; }
+        :root .db-badge-cold { color: #c4b5fd; }
+        :root .db-badge-medium { color: #fde68a; }
+
+        /* Light mode: darker badge text for contrast on white bg */
+        [data-theme="light"] .db-badge-new    { color: #0f766e; }
+        [data-theme="light"] .db-badge-hot    { color: #b91c1c; }
+        [data-theme="light"] .db-badge-warm   { color: #b45309; }
+        [data-theme="light"] .db-badge-cold   { color: #5b21b6; }
+        [data-theme="light"] .db-badge-medium { color: #b45309; }
 
         .db-time {
           font-family: 'Inter', sans-serif;
-          font-size: 11px; color: rgba(255,255,255,0.20);
+          font-size: 11px;
+          color: var(--text-hint);
           white-space: nowrap; text-align: right;
         }
 
@@ -205,13 +221,13 @@ export default function Dashboard() {
           align-items: center;
           gap: 12px;
           padding: 8px 22px;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid var(--border);
         }
         .db-lead-header span {
           font-family: 'Inter', sans-serif;
           font-size: 10px; font-weight: 700;
           text-transform: uppercase; letter-spacing: 0.08em;
-          color: rgba(255,255,255,0.22);
+          color: var(--text-muted);
         }
         .db-col-score    { text-align: right; }
         .db-col-priority { text-align: center; }
@@ -237,39 +253,66 @@ export default function Dashboard() {
           display: flex; align-items: center; justify-content: center;
           margin: 0 auto 16px; color: rgba(0,194,168,0.6);
         }
-        .db-empty p { color: rgba(255,255,255,0.28); font-size: 14px; margin: 0 0 12px; font-family: 'Inter', sans-serif; }
+        .db-empty p { color: var(--text-muted); font-size: 14px; margin: 0 0 12px; font-family: 'Inter', sans-serif; }
         .db-empty a { color: #00c2a8; font-size: 14px; font-weight: 600; text-decoration: none; }
 
         /* ── Sources panel ── */
         .db-sources-panel {
-          background: rgba(255,255,255,0.03);
-          border: 1px solid rgba(255,255,255,0.07);
+          background: var(--bg-card);
+          border: 1px solid var(--border);
           border-radius: 16px; overflow: hidden;
         }
         .db-sources-head {
           display: flex; align-items: flex-start; justify-content: space-between;
           padding: 17px 20px 14px;
-          border-bottom: 1px solid rgba(255,255,255,0.06);
+          border-bottom: 1px solid var(--border);
         }
-        .db-sources-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 800; color: #fff; margin: 0 0 3px; }
-        .db-sources-sub   { font-family: 'Inter', sans-serif; font-size: 12px; color: rgba(255,255,255,0.28); margin: 0; }
+        .db-sources-title {
+          font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 800;
+          color: var(--text-primary); margin: 0 0 3px;
+        }
+        .db-sources-sub {
+          font-family: 'Inter', sans-serif; font-size: 12px;
+          color: var(--text-muted); margin: 0;
+        }
         .db-dots { display: flex; gap: 5px; }
         .db-dot  { width: 10px; height: 10px; border-radius: 50%; }
         .db-sources-body { padding: 18px 20px; }
         .db-src-row { margin-bottom: 16px; }
         .db-src-row:last-child { margin-bottom: 0; }
-        .db-src-label { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
-        .db-src-name  { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); }
+        .db-src-label {
+          display: flex; align-items: center; justify-content: space-between;
+          margin-bottom: 7px;
+        }
+        .db-src-name {
+          display: flex; align-items: center; gap: 8px;
+          font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+          color: var(--text-secondary);
+        }
         .db-src-dot   { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-        .db-src-count { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 800; color: rgba(255,255,255,0.5); }
-        .db-src-bar-bg   { height: 4px; border-radius: 99px; background: rgba(255,255,255,0.07); }
+        .db-src-count {
+          font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 800;
+          color: var(--text-muted);
+        }
+        .db-src-bar-bg   { height: 4px; border-radius: 99px; background: var(--border); }
         .db-src-bar-fill { height: 4px; border-radius: 99px; }
 
         /* ── Spinner ── */
         @keyframes db-spin { to { transform: rotate(360deg); } }
-        .db-spinner-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 320px; gap: 16px; }
-        .db-spinner { width: 38px; height: 38px; border-radius: 50%; border: 2.5px solid rgba(0,194,168,0.15); border-top-color: #00c2a8; animation: db-spin 0.75s linear infinite; }
-        .db-spinner-label { font-family: 'Inter', sans-serif; font-size: 14px; color: rgba(255,255,255,0.28); }
+        .db-spinner-wrap {
+          display: flex; flex-direction: column; align-items: center;
+          justify-content: center; height: 320px; gap: 16px;
+        }
+        .db-spinner {
+          width: 38px; height: 38px; border-radius: 50%;
+          border: 2.5px solid rgba(0,194,168,0.15);
+          border-top-color: #00c2a8;
+          animation: db-spin 0.75s linear infinite;
+        }
+        .db-spinner-label {
+          font-family: 'Inter', sans-serif; font-size: 14px;
+          color: var(--text-muted);
+        }
       `}</style>
 
       {loading ? (
@@ -299,17 +342,8 @@ export default function Dashboard() {
                   <p className="db-section-sub">Last 5 added to system</p>
                 </div>
 
-                {/* ── Right: icon buttons + view all ── */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-
-                  {/* View All Leads icon */}
-                  <Link
-                    href="/leads"
-                    title="View All Leads"
-                    style={iconBtnStyle}
-                    onMouseOver={handleIconHoverIn}
-                    onMouseOut={handleIconHoverOut}
-                  >
+                  <Link href="/leads" title="View All Leads" className="db-icon-btn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                       <circle cx="9" cy="7" r="4"/>
@@ -317,14 +351,7 @@ export default function Dashboard() {
                     </svg>
                   </Link>
 
-                  {/* Add Lead Manually icon */}
-                  <Link
-                    href="/leads/new"
-                    title="Add Lead Manually"
-                    style={iconBtnStyle}
-                    onMouseOver={handleIconHoverIn}
-                    onMouseOut={handleIconHoverOut}
-                  >
+                  <Link href="/leads/new" title="Add Lead Manually" className="db-icon-btn">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
                       <circle cx="9" cy="7" r="4"/>
@@ -333,7 +360,6 @@ export default function Dashboard() {
                     </svg>
                   </Link>
 
-                  {/* View all → button */}
                   <Link href="/leads" className="db-view-all">
                     View all →
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -341,7 +367,6 @@ export default function Dashboard() {
                       <polyline points="12 5 19 12 12 19"/>
                     </svg>
                   </Link>
-
                 </div>
               </div>
 
@@ -359,7 +384,6 @@ export default function Dashboard() {
                 </div>
               ) : (
                 <>
-                  {/* Column headers */}
                   <div className="db-lead-header">
                     <span />
                     <span>Lead</span>
