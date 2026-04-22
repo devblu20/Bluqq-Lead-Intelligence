@@ -24,8 +24,8 @@ const TEAM_SIZES = ['Just me', '2–10', '11–50', '51–200', '200+'];
 
 export default function NewLeadPage() {
   const router = useRouter();
-  const [loading, setLoading]   = useState(false);
-  const [focused, setFocused]   = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [focused, setFocused] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: '', company: '', email: '', phone: '',
     source: 'Manual', service_interest: '',
@@ -45,9 +45,7 @@ export default function NewLeadPage() {
     const { name, value, type } = e.target;
     setForm(prev => ({
       ...prev,
-      [name]: type === 'checkbox'
-        ? (e.target as HTMLInputElement).checked
-        : value,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
   };
 
@@ -95,184 +93,212 @@ export default function NewLeadPage() {
   };
 
   const wordCount = form.message.split(' ').filter(Boolean).length;
-  const barColor  = wordCount >= 50 ? '#22c55e' : wordCount >= 20 ? '#f59e0b' : '#0057b8';
+  const barColor  = wordCount >= 50 ? '#22c55e' : wordCount >= 20 ? '#f59e0b' : '#2563eb';
   const barWidth  = `${Math.min(100, (wordCount / 50) * 100)}%`;
   const wordHint  = wordCount >= 50 ? 'Excellent detail'
                   : wordCount >= 20 ? 'Good — aim for 50+ words'
                   : 'Add more context for better scoring';
 
-  // ── Shared styles ─────────────────────────────────────────────
-  const card: React.CSSProperties = {
-    background:   '#111827',
-    border:       '1px solid #1f2937',
-    borderRadius: '14px',
-    padding:      '28px 28px 24px',
-    marginBottom: '16px',
-  };
-
-  const sectionLabel: React.CSSProperties = {
-    fontSize:      '11px',
-    fontWeight:    600,
-    letterSpacing: '0.1em',
-    textTransform: 'uppercase',
-    color:         '#4b5563',
-    marginBottom:  '20px',
-  };
-
-  const fieldLabel: React.CSSProperties = {
-    display:      'block',
-    fontSize:     '14px',
-    fontWeight:   500,
-    color:        '#d1d5db',
-    marginBottom: '8px',
-  };
-
-  const hint: React.CSSProperties = {
-    fontSize:   '12px',
-    color:      '#4b5563',
-    marginTop:  '6px',
-  };
-
-  const inputBase = (name: string): React.CSSProperties => ({
-    width:        '100%',
-    padding:      '11px 14px',
-    background:   '#1f2937',
-    border:       `1.5px solid ${focused === name ? '#2563eb' : '#374151'}`,
-    borderRadius: '10px',
-    color:        '#f9fafb',
-    fontSize:     '14px',
-    outline:      'none',
-    boxSizing:    'border-box',
-    fontFamily:   'inherit',
-    transition:   'border-color 0.15s',
-    appearance:   'none',
-    WebkitAppearance: 'none',
-  });
-
-  const grid2: React.CSSProperties = {
-    display:             'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap:                 '16px',
-  };
-
-  const grid3: React.CSSProperties = {
-    display:             'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap:                 '12px',
-  };
-
   return (
     <AppLayout title="Add New Lead">
+      <style>{`
+        .nl-card {
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          border-radius: 14px;
+          padding: 28px 28px 24px;
+          margin-bottom: 16px;
+        }
+        .nl-section-label {
+          font-size: 11px; font-weight: 600;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          color: var(--text-muted); margin-bottom: 20px;
+        }
+        .nl-field-label {
+          display: block; font-size: 14px; font-weight: 500;
+          color: var(--text-secondary); margin-bottom: 8px;
+        }
+        .nl-hint { font-size: 12px; color: var(--text-hint); margin-top: 6px; }
+        .nl-sub  { font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 16px; }
+
+        .nl-input {
+          width: 100%; padding: 11px 14px;
+          background: var(--bg-input);
+          border: 1.5px solid var(--border);
+          border-radius: 10px;
+          color: var(--text-primary);
+          font-size: 14px; outline: none;
+          box-sizing: border-box; font-family: inherit;
+          transition: border-color 0.15s;
+          appearance: none; -webkit-appearance: none;
+        }
+        .nl-input:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--blue-glow); }
+        .nl-input::placeholder { color: var(--text-hint); }
+
+        .nl-select-wrap { position: relative; }
+        .nl-select-wrap::after {
+          content: '▼'; position: absolute; right: 12px; top: 50%;
+          transform: translateY(-50%); color: var(--text-muted);
+          font-size: 12px; pointer-events: none;
+        }
+
+        .nl-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .nl-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        @media (max-width: 640px) {
+          .nl-grid-2, .nl-grid-3 { grid-template-columns: 1fr; }
+        }
+
+        /* Signal toggle buttons */
+        .nl-signal-btn {
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          gap: 10px; padding: 20px 12px;
+          background: var(--bg-secondary);
+          border: 1.5px solid var(--border);
+          border-radius: 12px; cursor: pointer;
+          transition: all 0.15s;
+        }
+        .nl-signal-btn.active {
+          background: rgba(37,99,235,0.1);
+          border-color: #2563EB;
+        }
+        .nl-signal-label {
+          font-size: 13px; font-weight: 500;
+          color: var(--text-secondary);
+          text-align: center; line-height: 1.4;
+        }
+        .nl-signal-btn.active .nl-signal-label { color: #93c5fd; }
+        [data-theme="light"] .nl-signal-btn.active .nl-signal-label { color: #1d4ed8; }
+
+        .nl-signal-pill {
+          font-size: 11px; padding: 3px 10px;
+          border-radius: 20px; font-weight: 500;
+          background: var(--bg-card);
+          color: var(--text-hint);
+        }
+        .nl-signal-btn.active .nl-signal-pill {
+          background: rgba(37,99,235,0.2);
+          color: #60a5fa;
+        }
+        [data-theme="light"] .nl-signal-btn.active .nl-signal-pill { color: #1d4ed8; }
+
+        /* Word count */
+        .nl-word-hint { font-size: 12px; font-weight: 500; }
+        .nl-word-target { font-size: 12px; color: var(--text-hint); }
+        .nl-word-bar-bg {
+          height: 3px; background: var(--border);
+          border-radius: 4px; overflow: hidden;
+        }
+
+        /* Cancel button */
+        .nl-cancel {
+          flex: 1; text-align: center; padding: 14px;
+          background: transparent;
+          border: 1.5px solid var(--border);
+          border-radius: 12px;
+          color: var(--text-secondary);
+          font-size: 15px; font-weight: 500;
+          text-decoration: none;
+          display: flex; align-items: center; justify-content: center;
+          transition: border-color 0.15s, color 0.15s;
+        }
+        .nl-cancel:hover { border-color: var(--blue-primary); color: var(--text-primary); }
+
+        .nl-back {
+          display: inline-flex; align-items: center; gap: 6px;
+          color: var(--text-muted); font-size: 14px;
+          text-decoration: none; margin-bottom: 24px;
+        }
+        .nl-back:hover { color: var(--text-primary); }
+      `}</style>
+
       <div style={{ maxWidth: '760px', margin: '0 auto', paddingBottom: '48px' }}>
 
-        {/* Back */}
-        <Link href="/leads" style={{
-          display:       'inline-flex',
-          alignItems:    'center',
-          gap:           '6px',
-          color:         '#6b7280',
-          fontSize:      '14px',
-          textDecoration:'none',
-          marginBottom:  '24px',
-        }}>
-          ← Back to Leads
-        </Link>
+        <Link href="/leads" className="nl-back">← Back to Leads</Link>
 
         <form onSubmit={handleSubmit}>
 
-          {/* ── 1. IDENTITY ─────────────────────────── */}
-          <div style={card}>
-            <p style={sectionLabel}>Identity</p>
-            <div style={grid2}>
+          {/* ── 1. IDENTITY ── */}
+          <div className="nl-card">
+            <p className="nl-section-label">Identity</p>
+            <div className="nl-grid-2">
               <div>
-                <label style={fieldLabel}>
+                <label className="nl-field-label">
                   Full Name <span style={{ color: '#ef4444' }}>*</span>
                 </label>
                 <input type="text" name="name" value={form.name}
                   onChange={handleChange} {...focus('name')}
                   placeholder="John Smith"
-                  style={inputBase('name')} required />
+                  className="nl-input" required />
               </div>
               <div>
-                <label style={fieldLabel}>Company</label>
+                <label className="nl-field-label">Company</label>
                 <input type="text" name="company" value={form.company}
                   onChange={handleChange} {...focus('company')}
                   placeholder="Acme Corp"
-                  style={inputBase('company')} />
+                  className="nl-input" />
               </div>
             </div>
           </div>
 
-          {/* ── 2. CONTACT ──────────────────────────── */}
-          <div style={card}>
-            <p style={sectionLabel}>Contact Information</p>
-            <div style={grid2}>
+          {/* ── 2. CONTACT ── */}
+          <div className="nl-card">
+            <p className="nl-section-label">Contact Information</p>
+            <div className="nl-grid-2">
               <div>
-                <label style={fieldLabel}>Email Address</label>
+                <label className="nl-field-label">Email Address</label>
                 <input type="email" name="email" value={form.email}
                   onChange={handleChange} {...focus('email')}
                   placeholder="john@company.com"
-                  style={inputBase('email')} />
-                <p style={hint}>Business domain scores higher than Gmail / Yahoo</p>
+                  className="nl-input" />
+                <p className="nl-hint">Business domain scores higher than Gmail / Yahoo</p>
               </div>
               <div>
-                <label style={fieldLabel}>Phone Number</label>
+                <label className="nl-field-label">Phone Number</label>
                 <input type="text" name="phone" value={form.phone}
                   onChange={handleChange} {...focus('phone')}
                   placeholder="+1 555 000 0000"
-                  style={inputBase('phone')} />
-                <p style={hint}>Strongest single contact signal</p>
+                  className="nl-input" />
+                <p className="nl-hint">Strongest single contact signal</p>
               </div>
             </div>
           </div>
 
-          {/* ── 3. SOURCE & SERVICE ─────────────────── */}
-          <div style={card}>
-            <p style={sectionLabel}>Source & Service Interest</p>
-            <div style={grid2}>
+          {/* ── 3. SOURCE & SERVICE ── */}
+          <div className="nl-card">
+            <p className="nl-section-label">Source & Service Interest</p>
+            <div className="nl-grid-2">
               <div>
-                <label style={fieldLabel}>Lead Source</label>
-                <div style={{ position: 'relative' }}>
+                <label className="nl-field-label">Lead Source</label>
+                <div className="nl-select-wrap">
                   <select name="source" value={form.source}
                     onChange={handleChange} {...focus('source')}
-                    style={inputBase('source')}>
+                    className="nl-input">
                     {SOURCES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  <span style={{
-                    position: 'absolute', right: '12px', top: '50%',
-                    transform: 'translateY(-50%)', color: '#6b7280',
-                    pointerEvents: 'none', fontSize: '12px',
-                  }}>▼</span>
                 </div>
-                <p style={hint}>LinkedIn · Upwork · Website · Email · Manual</p>
+                <p className="nl-hint">LinkedIn · Upwork · Website · Email · Manual</p>
               </div>
               <div>
-                <label style={fieldLabel}>Service Interest</label>
-                <div style={{ position: 'relative' }}>
+                <label className="nl-field-label">Service Interest</label>
+                <div className="nl-select-wrap">
                   <select name="service_interest" value={form.service_interest}
                     onChange={handleChange} {...focus('service_interest')}
-                    style={inputBase('service_interest')}>
+                    className="nl-input">
                     <option value="">Select a service...</option>
                     {SERVICES.map(s => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  <span style={{
-                    position: 'absolute', right: '12px', top: '50%',
-                    transform: 'translateY(-50%)', color: '#6b7280',
-                    pointerEvents: 'none', fontSize: '12px',
-                  }}>▼</span>
                 </div>
-                <p style={hint}>AI Automation & Chatbot score highest</p>
+                <p className="nl-hint">AI Automation & Chatbot score highest</p>
               </div>
             </div>
           </div>
 
-          {/* ── 4. BUYING SIGNALS ───────────────────── */}
-          <div style={card}>
-            <p style={sectionLabel}>Buying Signals</p>
-            <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '-12px', marginBottom: '16px' }}>
-              Select all that apply
-            </p>
-            <div style={grid3}>
+          {/* ── 4. BUYING SIGNALS ── */}
+          <div className="nl-card">
+            <p className="nl-section-label">Buying Signals</p>
+            <p className="nl-sub">Select all that apply</p>
+            <div className="nl-grid-3">
               {[
                 { key: 'wants_demo',      label: 'Requesting Demo / Call', icon: '📅' },
                 { key: 'has_pricing_ask', label: 'Asked About Pricing',    icon: '💰' },
@@ -282,37 +308,11 @@ export default function NewLeadPage() {
                 return (
                   <button key={sig.key} type="button"
                     onClick={() => toggle(sig.key)}
-                    style={{
-                      display:        'flex',
-                      flexDirection:  'column',
-                      alignItems:     'center',
-                      justifyContent: 'center',
-                      gap:            '10px',
-                      padding:        '20px 12px',
-                      background:     active ? 'rgba(37,99,235,0.12)' : '#1f2937',
-                      border:         `1.5px solid ${active ? '#2563eb' : '#374151'}`,
-                      borderRadius:   '12px',
-                      cursor:         'pointer',
-                      transition:     'all 0.15s',
-                    }}>
+                    className={`nl-signal-btn${active ? ' active' : ''}`}
+                  >
                     <span style={{ fontSize: '24px' }}>{sig.icon}</span>
-                    <span style={{
-                      fontSize:   '13px',
-                      fontWeight: 500,
-                      color:      active ? '#93c5fd' : '#d1d5db',
-                      textAlign:  'center',
-                      lineHeight: '1.4',
-                    }}>
-                      {sig.label}
-                    </span>
-                    <span style={{
-                      fontSize:     '11px',
-                      padding:      '3px 10px',
-                      borderRadius: '20px',
-                      background:   active ? 'rgba(37,99,235,0.2)' : '#111827',
-                      color:        active ? '#60a5fa' : '#4b5563',
-                      fontWeight:   500,
-                    }}>
+                    <span className="nl-signal-label">{sig.label}</span>
+                    <span className="nl-signal-pill">
                       {active ? '✓ Selected' : 'Click to select'}
                     </span>
                   </button>
@@ -321,65 +321,34 @@ export default function NewLeadPage() {
             </div>
           </div>
 
-          {/* ── 5. TIMELINE ─────────────────────────── */}
-          <div style={card}>
-            <p style={sectionLabel}>Timeline & Budget</p>
-            <div style={grid3}>
-              <div>
-                <label style={fieldLabel}>Project Timeline</label>
-                <div style={{ position: 'relative' }}>
-                  <select name="timeline" value={form.timeline}
-                    onChange={handleChange} {...focus('timeline')}
-                    style={inputBase('timeline')}>
-                    <option value="">Not specified</option>
-                    {TIMELINES.map(t => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                  <span style={{
-                    position: 'absolute', right: '12px', top: '50%',
-                    transform: 'translateY(-50%)', color: '#6b7280',
-                    pointerEvents: 'none', fontSize: '12px',
-                  }}>▼</span>
+          {/* ── 5. TIMELINE & BUDGET ── */}
+          <div className="nl-card">
+            <p className="nl-section-label">Timeline & Budget</p>
+            <div className="nl-grid-3">
+              {[
+                { name: 'timeline',  label: 'Project Timeline', options: TIMELINES },
+                { name: 'budget',    label: 'Budget Range',     options: BUDGETS   },
+                { name: 'team_size', label: 'Team Size',        options: TEAM_SIZES },
+              ].map(field => (
+                <div key={field.name}>
+                  <label className="nl-field-label">{field.label}</label>
+                  <div className="nl-select-wrap">
+                    <select name={field.name} value={(form as any)[field.name]}
+                      onChange={handleChange} {...focus(field.name)}
+                      className="nl-input">
+                      <option value="">Not specified</option>
+                      {field.options.map(o => <option key={o} value={o}>{o}</option>)}
+                    </select>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <label style={fieldLabel}>Budget Range</label>
-                <div style={{ position: 'relative' }}>
-                  <select name="budget" value={form.budget}
-                    onChange={handleChange} {...focus('budget')}
-                    style={inputBase('budget')}>
-                    <option value="">Not specified</option>
-                    {BUDGETS.map(b => <option key={b} value={b}>{b}</option>)}
-                  </select>
-                  <span style={{
-                    position: 'absolute', right: '12px', top: '50%',
-                    transform: 'translateY(-50%)', color: '#6b7280',
-                    pointerEvents: 'none', fontSize: '12px',
-                  }}>▼</span>
-                </div>
-              </div>
-              <div>
-                <label style={fieldLabel}>Team Size</label>
-                <div style={{ position: 'relative' }}>
-                  <select name="team_size" value={form.team_size}
-                    onChange={handleChange} {...focus('team_size')}
-                    style={inputBase('team_size')}>
-                    <option value="">Not specified</option>
-                    {TEAM_SIZES.map(t => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                  <span style={{
-                    position: 'absolute', right: '12px', top: '50%',
-                    transform: 'translateY(-50%)', color: '#6b7280',
-                    pointerEvents: 'none', fontSize: '12px',
-                  }}>▼</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* ── 6. MESSAGE ──────────────────────────── */}
-          <div style={card}>
-            <p style={sectionLabel}>Message / Notes</p>
-            <p style={{ fontSize: '13px', color: '#6b7280', marginTop: '-12px', marginBottom: '14px' }}>
+          {/* ── 6. MESSAGE ── */}
+          <div className="nl-card">
+            <p className="nl-section-label">Message / Notes</p>
+            <p className="nl-sub">
               The AI reads this to detect intent, urgency, and qualification.
               More detail means a more accurate score.
             </p>
@@ -395,86 +364,40 @@ export default function NewLeadPage() {
                 '• Any other relevant context'
               }
               rows={7}
-              style={{
-                ...inputBase('message'),
-                resize:     'vertical',
-                lineHeight: '1.7',
-              }}
+              className="nl-input"
+              style={{ resize: 'vertical', lineHeight: '1.7' }}
               required
             />
-            {/* Word count progress */}
             <div style={{ marginTop: '10px' }}>
-              <div style={{
-                display:        'flex',
-                justifyContent: 'space-between',
-                fontSize:       '12px',
-                marginBottom:   '6px',
-              }}>
-                <span style={{ color: barColor, fontWeight: 500 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                <span className="nl-word-hint" style={{ color: barColor }}>
                   {wordCount} words — {wordHint}
                 </span>
-                <span style={{ color: '#374151' }}>50+ for best results</span>
+                <span className="nl-word-target">50+ for best results</span>
               </div>
-              <div style={{
-                height:       '3px',
-                background:   '#1f2937',
-                borderRadius: '4px',
-                overflow:     'hidden',
-              }}>
-                <div style={{
-                  height:     '100%',
-                  width:      barWidth,
-                  background: barColor,
-                  borderRadius: '4px',
-                  transition: 'width 0.2s, background 0.3s',
-                }} />
+              <div className="nl-word-bar-bg">
+                <div style={{ height: '100%', width: barWidth, background: barColor, borderRadius: '4px', transition: 'width 0.2s, background 0.3s' }} />
               </div>
             </div>
           </div>
 
-          {/* ── ACTIONS ─────────────────────────────── */}
+          {/* ── ACTIONS ── */}
           <div style={{ display: 'flex', gap: '12px', marginTop: '4px' }}>
-            <Link href="/leads" style={{
-              flex:           1,
-              textAlign:      'center',
-              padding:        '14px',
-              background:     'transparent',
-              border:         '1.5px solid #374151',
-              borderRadius:   '12px',
-              color:          '#9ca3af',
-              fontSize:       '15px',
-              fontWeight:     500,
-              textDecoration: 'none',
-              display:        'flex',
-              alignItems:     'center',
-              justifyContent: 'center',
-            }}>
-              Cancel
-            </Link>
+            <Link href="/leads" className="nl-cancel">Cancel</Link>
             <button type="submit" disabled={loading} style={{
-              flex:           2,
-              padding:        '14px',
-              background:     loading ? '#1e3a5f' : '#1d4ed8',
-              border:         'none',
-              borderRadius:   '12px',
-              color:          '#fff',
-              fontSize:       '15px',
-              fontWeight:     600,
-              cursor:         loading ? 'not-allowed' : 'pointer',
-              display:        'flex',
-              alignItems:     'center',
-              justifyContent: 'center',
-              gap:            '8px',
-              transition:     'background 0.15s',
+              flex: 2, padding: '14px',
+              background: loading ? 'rgba(37,99,235,0.5)' : '#1d4ed8',
+              border: 'none', borderRadius: '12px',
+              color: '#fff', fontSize: '15px', fontWeight: 600,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+              transition: 'background 0.15s',
             }}>
               {loading ? (
                 <>
-                  <svg style={{ width: 16, height: 16 }} fill="none" viewBox="0 0 24 24"
-                    className="animate-spin">
-                    <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10"
-                      stroke="currentColor" strokeWidth="4"/>
-                    <path style={{ opacity: 0.75 }} fill="currentColor"
-                      d="M4 12a8 8 0 018-8v8H4z"/>
+                  <svg style={{ width: 16, height: 16 }} fill="none" viewBox="0 0 24 24" className="animate-spin">
+                    <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                    <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
                   </svg>
                   Creating lead...
                 </>
