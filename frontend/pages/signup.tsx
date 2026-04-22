@@ -73,7 +73,7 @@ export default function Signup() {
         name: form.name,
         email: form.email,
         password: form.password,
-        businessType: form.businessType,
+        
       });
       login(res.data.access_token, res.data.user);
       toast.success('Welcome to BluQQ! 🎉');
