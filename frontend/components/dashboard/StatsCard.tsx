@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 interface Props {
   label:    string;
   value:    string | number;
@@ -23,12 +25,20 @@ const accentLight: Record<string, string> = {
   purple: '#c4b5fd',
 };
 
-const badgeColors: Record<string, { bg: string; color: string; border: string }> = {
+const badgeColorsDark: Record<string, { bg: string; color: string; border: string }> = {
   blue:   { bg: 'rgba(74,222,128,0.12)',  color: '#86efac', border: 'rgba(74,222,128,0.2)' },
   red:    { bg: 'rgba(239,68,68,0.12)',   color: '#fca5a5', border: 'rgba(239,68,68,0.2)' },
   amber:  { bg: 'rgba(245,158,11,0.12)',  color: '#fde68a', border: 'rgba(245,158,11,0.2)' },
   green:  { bg: 'rgba(16,185,129,0.12)',  color: '#6ee7b7', border: 'rgba(16,185,129,0.2)' },
   purple: { bg: 'rgba(167,139,250,0.12)', color: '#c4b5fd', border: 'rgba(167,139,250,0.2)' },
+};
+
+const badgeColorsLight: Record<string, { bg: string; color: string; border: string }> = {
+  blue:   { bg: 'rgba(59,130,246,0.10)',  color: '#1d4ed8', border: 'rgba(59,130,246,0.25)' },
+  red:    { bg: 'rgba(239,68,68,0.10)',   color: '#b91c1c', border: 'rgba(239,68,68,0.25)' },
+  amber:  { bg: 'rgba(245,158,11,0.10)',  color: '#92400e', border: 'rgba(245,158,11,0.25)' },
+  green:  { bg: 'rgba(16,185,129,0.10)',  color: '#065f46', border: 'rgba(16,185,129,0.25)' },
+  purple: { bg: 'rgba(139,92,246,0.10)',  color: '#5b21b6', border: 'rgba(139,92,246,0.25)' },
 };
 
 const SvgIcon = ({ type, color }: { type: string; color: string }) => {
@@ -75,94 +85,123 @@ const SvgIcon = ({ type, color }: { type: string; color: string }) => {
 };
 
 export default function StatsCard({ label, value, icon, accent, subtext, badge }: Props) {
-  const base  = accentColors[accent]  ?? accentColors['blue'];
-  const light = accentLight[accent]   ?? accentLight['blue'];
-  const bdg   = badgeColors[accent]   ?? badgeColors['blue'];
+  // ✅ Watch data-theme attribute reactively — re-renders on every toggle
+  const [isDark, setIsDark] = useState<boolean>(
+    () => typeof document !== 'undefined'
+      ? document.documentElement.getAttribute('data-theme') !== 'light'
+      : true
+  );
+
+  useEffect(() => {
+    const el = document.documentElement;
+
+    // Sync on mount
+    setIsDark(el.getAttribute('data-theme') !== 'light');
+
+    // Watch for attribute changes triggered by toggleTheme()
+    const observer = new MutationObserver(() => {
+      setIsDark(el.getAttribute('data-theme') !== 'light');
+    });
+
+    observer.observe(el, { attributes: true, attributeFilter: ['data-theme'] });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const base      = accentColors[accent] ?? accentColors['blue'];
+  const iconColor = accentLight[accent]  ?? accentLight['blue'];
+  const badgeMap  = isDark ? badgeColorsDark : badgeColorsLight;
+  const bdg       = badgeMap[accent] ?? badgeMap['blue'];
 
   return (
-    <div style={{
-      background: 'rgba(255,255,255,0.04)',
-      border: '1px solid rgba(255,255,255,0.08)',
-      borderRadius: 18,
-      padding: '20px 20px 16px',
-      position: 'relative',
-      overflow: 'hidden',
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
-      {/* Top row: icon + badge */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 18 }}>
-        <div style={{
-          width: 42, height: 42, borderRadius: 12,
-          background: base + '20',
-          border: `1px solid ${base}38`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          flexShrink: 0,
-        }}>
-          <SvgIcon type={icon} color={light} />
+    <>
+      <style>{`
+        .stats-card {
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          border-radius: 18px;
+          padding: 20px 20px 16px;
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          transition: background 0.25s ease, border-color 0.25s ease;
+        }
+        .stats-card-label {
+          font-family: 'Inter', sans-serif;
+          font-size: 10px;
+          font-weight: 700;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.9px;
+          margin: 0 0 7px;
+        }
+        .stats-card-value {
+          font-family: 'Sora', sans-serif;
+          font-size: 36px;
+          font-weight: 800;
+          color: var(--text-primary);
+          line-height: 1;
+          letter-spacing: -1.5px;
+          margin: 0 0 5px;
+        }
+        .stats-card-subtext {
+          font-family: 'Inter', sans-serif;
+          font-size: 12px;
+          color: var(--text-hint);
+          margin: 0;
+        }
+      `}</style>
+
+      <div className="stats-card">
+        {/* Top row: icon + badge */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 18 }}>
+          <div style={{
+            width: 42, height: 42, borderRadius: 12,
+            background: base + '20',
+            border: `1px solid ${base}38`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0,
+          }}>
+            <SvgIcon type={icon} color={iconColor} />
+          </div>
+
+          {badge && (
+            <div style={{
+              fontSize: 11, fontWeight: 700,
+              fontFamily: 'Inter, sans-serif',
+              padding: '4px 9px',
+              borderRadius: 7,
+              background: bdg.bg,
+              color: bdg.color,
+              border: `1px solid ${bdg.border}`,
+              lineHeight: 1.35,
+              textAlign: 'right',
+              transition: 'background 0.25s ease, color 0.25s ease, border-color 0.25s ease',
+            }}>
+              {badge}
+            </div>
+          )}
         </div>
 
-        {badge && (
-          <div style={{
-            fontSize: 11, fontWeight: 700,
-            fontFamily: 'Inter, sans-serif',
-            padding: '4px 9px',
-            borderRadius: 7,
-            background: bdg.bg,
-            color: bdg.color,
-            border: `1px solid ${bdg.border}`,
-            lineHeight: 1.35,
-            textAlign: 'right',
-          }}>
-            {badge}
-          </div>
-        )}
+        {/* Label */}
+        <p className="stats-card-label">{label}</p>
+
+        {/* Value */}
+        <p className="stats-card-value">{value}</p>
+
+        {/* Subtext */}
+        {subtext && <p className="stats-card-subtext">{subtext}</p>}
+
+        {/* Bottom accent bar */}
+        <div style={{
+          height: 3,
+          borderRadius: 99,
+          background: base,
+          opacity: 0.55,
+          marginTop: 18,
+        }} />
       </div>
-
-      {/* Label */}
-      <p style={{
-        fontFamily: 'Inter, sans-serif',
-        fontSize: 10, fontWeight: 700,
-        color: 'rgba(255,255,255,0.30)',
-        textTransform: 'uppercase',
-        letterSpacing: '0.9px',
-        margin: '0 0 7px',
-      }}>
-        {label}
-      </p>
-
-      {/* Value */}
-      <p style={{
-        fontFamily: 'Sora, sans-serif',
-        fontSize: 36, fontWeight: 800,
-        color: '#fff',
-        lineHeight: 1,
-        letterSpacing: '-1.5px',
-        margin: '0 0 5px',
-      }}>
-        {value}
-      </p>
-
-      {/* Subtext */}
-      {subtext && (
-        <p style={{
-          fontFamily: 'Inter, sans-serif',
-          fontSize: 12,
-          color: 'rgba(255,255,255,0.22)',
-          margin: 0,
-        }}>
-          {subtext}
-        </p>
-      )}
-
-      {/* Bottom accent bar */}
-      <div style={{
-        height: 3,
-        borderRadius: 99,
-        background: base,
-        opacity: 0.55,
-        marginTop: 18,
-      }} />
-    </div>
+    </>
   );
 }

@@ -23,7 +23,7 @@ export default function AppLayout({ children, title, greeting }: Props) {
           display:    flex;
           height:     100vh;
           overflow:   hidden;
-          background: #0e1320;
+          background: var(--bg-root);
         }
 
         .app-main {
@@ -38,8 +38,8 @@ export default function AppLayout({ children, title, greeting }: Props) {
         /* ── Topbar ── */
         .app-topbar {
           height:          54px;
-          background:      #111827;
-          border-bottom:   1px solid rgba(255,255,255,0.07);
+          background:      var(--topbar-bg);
+          border-bottom:   1px solid var(--topbar-border);
           display:         flex;
           align-items:     center;
           justify-content: space-between;
@@ -56,19 +56,19 @@ export default function AppLayout({ children, title, greeting }: Props) {
         }
 
         .app-topbar-title {
-          font-family:  'Sora', sans-serif;
-          font-size:    19px;
-          font-weight:  800;
-          color:        #fff;
+          font-family:    'Sora', sans-serif;
+          font-size:      19px;
+          font-weight:    800;
+          color:          var(--text-primary);
           letter-spacing: -0.5px;
-          white-space:  nowrap;
+          white-space:    nowrap;
         }
 
         .app-topbar-greeting {
           font-family: 'Inter', sans-serif;
           font-size:   13px;
           font-weight: 400;
-          color:       rgba(255,255,255,0.32);
+          color:       var(--text-muted);
           white-space: nowrap;
         }
 
@@ -80,35 +80,43 @@ export default function AppLayout({ children, title, greeting }: Props) {
         }
 
         .app-date-pill {
-          display:      flex;
-          align-items:  center;
-          gap:          7px;
-          background:   rgba(255,255,255,0.05);
-          border:       1px solid rgba(255,255,255,0.1);
+          display:       flex;
+          align-items:   center;
+          gap:           7px;
+          background:    var(--bg-card);
+          border:        1px solid var(--border);
           border-radius: 9px;
-          padding:      7px 14px;
-          font-family:  'Inter', sans-serif;
-          font-size:    13px;
-          color:        rgba(255,255,255,0.5);
+          padding:       7px 14px;
+          font-family:   'Inter', sans-serif;
+          font-size:     13px;
+          color:         var(--text-secondary);
+        }
+
+        .app-date-pill svg {
+          stroke: var(--text-muted);
         }
 
         .app-icon-btn {
-          width:         36px;
-          height:        36px;
-          border-radius: 9px;
-          background:    rgba(255,255,255,0.05);
-          border:        1px solid rgba(255,255,255,0.1);
-          display:       flex;
-          align-items:   center;
+          width:           36px;
+          height:          36px;
+          border-radius:   9px;
+          background:      var(--bg-card);
+          border:          1px solid var(--border);
+          display:         flex;
+          align-items:     center;
           justify-content: center;
-          cursor:        pointer;
-          transition:    background 0.15s, border-color 0.15s;
-          flex-shrink:   0;
+          cursor:          pointer;
+          transition:      background 0.15s, border-color 0.15s;
+          flex-shrink:     0;
         }
 
         .app-icon-btn:hover {
-          background:   rgba(255,255,255,0.09);
-          border-color: rgba(255,255,255,0.18);
+          background:   var(--bg-hover);
+          border-color: var(--blue-primary);
+        }
+
+        .app-icon-btn svg {
+          stroke: var(--text-muted);
         }
 
         /* Hamburger — mobile only */
@@ -119,10 +127,10 @@ export default function AppLayout({ children, title, greeting }: Props) {
           width:           36px;
           height:          36px;
           border-radius:   8px;
-          background:      rgba(255,255,255,0.05);
-          border:          1px solid rgba(255,255,255,0.1);
+          background:      var(--bg-card);
+          border:          1px solid var(--border);
           cursor:          pointer;
-          color:           rgba(255,255,255,0.5);
+          color:           var(--text-muted);
           flex-shrink:     0;
           transition:      all 0.15s;
         }
@@ -133,24 +141,24 @@ export default function AppLayout({ children, title, greeting }: Props) {
           flex:       1;
           overflow-y: auto;
           overflow-x: hidden;
-          background: #0e1320;
+          background: var(--bg-root);
           padding:    24px 28px;
           scrollbar-width: thin;
-          scrollbar-color: rgba(255,255,255,0.12) transparent;
+          scrollbar-color: var(--border) transparent;
         }
 
         .app-content::-webkit-scrollbar { width: 4px; }
         .app-content::-webkit-scrollbar-track { background: transparent; }
-        .app-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+        .app-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
         /* ── Mobile responsive ── */
         @media (max-width: 768px) {
-          .hamburger-btn   { display: flex; }
-          .app-topbar      { padding: 0 16px; }
+          .hamburger-btn    { display: flex; }
+          .app-topbar       { padding: 0 16px; }
           .app-topbar-title { font-size: 16px; }
           .app-topbar-greeting { display: none; }
-          .app-date-pill   { display: none; }
-          .app-content     { padding: 16px; }
+          .app-date-pill    { display: none; }
+          .app-content      { padding: 16px; }
         }
 
         @media (max-width: 480px) {
@@ -184,7 +192,7 @@ export default function AppLayout({ children, title, greeting }: Props) {
             <div className="app-topbar-right">
               {/* Date pill */}
               <div className="app-date-pill">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="4" width="18" height="18" rx="2"/>
                   <line x1="16" y1="2" x2="16" y2="6"/>
                   <line x1="8" y1="2" x2="8" y2="6"/>
@@ -195,7 +203,7 @@ export default function AppLayout({ children, title, greeting }: Props) {
 
               {/* Notification bell */}
               <div className="app-icon-btn" title="Notifications">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
                   <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
                 </svg>
