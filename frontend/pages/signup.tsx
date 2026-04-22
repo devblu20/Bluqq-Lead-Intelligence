@@ -45,7 +45,7 @@ export default function Signup() {
     if (form.password.length < 6) { setError('Password must be at least 6 characters'); return; }
     if (form.password.length > 70) { setError('Password must be under 70 characters'); return; }
     if (form.password !== form.confirm) { setError('Passwords do not match'); return; }
-    if (!form.businessType) { setError('Please select a business type'); return; }
+    
 
     setLoading(true);
     try {
