@@ -60,118 +60,267 @@ export default function CSVUploadModal({ onClose, onSuccess }: Props) {
   return (
     <>
       <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
-        .csv-spinner { animation: spin 0.8s linear infinite; }
-        .csv-pulse   { animation: pulse 1.5s ease-in-out infinite; }
+        @keyframes csv-spin  { to { transform: rotate(360deg); } }
+        @keyframes csv-pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+        .csv-spinner { animation: csv-spin  0.8s linear infinite; }
+        .csv-pulse   { animation: csv-pulse 1.5s ease-in-out infinite; }
+
+        /* ── Modal overlay ── */
+        .csv-overlay {
+          position: fixed; inset: 0; z-index: 9999;
+          background: rgba(0,0,0,0.6);
+          display: flex; align-items: center; justify-content: center;
+          padding: 16px;
+        }
+
+        /* ── Modal box ── */
+        .csv-modal {
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          border-radius: 16px;
+          width: 100%; max-width: 440px;
+          box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+          font-family: 'Inter', sans-serif;
+        }
+
+        /* ── Header ── */
+        .csv-header {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 18px 20px;
+          border-bottom: 1px solid var(--border);
+        }
+        .csv-header-title {
+          font-size: 15px; font-weight: 700;
+          color: var(--text-primary); margin: 0 0 3px;
+        }
+        .csv-header-sub {
+          font-size: 12px; color: var(--text-muted); margin: 0;
+        }
+        .csv-close-btn {
+          background: none; border: none; cursor: pointer;
+          color: var(--text-muted); font-size: 20px;
+          padding: 4px 8px; border-radius: 6px; line-height: 1;
+          transition: background 0.15s, color 0.15s;
+        }
+        .csv-close-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+        /* ── Body ── */
+        .csv-body { padding: 20px; }
+
+        /* Info box */
+        .csv-info-box {
+          background: rgba(37,99,235,0.08);
+          border: 1px solid rgba(37,99,235,0.2);
+          border-radius: 10px; padding: 12px 14px; margin-bottom: 14px;
+        }
+        .csv-info-title { margin: 0 0 4px; font-size: 12px; font-weight: 600; color: #3b82f6; }
+        .csv-info-cols  { margin: 0 0 4px; font-size: 12px; color: #2563eb; font-family: monospace; }
+        [data-theme="light"] .csv-info-cols { color: #1d4ed8; }
+        .csv-info-optional { margin: 0; font-size: 11px; color: var(--text-muted); }
+
+        /* Drop zone */
+        .csv-dropzone {
+          border-radius: 12px; padding: 32px 20px;
+          text-align: center; cursor: pointer;
+          transition: all 0.2s; margin-bottom: 14px;
+          border: 2px dashed var(--border);
+          background: transparent;
+        }
+        .csv-dropzone:hover { border-color: var(--blue-primary); background: var(--blue-glow); }
+        .csv-dropzone.dragging { border-color: #2563EB; background: rgba(37,99,235,0.08); }
+        .csv-dropzone.has-file  { border-color: #16a34a; background: rgba(22,163,74,0.06); }
+
+        .csv-drop-text {
+          font-size: 13px; font-weight: 600;
+          color: var(--text-primary); margin: 0 0 4px;
+        }
+        .csv-drop-sub {
+          font-size: 11px; color: var(--text-muted); margin: 0;
+        }
+        .csv-file-name {
+          font-size: 13px; font-weight: 600; color: #16a34a; margin: 0 0 4px;
+        }
+        [data-theme="light"] .csv-file-name { color: #15803d; }
+        .csv-file-size { font-size: 11px; color: var(--text-muted); margin: 0 0 8px; }
+        .csv-remove-btn {
+          background: none; border: none; cursor: pointer;
+          color: #ef4444; font-size: 12px;
+        }
+
+        /* Buttons */
+        .csv-btn-cancel {
+          flex: 1; padding: 10px;
+          background: transparent;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          color: var(--text-secondary);
+          font-size: 13px; font-weight: 600;
+          cursor: pointer; font-family: 'Inter', sans-serif;
+          transition: border-color 0.15s, color 0.15s;
+        }
+        .csv-btn-cancel:hover { border-color: var(--blue-primary); color: var(--text-primary); }
+
+        .csv-btn-import {
+          flex: 1; padding: 10px;
+          background: #2563EB; border: none;
+          border-radius: 10px; color: #fff;
+          font-size: 13px; font-weight: 700;
+          cursor: pointer; font-family: 'Inter', sans-serif;
+          transition: background 0.15s, opacity 0.15s;
+        }
+        .csv-btn-import:disabled {
+          background: var(--bg-hover);
+          color: var(--text-hint);
+          cursor: not-allowed;
+        }
+        .csv-btn-import:not(:disabled):hover { background: #1d4ed8; }
+
+        /* Processing steps */
+        .csv-step {
+          display: flex; align-items: center; gap: 12px;
+          padding: 10px 14px; border-radius: 10px; margin-bottom: 6px;
+          border: 1px solid transparent;
+          transition: all 0.3s;
+        }
+        .csv-step.active {
+          background: rgba(37,99,235,0.10);
+          border-color: rgba(37,99,235,0.25);
+        }
+        .csv-step-icon {
+          width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 11px; font-weight: 700;
+          background: var(--bg-hover);
+          color: var(--text-hint);
+        }
+        .csv-step-icon.done   { background: #14532d; color: #4ade80; }
+        .csv-step-icon.active { background: #2563EB; color: #fff; }
+        .csv-step-label { font-size: 13px; font-weight: 500; color: var(--text-hint); flex: 1; }
+        .csv-step-label.done   { color: var(--text-muted); }
+        .csv-step-label.active { color: var(--text-primary); }
+        .csv-step-done-tag   { font-size: 11px; color: #4ade80; }
+        .csv-step-active-tag { font-size: 11px; color: #60a5fa; }
+
+        /* Progress bar */
+        .csv-progress-bar-bg {
+          height: 4px; background: var(--border);
+          border-radius: 99px; overflow: hidden;
+        }
+        .csv-progress-label { font-size: 11px; color: var(--text-muted); }
+
+        /* Done state */
+        .csv-done-success {
+          background: rgba(22,163,74,0.08);
+          border: 1px solid rgba(22,163,74,0.2);
+          border-radius: 12px; padding: 16px; margin-bottom: 12px;
+        }
+        .csv-done-msg { margin: 0 0 12px; font-size: 13px; font-weight: 600; color: #4ade80; }
+        [data-theme="light"] .csv-done-msg { color: #15803d; }
+
+        .csv-stat-box {
+          background: var(--bg-secondary);
+          border: 1px solid var(--border);
+          border-radius: 8px; padding: 10px; text-align: center;
+        }
+        .csv-stat-val   { margin: 0 0 2px; font-size: 22px; font-weight: 700; }
+        .csv-stat-label { margin: 0; font-size: 11px; color: var(--text-muted); }
+
+        .csv-ai-note {
+          background: rgba(37,99,235,0.06);
+          border: 1px solid rgba(37,99,235,0.15);
+          border-radius: 10px; padding: 12px;
+          display: flex; gap: 8px; align-items: flex-start;
+          margin-bottom: 12px;
+        }
+        .csv-ai-note p { margin: 0; font-size: 12px; color: #3b82f6; line-height: 1.6; }
+        [data-theme="light"] .csv-ai-note p { color: #1d4ed8; }
+
+        .csv-errors {
+          background: rgba(239,68,68,0.06);
+          border: 1px solid rgba(239,68,68,0.2);
+          border-radius: 10px; padding: 12px; margin-bottom: 12px;
+        }
+        .csv-errors-title { margin: 0 0 8px; font-size: 12px; font-weight: 600; color: #ef4444; }
+        .csv-error-row { margin: 0 0 4px; font-size: 11px; color: #ef4444; }
+
+        .csv-btn-view {
+          width: 100%; padding: 11px;
+          background: #2563EB; border: none;
+          border-radius: 10px; color: #fff;
+          font-size: 13px; font-weight: 700;
+          cursor: pointer; font-family: 'Inter', sans-serif;
+          transition: background 0.15s;
+        }
+        .csv-btn-view:hover { background: #1d4ed8; }
       `}</style>
 
-      {/* ── Overlay ── */}
-      <div
-        onClick={phase !== 'processing' ? onClose : undefined}
-        style={{
-          position: 'fixed', inset: 0, zIndex: 9999,
-          background: 'rgba(0,0,0,0.7)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: '16px',
-        }}
-      >
-        {/* ── Modal box ── */}
-        <div
-          onClick={e => e.stopPropagation()}
-          style={{
-            background: '#0d1117',
-            border: '1px solid #1F2937',
-            borderRadius: '16px',
-            width: '100%',
-            maxWidth: '440px',
-            boxShadow: '0 25px 60px rgba(0,0,0,0.6)',
-            fontFamily: "'Inter', sans-serif",
-          }}
-        >
+      <div className="csv-overlay" onClick={phase !== 'processing' ? onClose : undefined}>
+        <div className="csv-modal" onClick={e => e.stopPropagation()}>
 
           {/* Header */}
-          <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', padding:'18px 20px', borderBottom:'1px solid #1F2937'}}>
+          <div className="csv-header">
             <div>
-              <h2 style={{margin:0, fontSize:'15px', fontWeight:700, color:'#F9FAFB'}}>
-                {phase==='select' ? 'Import Leads from CSV' : phase==='processing' ? 'Processing Your Leads' : 'Import Complete'}
-              </h2>
-              <p style={{margin:'3px 0 0', fontSize:'12px', color:'#6B7280'}}>
-                {phase==='select' ? 'Upload a CSV to bulk import leads' : phase==='processing' ? 'AI scoring is running automatically' : 'All leads have been scored and prioritized'}
+              <p className="csv-header-title">
+                {phase === 'select'     ? 'Import Leads from CSV'    :
+                 phase === 'processing' ? 'Processing Your Leads'    : 'Import Complete'}
+              </p>
+              <p className="csv-header-sub">
+                {phase === 'select'     ? 'Upload a CSV to bulk import leads'         :
+                 phase === 'processing' ? 'AI scoring is running automatically'        :
+                                         'All leads have been scored and prioritized'}
               </p>
             </div>
             {phase !== 'processing' && (
-              <button
-                onClick={onClose}
-                style={{background:'none', border:'none', cursor:'pointer', color:'#6B7280', fontSize:'20px', padding:'4px 8px', borderRadius:'6px', lineHeight:1}}
-                onMouseOver={e=>(e.currentTarget.style.background='#1F2937')}
-                onMouseOut={e=>(e.currentTarget.style.background='none')}
-              >×</button>
+              <button className="csv-close-btn" onClick={onClose}>×</button>
             )}
           </div>
 
           {/* Body */}
-          <div style={{padding:'20px'}}>
+          <div className="csv-body">
 
             {/* ── SELECT ── */}
             {phase === 'select' && (
               <div>
-                {/* Info box */}
-                <div style={{background:'rgba(0,87,184,0.12)', border:'1px solid rgba(0,87,184,0.3)', borderRadius:'10px', padding:'12px 14px', marginBottom:'14px'}}>
-                  <p style={{margin:'0 0 4px', fontSize:'12px', fontWeight:600, color:'#93C5FD'}}>Required columns</p>
-                  <p style={{margin:'0 0 4px', fontSize:'12px', color:'#60A5FA', fontFamily:'monospace'}}>name, message</p>
-                  <p style={{margin:0, fontSize:'11px', color:'#6B7280'}}>Optional: company, email, phone, source, service_interest</p>
+                <div className="csv-info-box">
+                  <p className="csv-info-title">Required columns</p>
+                  <p className="csv-info-cols">name, message</p>
+                  <p className="csv-info-optional">Optional: company, email, phone, source, service_interest</p>
                 </div>
 
-                {/* Drop zone */}
                 <div
-                  onDragOver={e=>{e.preventDefault();setDragging(true);}}
-                  onDragLeave={()=>setDragging(false)}
+                  className={`csv-dropzone${dragging ? ' dragging' : file ? ' has-file' : ''}`}
+                  onDragOver={e => { e.preventDefault(); setDragging(true); }}
+                  onDragLeave={() => setDragging(false)}
                   onDrop={handleDrop}
-                  onClick={()=>inputRef.current?.click()}
-                  style={{
-                    border: `2px dashed ${dragging ? '#2563EB' : file ? '#16A34A' : '#374151'}`,
-                    borderRadius: '12px',
-                    padding: '32px 20px',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    background: dragging ? 'rgba(37,99,235,0.08)' : file ? 'rgba(22,163,74,0.08)' : 'transparent',
-                    transition: 'all 0.2s',
-                    marginBottom: '14px',
-                  }}
+                  onClick={() => inputRef.current?.click()}
                 >
-                  <input ref={inputRef} type="file" accept=".csv" style={{display:'none'}} onChange={e=>{const f=e.target.files?.[0];if(f)handleFile(f);}} />
+                  <input ref={inputRef} type="file" accept=".csv" style={{ display: 'none' }}
+                    onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
+
                   {file ? (
                     <div>
-                      <div style={{fontSize:'28px',marginBottom:'8px'}}>📄</div>
-                      <p style={{margin:'0 0 4px',fontSize:'13px',fontWeight:600,color:'#4ADE80'}}>{file.name}</p>
-                      <p style={{margin:'0 0 8px',fontSize:'11px',color:'#6B7280'}}>{(file.size/1024).toFixed(1)} KB</p>
-                      <button onClick={e=>{e.stopPropagation();setFile(null);}} style={{background:'none',border:'none',cursor:'pointer',color:'#F87171',fontSize:'12px'}}>Remove</button>
+                      <div style={{ fontSize: '28px', marginBottom: '8px' }}>📄</div>
+                      <p className="csv-file-name">{file.name}</p>
+                      <p className="csv-file-size">{(file.size / 1024).toFixed(1)} KB</p>
+                      <button className="csv-remove-btn"
+                        onClick={e => { e.stopPropagation(); setFile(null); }}>
+                        Remove
+                      </button>
                     </div>
                   ) : (
                     <div>
-                      <div style={{fontSize:'28px',marginBottom:'8px'}}>📂</div>
-                      <p style={{margin:'0 0 4px',fontSize:'13px',fontWeight:600,color:'#D1D5DB'}}>Drop your CSV here</p>
-                      <p style={{margin:0,fontSize:'11px',color:'#6B7280'}}>or click to browse</p>
+                      <div style={{ fontSize: '28px', marginBottom: '8px' }}>📂</div>
+                      <p className="csv-drop-text">Drop your CSV here</p>
+                      <p className="csv-drop-sub">or click to browse</p>
                     </div>
                   )}
                 </div>
 
-                {/* Buttons */}
-                <div style={{display:'flex',gap:'10px'}}>
-                  <button
-                    onClick={onClose}
-                    style={{flex:1,padding:'10px',background:'transparent',border:'1px solid #374151',borderRadius:'10px',color:'#9CA3AF',fontSize:'13px',fontWeight:600,cursor:'pointer',fontFamily:'Inter,sans-serif'}}
-                    onMouseOver={e=>e.currentTarget.style.borderColor='#4B5563'}
-                    onMouseOut={e=>e.currentTarget.style.borderColor='#374151'}
-                  >Cancel</button>
-                  <button
-                    onClick={handleUpload}
-                    disabled={!file}
-                    style={{flex:1,padding:'10px',background:file?'#2563EB':'#1E3A5F',border:'none',borderRadius:'10px',color:file?'#fff':'#4B5563',fontSize:'13px',fontWeight:700,cursor:file?'pointer':'not-allowed',fontFamily:'Inter,sans-serif',transition:'background 0.15s'}}
-                    onMouseOver={e=>{if(file)e.currentTarget.style.background='#1D4ED8';}}
-                    onMouseOut={e=>{if(file)e.currentTarget.style.background='#2563EB';}}
-                  >Import &amp; Score Leads</button>
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button className="csv-btn-cancel" onClick={onClose}>Cancel</button>
+                  <button className="csv-btn-import" onClick={handleUpload} disabled={!file}>
+                    Import &amp; Score Leads
+                  </button>
                 </div>
               </div>
             )}
@@ -179,50 +328,38 @@ export default function CSVUploadModal({ onClose, onSuccess }: Props) {
             {/* ── PROCESSING ── */}
             {phase === 'processing' && (
               <div>
-                {SCORING_STEPS.map((step) => {
+                {SCORING_STEPS.map(step => {
                   const done   = currentStep > step.id;
                   const active = currentStep === step.id;
                   return (
-                    <div key={step.id} style={{
-                      display:'flex', alignItems:'center', gap:'12px',
-                      padding:'10px 14px', borderRadius:'10px', marginBottom:'6px',
-                      background: active ? 'rgba(37,99,235,0.12)' : 'transparent',
-                      border: active ? '1px solid rgba(37,99,235,0.25)' : '1px solid transparent',
-                      opacity: done ? 0.6 : active ? 1 : 0.3,
-                      transition: 'all 0.3s',
-                    }}>
-                      {/* Icon */}
-                      <div style={{
-                        width:'24px', height:'24px', borderRadius:'50%', flexShrink:0,
-                        display:'flex', alignItems:'center', justifyContent:'center',
-                        fontSize:'11px', fontWeight:700,
-                        background: done ? '#14532D' : active ? '#2563EB' : '#1F2937',
-                        color: done ? '#4ADE80' : active ? '#fff' : '#4B5563',
-                      }}>
+                    <div key={step.id}
+                      className={`csv-step${active ? ' active' : ''}`}
+                      style={{ opacity: done ? 0.6 : active ? 1 : 0.3 }}
+                    >
+                      <div className={`csv-step-icon${done ? ' done' : active ? ' active' : ''}`}>
                         {done ? '✓' : active ? (
                           <svg className="csv-spinner" width="12" height="12" fill="none" viewBox="0 0 24 24">
-                            <circle style={{opacity:0.25}} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
-                            <path style={{opacity:0.75}} fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
+                            <circle style={{ opacity: 0.25 }} cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                            <path style={{ opacity: 0.75 }} fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"/>
                           </svg>
                         ) : step.id}
                       </div>
-                      {/* Label */}
-                      <span style={{fontSize:'13px', fontWeight:500, color: done?'#9CA3AF': active?'#F9FAFB':'#4B5563', flex:1}}>
+                      <span className={`csv-step-label${done ? ' done' : active ? ' active' : ''}`}>
                         {step.label}
                       </span>
-                      {done   && <span style={{fontSize:'11px',color:'#4ADE80'}}>Done</span>}
-                      {active && <span className="csv-pulse" style={{fontSize:'11px',color:'#60A5FA'}}>Running...</span>}
+                      {done   && <span className="csv-step-done-tag">Done</span>}
+                      {active && <span className="csv-pulse csv-step-active-tag">Running...</span>}
                     </div>
                   );
                 })}
 
-                {/* Progress bar */}
-                <div style={{marginTop:'16px'}}>
-                  <div style={{display:'flex',justifyContent:'space-between',fontSize:'11px',color:'#6B7280',marginBottom:'6px'}}>
-                    <span>Overall progress</span><span>{pct}%</span>
+                <div style={{ marginTop: '16px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
+                    <span className="csv-progress-label">Overall progress</span>
+                    <span className="csv-progress-label">{pct}%</span>
                   </div>
-                  <div style={{height:'4px',background:'#1F2937',borderRadius:'99px',overflow:'hidden'}}>
-                    <div style={{height:'100%',background:'#2563EB',borderRadius:'99px',width:`${pct}%`,transition:'width 0.5s ease'}}/>
+                  <div className="csv-progress-bar-bg">
+                    <div style={{ height: '100%', background: '#2563EB', borderRadius: '99px', width: `${pct}%`, transition: 'width 0.5s ease' }}/>
                   </div>
                 </div>
               </div>
@@ -231,49 +368,39 @@ export default function CSVUploadModal({ onClose, onSuccess }: Props) {
             {/* ── DONE ── */}
             {phase === 'done' && result && (
               <div>
-                {/* Summary */}
-                <div style={{background:'rgba(22,163,74,0.1)',border:'1px solid rgba(22,163,74,0.25)',borderRadius:'12px',padding:'16px',marginBottom:'12px'}}>
-                  <p style={{margin:'0 0 12px',fontSize:'13px',fontWeight:600,color:'#4ADE80'}}>✓ {result.message}</p>
-                  <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:'10px',textAlign:'center'}}>
+                <div className="csv-done-success">
+                  <p className="csv-done-msg">✓ {result.message}</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', textAlign: 'center' }}>
                     {[
-                      {label:'In File',  value:result.total_in_file, color:'#F9FAFB'},
-                      {label:'Imported', value:result.imported,      color:'#4ADE80'},
-                      {label:'Skipped',  value:result.skipped,       color:'#FBBF24'},
-                    ].map(s=>(
-                      <div key={s.label} style={{background:'rgba(0,0,0,0.3)',borderRadius:'8px',padding:'10px'}}>
-                        <p style={{margin:'0 0 2px',fontSize:'22px',fontWeight:700,color:s.color}}>{s.value}</p>
-                        <p style={{margin:0,fontSize:'11px',color:'#6B7280'}}>{s.label}</p>
+                      { label: 'In File',  value: result.total_in_file, color: 'var(--text-primary)' },
+                      { label: 'Imported', value: result.imported,      color: '#4ade80'              },
+                      { label: 'Skipped',  value: result.skipped,       color: '#f59e0b'              },
+                    ].map(s => (
+                      <div key={s.label} className="csv-stat-box">
+                        <p className="csv-stat-val" style={{ color: s.color }}>{s.value}</p>
+                        <p className="csv-stat-label">{s.label}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* AI note */}
-                <div style={{background:'rgba(37,99,235,0.08)',border:'1px solid rgba(37,99,235,0.2)',borderRadius:'10px',padding:'12px',display:'flex',gap:'8px',alignItems:'flex-start',marginBottom:'12px'}}>
-                  <span style={{fontSize:'16px'}}>🤖</span>
-                  <p style={{margin:0,fontSize:'12px',color:'#93C5FD',lineHeight:1.6}}>
-                    AI scoring is running in the background. Scores and priorities will appear on your leads within 30–60 seconds.
-                  </p>
+                <div className="csv-ai-note">
+                  <span style={{ fontSize: '16px' }}>🤖</span>
+                  <p>AI scoring is running in the background. Scores and priorities will appear on your leads within 30–60 seconds.</p>
                 </div>
 
-                {/* Errors */}
                 {result.errors?.length > 0 && (
-                  <div style={{background:'rgba(239,68,68,0.08)',border:'1px solid rgba(239,68,68,0.2)',borderRadius:'10px',padding:'12px',marginBottom:'12px'}}>
-                    <p style={{margin:'0 0 8px',fontSize:'12px',fontWeight:600,color:'#F87171'}}>Skipped rows</p>
-                    <div style={{maxHeight:'80px',overflowY:'auto'}}>
-                      {result.errors.map((e:any,i:number)=>(
-                        <p key={i} style={{margin:'0 0 4px',fontSize:'11px',color:'#F87171'}}>Row {e.row}: {e.reason}</p>
+                  <div className="csv-errors">
+                    <p className="csv-errors-title">Skipped rows</p>
+                    <div style={{ maxHeight: '80px', overflowY: 'auto' }}>
+                      {result.errors.map((e: any, i: number) => (
+                        <p key={i} className="csv-error-row">Row {e.row}: {e.reason}</p>
                       ))}
                     </div>
                   </div>
                 )}
 
-                <button
-                  onClick={onClose}
-                  style={{width:'100%',padding:'11px',background:'#2563EB',border:'none',borderRadius:'10px',color:'#fff',fontSize:'13px',fontWeight:700,cursor:'pointer',fontFamily:'Inter,sans-serif'}}
-                  onMouseOver={e=>e.currentTarget.style.background='#1D4ED8'}
-                  onMouseOut={e=>e.currentTarget.style.background='#2563EB'}
-                >View Leads →</button>
+                <button className="csv-btn-view" onClick={onClose}>View Leads →</button>
               </div>
             )}
 
