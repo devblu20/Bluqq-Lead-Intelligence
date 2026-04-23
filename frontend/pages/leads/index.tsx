@@ -23,6 +23,11 @@ export default function LeadsPage() {
   const [source, setSource]     = useState('');
   const [theme, setTheme]       = useState<'dark' | 'light'>('dark');
 
+  // Set data-theme on document root so AppLayout's global CSS vars switch properly
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
   useEffect(() => {
     if (router.query.upload === 'true') setShowCSV(true);
   }, [router.query]);
@@ -63,68 +68,7 @@ export default function LeadsPage() {
   return (
     <AppLayout title="Leads">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
-
-        /* ── Theme Variables ── */
-        .lp-root[data-theme="dark"] {
-          --bg-card:        rgba(255,255,255,0.03);
-          --border:         rgba(255,255,255,0.07);
-          --border-focus:   rgba(0,194,168,0.4);
-          --text-primary:   #ffffff;
-          --text-secondary: rgba(255,255,255,0.75);
-          --text-muted:     rgba(255,255,255,0.45);
-          --text-hint:      rgba(255,255,255,0.25);
-          --text-label:     rgba(255,255,255,0.30);
-          --select-bg:      rgba(255,255,255,0.05);
-          --select-border:  rgba(255,255,255,0.10);
-          --select-color:   rgba(255,255,255,0.70);
-          --select-option:  #0d1a2e;
-          --thead-bg:       rgba(255,255,255,0.03);
-          --row-hover:      rgba(255,255,255,0.025);
-          --row-border:     rgba(255,255,255,0.04);
-          --th-color:       rgba(255,255,255,0.30);
-          --page-btn-bg:    rgba(255,255,255,0.04);
-          --page-btn-border:rgba(255,255,255,0.08);
-          --page-btn-color: rgba(255,255,255,0.60);
-          --toggle-bg:      rgba(255,255,255,0.06);
-          --toggle-border:  rgba(255,255,255,0.10);
-          --toggle-color:   rgba(255,255,255,0.50);
-          --score-none:     rgba(255,255,255,0.2);
-          --dash-color:     rgba(255,255,255,0.15);
-          --source-manual-bg:    rgba(255,255,255,0.05);
-          --source-manual-color: rgba(255,255,255,0.4);
-          --source-manual-border:rgba(255,255,255,0.08);
-        }
-
-        .lp-root[data-theme="light"] {
-          --bg-card:        #ffffff;
-          --border:         rgba(0,0,0,0.08);
-          --border-focus:   rgba(0,150,130,0.4);
-          --text-primary:   #0f172a;
-          --text-secondary: #334155;
-          --text-muted:     #64748b;
-          --text-hint:      #94a3b8;
-          --text-label:     #475569;
-          --select-bg:      #ffffff;
-          --select-border:  rgba(0,0,0,0.12);
-          --select-color:   #334155;
-          --select-option:  #ffffff;
-          --thead-bg:       rgba(0,0,0,0.02);
-          --row-hover:      rgba(0,0,0,0.015);
-          --row-border:     rgba(0,0,0,0.05);
-          --th-color:       #94a3b8;
-          --page-btn-bg:    #ffffff;
-          --page-btn-border:rgba(0,0,0,0.10);
-          --page-btn-color: #475569;
-          --toggle-bg:      #ffffff;
-          --toggle-border:  rgba(0,0,0,0.10);
-          --toggle-color:   #475569;
-          --score-none:     #cbd5e1;
-          --dash-color:     #cbd5e1;
-          --source-manual-bg:    rgba(0,0,0,0.04);
-          --source-manual-color: #64748b;
-          --source-manual-border:rgba(0,0,0,0.08);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
         /* ── Top bar ── */
         .lp-topbar {
@@ -132,36 +76,29 @@ export default function LeadsPage() {
           align-items: center; justify-content: space-between;
           gap: 12px; margin-bottom: 20px;
         }
-        .lp-total {
-          font-size: 13px;
-          color: var(--text-hint);
-          font-family: 'Inter', sans-serif;
-        }
+        .lp-total { font-size: 13px; color: var(--text-hint); font-family: 'Inter', sans-serif; }
         .lp-actions { display: flex; gap: 10px; align-items: center; }
 
-        /* Theme toggle */
+        /* Theme toggle — same style as nl-cancel in new.tsx */
         .lp-theme-toggle {
           display: flex; align-items: center; gap: 6px;
           padding: 8px 14px;
-          background: var(--toggle-bg);
-          border: 1px solid var(--toggle-border);
+          background: transparent;
+          border: 1.5px solid var(--border);
           border-radius: 10px;
-          color: var(--toggle-color);
+          color: var(--text-secondary);
           font-family: 'Inter', sans-serif;
           font-size: 12px; font-weight: 500;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: border-color 0.15s, color 0.15s;
         }
-        .lp-theme-toggle:hover {
-          border-color: var(--border-focus);
-          color: var(--text-secondary);
-        }
+        .lp-theme-toggle:hover { border-color: var(--border-focus); color: var(--text-primary); }
 
         .lp-btn-csv {
           padding: 9px 18px;
           background: linear-gradient(135deg, #7c3aed, #9333ea);
           color: #fff; border: none; border-radius: 10px;
-          font-family: 'Sora', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 13px; font-weight: 600;
           cursor: pointer; text-decoration: none;
           transition: opacity 0.2s, transform 0.2s;
@@ -172,102 +109,87 @@ export default function LeadsPage() {
         .lp-btn-add {
           display: flex; align-items: center; gap: 7px;
           padding: 9px 18px;
-          background: linear-gradient(135deg, #00c2a8, #0057b8);
+          background: #1d4ed8;
           color: #fff; border: none; border-radius: 10px;
-          font-family: 'Sora', sans-serif;
+          font-family: 'Plus Jakarta Sans', sans-serif;
           font-size: 13px; font-weight: 600;
           cursor: pointer; text-decoration: none;
           transition: opacity 0.2s, transform 0.2s;
         }
         .lp-btn-add:hover { opacity: 0.88; transform: translateY(-1px); }
 
-        /* ── Filters ── */
+        /* ── Filters — matches nl-card style from new.tsx ── */
         .lp-filters {
           display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
           padding: 14px 18px;
           background: var(--bg-card);
           border: 1px solid var(--border);
-          border-radius: 12px;
+          border-radius: 14px;
           margin-bottom: 18px;
-        }
-        .lp-root[data-theme="light"] .lp-filters {
-          box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
         .lp-filter-label {
           display: flex; align-items: center; gap: 7px;
-          font-size: 12px; font-weight: 500;
-          color: var(--text-label);
+          font-size: 11px; font-weight: 600;
+          color: var(--text-muted);
           font-family: 'Inter', sans-serif;
-          text-transform: uppercase; letter-spacing: 0.5px;
+          text-transform: uppercase; letter-spacing: 0.1em;
         }
+
+        /* matches nl-input from new.tsx */
         .lp-select {
-          background: var(--select-bg);
-          border: 1px solid var(--select-border);
-          border-radius: 8px;
-          color: var(--select-color);
+          background: var(--bg-input);
+          border: 1.5px solid var(--border);
+          border-radius: 10px;
+          color: var(--text-primary);
           font-family: 'Inter', sans-serif;
-          font-size: 12px;
-          padding: 6px 28px 6px 10px;
-          outline: none;
-          cursor: pointer;
-          transition: border-color 0.2s;
-          appearance: none;
+          font-size: 13px;
+          padding: 7px 28px 7px 12px;
+          outline: none; cursor: pointer;
+          transition: border-color 0.15s;
+          appearance: none; -webkit-appearance: none;
           background-repeat: no-repeat;
-          background-position: right 8px center;
+          background-position: right 10px center;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
         }
-        .lp-root[data-theme="dark"] .lp-select {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        }
-        .lp-root[data-theme="light"] .lp-select {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(0,0,0,0.3)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-        }
-        .lp-select:focus { border-color: var(--border-focus); }
-        .lp-select option { background: var(--select-option); color: var(--text-primary); }
+        .lp-select:focus { border-color: var(--border-focus); box-shadow: 0 0 0 3px var(--blue-glow); }
+        .lp-select option { background: var(--bg-card); color: var(--text-primary); }
 
         .lp-clear {
-          font-size: 12px; background: none; border: none;
+          font-size: 12px; color: #ef4444; background: none; border: none;
           cursor: pointer; font-family: 'Inter', sans-serif;
           padding: 4px 8px; border-radius: 6px;
           transition: background 0.2s;
         }
-        .lp-root[data-theme="dark"] .lp-clear { color: #f87171; }
-        .lp-root[data-theme="light"] .lp-clear { color: #dc2626; }
         .lp-clear:hover { background: rgba(239,68,68,0.1); }
 
-        /* ── Table card ── */
+        /* ── Table card — matches nl-card ── */
         .lp-card {
           background: var(--bg-card);
           border: 1px solid var(--border);
-          border-radius: 16px;
+          border-radius: 14px;
           overflow: hidden;
           margin-bottom: 20px;
         }
-        .lp-root[data-theme="light"] .lp-card {
-          box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
-        }
 
-        /* ── Table ── */
         .lp-table { width: 100%; border-collapse: collapse; }
         .lp-thead tr {
-          background: var(--thead-bg);
+          background: var(--bg-secondary);
           border-bottom: 1px solid var(--border);
         }
         .lp-th {
-          padding: 12px 20px;
-          text-align: left;
+          padding: 12px 20px; text-align: left;
           font-family: 'Inter', sans-serif;
           font-size: 10px; font-weight: 600;
-          color: var(--th-color);
-          text-transform: uppercase; letter-spacing: 0.8px;
+          color: var(--text-muted);
+          text-transform: uppercase; letter-spacing: 0.1em;
           white-space: nowrap;
         }
         .lp-tbody tr {
-          border-bottom: 1px solid var(--row-border);
+          border-bottom: 1px solid var(--border);
           transition: background 0.15s;
         }
         .lp-tbody tr:last-child { border-bottom: none; }
-        .lp-tbody tr:hover { background: var(--row-hover); }
-
+        .lp-tbody tr:hover { background: var(--bg-secondary); }
         .lp-td {
           padding: 14px 20px;
           font-family: 'Inter', sans-serif;
@@ -276,111 +198,91 @@ export default function LeadsPage() {
           vertical-align: middle;
         }
 
-        /* name cell */
+        /* name */
         .lp-name-link {
-          font-weight: 600;
-          color: var(--text-primary);
+          font-weight: 600; color: var(--text-primary);
           text-decoration: none; display: block;
-          transition: color 0.2s;
-          white-space: nowrap;
+          transition: color 0.15s; white-space: nowrap;
         }
-        .lp-name-link:hover { color: #00c2a8; }
-        .lp-name-sub {
-          font-size: 11px;
-          color: var(--text-hint);
-          margin-top: 2px;
-        }
+        .lp-name-link:hover { color: #2563eb; }
+        .lp-name-sub { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
 
         /* source badges */
         .lp-source {
           display: inline-flex; align-items: center;
           padding: 3px 10px; border-radius: 6px;
-          font-size: 11px; font-weight: 600;
-          white-space: nowrap;
+          font-size: 11px; font-weight: 600; white-space: nowrap;
         }
-        .lp-source-website  { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
-        .lp-source-linkedin { background: rgba(0,119,181,0.15);  color: #3b82f6; border: 1px solid rgba(0,119,181,0.25); }
-        .lp-source-email    { background: rgba(234,179,8,0.12);  color: #d97706; border: 1px solid rgba(234,179,8,0.2); }
-        .lp-source-upwork   { background: rgba(20,184,166,0.12); color: #0d9488; border: 1px solid rgba(20,184,166,0.2); }
-        .lp-source-manual   {
-          background: var(--source-manual-bg);
-          color: var(--source-manual-color);
-          border: 1px solid var(--source-manual-border);
-        }
-        .lp-root[data-theme="dark"] .lp-source-email  { color: #fbbf24; }
-        .lp-root[data-theme="dark"] .lp-source-upwork { color: #2dd4bf; }
-        .lp-root[data-theme="dark"] .lp-source-linkedin { color: #60a5fa; }
+        .lp-source-website  { background: rgba(139,92,246,0.12); color: #7c3aed; border: 1px solid rgba(139,92,246,0.2); }
+        .lp-source-linkedin { background: rgba(37,99,235,0.12);  color: #1d4ed8; border: 1px solid rgba(37,99,235,0.2); }
+        .lp-source-email    { background: rgba(234,179,8,0.12);  color: #b45309; border: 1px solid rgba(234,179,8,0.2); }
+        .lp-source-upwork   { background: rgba(20,184,166,0.12); color: #0f766e; border: 1px solid rgba(20,184,166,0.2); }
+        .lp-source-manual   { background: var(--bg-secondary); color: var(--text-muted); border: 1px solid var(--border); }
+        [data-theme="dark"] .lp-source-website  { color: #a78bfa; }
+        [data-theme="dark"] .lp-source-linkedin { color: #60a5fa; }
+        [data-theme="dark"] .lp-source-email    { color: #fbbf24; }
+        [data-theme="dark"] .lp-source-upwork   { color: #2dd4bf; }
 
         /* score */
-        .lp-score {
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          font-size: 14px; font-weight: 700;
-        }
-        .lp-score-hot  { color: #ef4444; }
-        .lp-score-warm { color: #f59e0b; }
-        .lp-score-good { color: #3b82f6; }
-        .lp-score-none { color: var(--score-none); }
-        .lp-root[data-theme="dark"] .lp-score-hot  { color: #f87171; }
-        .lp-root[data-theme="dark"] .lp-score-warm { color: #fb923c; }
-        .lp-root[data-theme="dark"] .lp-score-good { color: #60a5fa; }
+        .lp-score { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; }
+        .lp-score-hot  { color: #dc2626; }
+        .lp-score-warm { color: #d97706; }
+        .lp-score-good { color: #2563eb; }
+        .lp-score-none { color: var(--text-hint); }
+        [data-theme="dark"] .lp-score-hot  { color: #f87171; }
+        [data-theme="dark"] .lp-score-warm { color: #fb923c; }
+        [data-theme="dark"] .lp-score-good { color: #60a5fa; }
 
-        /* priority / status badges */
+        /* badges */
         .lp-badge {
           display: inline-flex; align-items: center; gap: 5px;
           padding: 3px 10px; border-radius: 99px;
-          font-size: 11px; font-weight: 500;
-          white-space: nowrap;
+          font-size: 11px; font-weight: 500; white-space: nowrap;
         }
-        .lp-badge-hot  { background: rgba(239,68,68,0.12);  color: #dc2626; border: 1px solid rgba(239,68,68,0.2); }
-        .lp-badge-warm { background: rgba(249,115,22,0.12); color: #ea580c; border: 1px solid rgba(249,115,22,0.2); }
-        .lp-badge-new  { background: rgba(0,194,168,0.12);  color: #0d9488; border: 1px solid rgba(0,194,168,0.2); }
-        .lp-badge-cold { background: rgba(99,102,241,0.12); color: #4f46e5; border: 1px solid rgba(99,102,241,0.2); }
-        .lp-badge-low  { background: var(--source-manual-bg); color: var(--text-muted); border: 1px solid var(--border); }
-        .lp-badge-def  { background: var(--source-manual-bg); color: var(--text-hint);  border: 1px solid var(--border); }
-
-        .lp-root[data-theme="dark"] .lp-badge-hot  { color: #f87171; }
-        .lp-root[data-theme="dark"] .lp-badge-warm { color: #fb923c; }
-        .lp-root[data-theme="dark"] .lp-badge-new  { color: #00c2a8; }
-        .lp-root[data-theme="dark"] .lp-badge-cold { color: #a5b4fc; }
+        .lp-badge-hot  { background: rgba(239,68,68,0.10);  color: #dc2626; border: 1px solid rgba(239,68,68,0.2); }
+        .lp-badge-warm { background: rgba(249,115,22,0.10); color: #ea580c; border: 1px solid rgba(249,115,22,0.2); }
+        .lp-badge-new  { background: rgba(20,184,166,0.10); color: #0f766e; border: 1px solid rgba(20,184,166,0.2); }
+        .lp-badge-cold { background: rgba(99,102,241,0.10); color: #4338ca; border: 1px solid rgba(99,102,241,0.2); }
+        .lp-badge-low  { background: var(--bg-secondary); color: var(--text-muted); border: 1px solid var(--border); }
+        .lp-badge-def  { background: var(--bg-secondary); color: var(--text-hint);  border: 1px solid var(--border); }
+        [data-theme="dark"] .lp-badge-hot  { color: #f87171; }
+        [data-theme="dark"] .lp-badge-warm { color: #fb923c; }
+        [data-theme="dark"] .lp-badge-new  { color: #2dd4bf; }
+        [data-theme="dark"] .lp-badge-cold { color: #a5b4fc; }
 
         .lp-time { font-size: 12px; color: var(--text-hint); white-space: nowrap; }
 
         /* action buttons */
         .lp-act-wrap { display: flex; gap: 6px; }
         .lp-btn-view {
-          padding: 5px 14px; border-radius: 7px;
+          padding: 5px 14px; border-radius: 8px;
           font-size: 11px; font-weight: 600;
           font-family: 'Inter', sans-serif;
-          background: rgba(0,194,168,0.1);
-          color: #00c2a8;
-          border: 1px solid rgba(0,194,168,0.2);
+          background: rgba(37,99,235,0.08); color: #1d4ed8;
+          border: 1.5px solid rgba(37,99,235,0.2);
           cursor: pointer; text-decoration: none;
-          transition: background 0.2s;
+          transition: background 0.15s, border-color 0.15s;
           display: inline-flex; align-items: center;
         }
-        .lp-root[data-theme="light"] .lp-btn-view { color: #0d9488; border-color: rgba(13,148,136,0.3); }
-        .lp-btn-view:hover { background: rgba(0,194,168,0.2); }
+        .lp-btn-view:hover { background: rgba(37,99,235,0.15); border-color: rgba(37,99,235,0.35); }
+        [data-theme="dark"] .lp-btn-view { color: #60a5fa; }
+
         .lp-btn-del {
-          padding: 5px 14px; border-radius: 7px;
+          padding: 5px 14px; border-radius: 8px;
           font-size: 11px; font-weight: 600;
           font-family: 'Inter', sans-serif;
-          background: rgba(239,68,68,0.08);
-          color: #f87171;
-          border: 1px solid rgba(239,68,68,0.18);
+          background: rgba(239,68,68,0.06); color: #dc2626;
+          border: 1.5px solid rgba(239,68,68,0.15);
           cursor: pointer;
-          transition: background 0.2s;
+          transition: background 0.15s, border-color 0.15s;
         }
-        .lp-root[data-theme="light"] .lp-btn-del { color: #dc2626; }
-        .lp-btn-del:hover { background: rgba(239,68,68,0.18); }
+        .lp-btn-del:hover { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); }
+        [data-theme="dark"] .lp-btn-del { color: #f87171; }
 
-        /* empty state */
+        /* empty */
         .lp-empty { padding: 64px 24px; text-align: center; }
         .lp-empty-icon { font-size: 36px; margin-bottom: 12px; }
-        .lp-empty-title {
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          font-size: 15px; font-weight: 600;
-          color: var(--text-secondary); margin-bottom: 6px;
-        }
+        .lp-empty-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
         .lp-empty-sub { font-size: 13px; color: var(--text-hint); margin-bottom: 20px; }
         .lp-empty-actions { display: flex; gap: 10px; justify-content: center; }
 
@@ -389,32 +291,25 @@ export default function LeadsPage() {
         .lp-spinner-wrap { display: flex; align-items: center; justify-content: center; height: 200px; }
         .lp-spinner {
           width: 32px; height: 32px; border-radius: 50%;
-          border: 2px solid rgba(0,194,168,0.15);
-          border-top-color: #00c2a8;
+          border: 2px solid var(--border);
+          border-top-color: #2563eb;
           animation: lp-spin 0.75s linear infinite;
         }
 
         /* pagination */
-        .lp-pagination {
-          display: flex; align-items: center; justify-content: space-between;
-          gap: 12px;
-        }
+        .lp-pagination { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
         .lp-page-info { font-size: 12px; color: var(--text-hint); font-family: 'Inter', sans-serif; }
         .lp-page-btns { display: flex; gap: 8px; }
         .lp-page-btn {
           padding: 7px 16px; border-radius: 8px;
           font-size: 12px; font-weight: 500;
           font-family: 'Inter', sans-serif;
-          background: var(--page-btn-bg);
-          border: 1px solid var(--page-btn-border);
-          color: var(--page-btn-color);
+          background: transparent;
+          border: 1.5px solid var(--border);
+          color: var(--text-secondary);
           cursor: pointer; transition: all 0.15s;
         }
-        .lp-page-btn:hover:not(:disabled) {
-          background: rgba(0,194,168,0.1);
-          border-color: rgba(0,194,168,0.25);
-          color: #00c2a8;
-        }
+        .lp-page-btn:hover:not(:disabled) { border-color: #2563eb; color: #2563eb; }
         .lp-page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
       `}</style>
 
@@ -425,19 +320,16 @@ export default function LeadsPage() {
         />
       )}
 
-      <div className="lp-root" data-theme={theme}>
+      <div>
         {/* ── Top Bar ── */}
         <div className="lp-topbar">
           <p className="lp-total">
             {data ? `${data.total} total leads` : 'Loading...'}
           </p>
           <div className="lp-actions">
-
-            {/* Theme Toggle */}
             <button
               onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
               className="lp-theme-toggle"
-              title="Toggle theme"
             >
               {theme === 'dark' ? (
                 <>
@@ -478,7 +370,7 @@ export default function LeadsPage() {
         {/* ── Filters ── */}
         <div className="lp-filters">
           <span className="lp-filter-label">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
             </svg>
             Filter
@@ -570,56 +462,28 @@ export default function LeadsPage() {
 
                     return (
                       <tr key={lead.id}>
-                        {/* Name */}
                         <td className="lp-td">
-                          <Link href={`/leads/${lead.id}`} className="lp-name-link">
-                            {lead.name}
-                          </Link>
+                          <Link href={`/leads/${lead.id}`} className="lp-name-link">{lead.name}</Link>
                           {lead.company && <p className="lp-name-sub">{lead.company}</p>}
                         </td>
-
-                        {/* Source */}
+                        <td className="lp-td"><span className={sourceClass}>{lead.source}</span></td>
                         <td className="lp-td">
-                          <span className={sourceClass}>{lead.source}</span>
+                          <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>{lead.service_interest || '—'}</span>
                         </td>
-
-                        {/* Service */}
-                        <td className="lp-td">
-                          <span style={{ color: 'var(--text-muted)', fontSize: 12 }}>
-                            {lead.service_interest || '—'}
-                          </span>
-                        </td>
-
-                        {/* Score */}
-                        <td className="lp-td">
-                          <span className={scoreClass}>{lead.score ?? '—'}</span>
-                        </td>
-
-                        {/* Priority */}
+                        <td className="lp-td"><span className={scoreClass}>{lead.score ?? '—'}</span></td>
                         <td className="lp-td">
                           {lead.priority
                             ? <span className={priorityClass}>{lead.priority.charAt(0).toUpperCase() + lead.priority.slice(1)}</span>
-                            : <span style={{ color: 'var(--dash-color)', fontSize: 12 }}>—</span>
-                          }
+                            : <span style={{ color: 'var(--text-hint)', fontSize: 12 }}>—</span>}
                         </td>
-
-                        {/* Status */}
                         <td className="lp-td">
-                          <span className={statusClass}>
-                            {lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}
-                          </span>
+                          <span className={statusClass}>{lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}</span>
                         </td>
-
-                        {/* Added */}
                         <td className="lp-td">
                           <span className="lp-time">
-                            {lead.created_at
-                              ? new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                              : '—'}
+                            {lead.created_at ? new Date(lead.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '—'}
                           </span>
                         </td>
-
-                        {/* Actions */}
                         <td className="lp-td">
                           <div className="lp-act-wrap">
                             <Link href={`/leads/${lead.id}`} className="lp-btn-view">View</Link>
@@ -638,20 +502,10 @@ export default function LeadsPage() {
         {/* ── Pagination ── */}
         {data && data.total_pages > 1 && (
           <div className="lp-pagination">
-            <p className="lp-page-info">
-              Page {data.page} of {data.total_pages} — {data.total} total leads
-            </p>
+            <p className="lp-page-info">Page {data.page} of {data.total_pages} — {data.total} total leads</p>
             <div className="lp-page-btns">
-              <button
-                className="lp-page-btn"
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={page === 1}
-              >← Previous</button>
-              <button
-                className="lp-page-btn"
-                onClick={() => setPage(p => Math.min(data.total_pages, p + 1))}
-                disabled={page === data.total_pages}
-              >Next →</button>
+              <button className="lp-page-btn" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>← Previous</button>
+              <button className="lp-page-btn" onClick={() => setPage(p => Math.min(data.total_pages, p + 1))} disabled={page === data.total_pages}>Next →</button>
             </div>
           </div>
         )}
